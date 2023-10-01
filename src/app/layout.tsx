@@ -1,21 +1,20 @@
 import type { Metadata } from 'next';
-import { Archivo } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Figtree, Paytone_One } from 'next/font/google';
 
-import { classes } from '@/utils/classes';
+import Footer from '@/components/Footer';
+import Navigation from '@/components/Navigation';
+import { fetchGlobal } from '@/lib/api';
+import { PayloadFooter, PayloadNavigation } from '@/lib/types/payload';
+import { classes } from '@/lib/utils/classes';
 
 import './globals.css';
 
-const archivo = Archivo({ subsets: ['latin'], display: 'swap', variable: '--font-archivo' });
-const clashDisplay = localFont({
-  src: '../../public/fonts/ClashDisplay-Variable.ttf',
-  display: 'swap',
-  variable: '--font-clash-display',
-});
+const figtree = Figtree({ subsets: ['latin'], display: 'swap', variable: '--font-figtree' });
+const paytoneOne = Paytone_One({ subsets: ['latin'], weight: ['400'], variable: '--font-paytone-one' });
 
 export const metadata: Metadata = {
   title: 'Jesse Lee Media',
-  description: 'Content creator',
+  description: 'Content creator for events, weddings, brands, and everything in between—your moments, our artistry!',
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -42,13 +41,20 @@ export const metadata: Metadata = {
       { url: '/favicons/android-chrome-512x512.png', sizes: '512x512' },
     ],
   },
-  themeColor: '#e4e3d2',
+  themeColor: '#ffedd5',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const navigation = await fetchGlobal<PayloadNavigation>('navigation');
+  const footer = await fetchGlobal<PayloadFooter>('footer');
+
   return (
-    <html lang="en" className={classes(archivo.variable, clashDisplay.variable)}>
-      <body>{children}</body>
+    <html lang="en" className={classes(figtree.variable, paytoneOne.variable)}>
+      <body>
+        <Navigation links={navigation?.links ?? []} />
+        <main className="flex flex-1 flex-col px-4 md:mt-16">{children}</main>
+        <Footer {...footer} />
+      </body>
     </html>
   );
 }
