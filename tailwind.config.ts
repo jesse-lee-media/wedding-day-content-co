@@ -24,6 +24,15 @@ const utilitiesPlugin = plugin(function ({ addUtilities }) {
       fontWeight: 700,
       fontVariationSettings: '"wght" 700',
     },
+    '.mi-auto': {
+      marginInline: 'auto',
+    },
+    '.overflow-x-padded-scroll': {
+      overflow: 'auto',
+      width: '100vw',
+      marginLeft: 'calc((100dvw - 100%) / -2)',
+      paddingInline: 'calc((100dvw - 100%) / 2)',
+    },
   });
 });
 

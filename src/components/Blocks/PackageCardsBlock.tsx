@@ -2,9 +2,9 @@ import Serialize from '@/components/Serialize';
 import { PayloadButtonLink } from '@/lib/components/Buttons';
 import Icon from '@/lib/components/Icon';
 import { PayloadPackageCardsBlock } from '@/lib/types/payload';
-import { classes } from '@/lib/utils/classes';
+import { classes, colSpanClass } from '@/lib/utils/classes';
 
-const List = ({ heading, icon, items }: PayloadPackageCardsBlock['packages'][0]['itemGroups'][0]) => {
+const ItemGroup = ({ heading, icon, items }: PayloadPackageCardsBlock['packages'][0]['itemGroups'][0]) => {
   const insertSuperscript = (text: string, superscript: string) => {
     const textArr = text.split(' ');
 
@@ -70,7 +70,7 @@ const PackageCard = (props: PayloadPackageCardsBlock['packages'][0]) => {
           )}
         </div>
         {itemGroups.map((item, i) => (
-          <List key={i} {...item} />
+          <ItemGroup key={i} {...item} />
         ))}
       </div>
       <div
@@ -107,11 +107,11 @@ const CustomPackageCard = (props: CustomPackageCardProps) => {
     <li
       className={classes(
         className,
-        'flex flex-col items-center justify-center gap-8 rounded-2xl border-2 border-orange-200 border-opacity-80 bg-gradient-to-br from-orange-100/80 to-orange-100/30 p-8',
+        'flex flex-col items-center justify-center gap-8 rounded-2xl border-2 border-dashed border-orange-200 border-opacity-80 bg-gradient-to-br from-orange-100/50 to-orange-100/25 p-8',
       )}
     >
       <div className="text-center">
-        <h2 className="mb-4 text-2xl sm:text-3xl">{heading}</h2>
+        <h2 className="mb-4 font-sans text-2xl font-bold normal-case sm:text-3xl">{heading}</h2>
         <Serialize nodes={description as any} pMarginClass="mx-auto max-w-lg my-2" />
       </div>
       <PayloadButtonLink {...buttonLink} />
@@ -121,42 +121,6 @@ const CustomPackageCard = (props: CustomPackageCardProps) => {
 
 export default function PackageCardsBlock(props: PayloadPackageCardsBlock) {
   const { customPackage, footnotes, packages, showCustomPackage } = props;
-
-  const colSpanClass = (length: number) => {
-    if (length === 1) {
-      return 'md-lg:col-span-2';
-    }
-
-    let smClass = '';
-    let mdLgClass = '';
-
-    switch (length % 2) {
-      case 0:
-        smClass = 'sm:col-span-2';
-        break;
-      case 1:
-        smClass = 'sm:col-span-1';
-        break;
-      default:
-        smClass = '';
-    }
-
-    switch (length % 3) {
-      case 0:
-        mdLgClass = 'md-lg:col-span-3';
-        break;
-      case 1:
-        mdLgClass = 'md-lg:col-span-2';
-        break;
-      case 2:
-        mdLgClass = 'md-lg:col-span-1';
-        break;
-      default:
-        mdLgClass = '';
-    }
-
-    return `${smClass} ${mdLgClass}`;
-  };
 
   return (
     <>
