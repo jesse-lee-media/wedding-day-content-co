@@ -30,7 +30,8 @@ export const fetchGlobal = async <T = any>(global: string): Promise<T | undefine
 };
 
 export const fetchPage = async (segments?: string[]): Promise<PayloadPage | undefined> => {
-  const slug = (segments || ['home']).join('/');
+  const slugSegments = segments || ['home'];
+  const slug = slugSegments[slugSegments.length - 1];
   const query = stringify({
     where: {
       slug: {

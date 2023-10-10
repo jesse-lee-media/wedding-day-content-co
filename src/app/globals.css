@@ -38,4 +38,14 @@
   a:hover {
     @apply underline underline-offset-4;
   }
+
+  .scrollbar-hide {
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

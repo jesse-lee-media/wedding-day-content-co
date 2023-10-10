@@ -15,6 +15,29 @@ const paytoneOne = Paytone_One({ subsets: ['latin'], weight: ['400'], variable: 
 export const metadata: Metadata = {
   title: 'Jesse Lee Media',
   description: 'Content creator for events, weddings, brands, and everything in between—your moments, our artistry!',
+  keywords: [
+    'Jesse Lee Media',
+    'Jesse Lee',
+    'Jesse',
+    'Lee',
+    'Media',
+    'Content',
+    'Creator',
+    'Content Creator',
+    'Events',
+    'Event Content',
+    'Event Content Creator',
+    'Weddings',
+    'Wedding Content',
+    'Wedding Content Creator',
+    'Brands',
+    'Brand Content',
+    'Brand Content Creator',
+    'Photography',
+    'Videography',
+    'Photographer',
+    'Videographer',
+  ],
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -53,7 +76,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Navigation links={navigation?.links ?? []} />
         <main className="flex flex-1 flex-col px-4 md:mt-16">{children}</main>
-        <Footer {...footer} />
+        {footer && <Footer {...footer} />}
       </body>
     </html>
   );

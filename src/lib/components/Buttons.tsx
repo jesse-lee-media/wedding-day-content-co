@@ -1,22 +1,35 @@
+import React from 'react';
+
 import Link, { LinkProps } from 'next/link';
 
 import Icon from './Icon';
 import { PayloadButtonLinkField } from '../types/payload';
 import { classes } from '../utils/classes';
 
-export type ButtonLinkProps = LinkProps & {
+type BaseButtonProps = {
   children: React.ReactNode;
   className?: string;
   color?: 'neutral' | 'primary';
   icon?: string;
   iconPosition?: 'left' | 'right' | 'none';
-  rel?: string;
   size?: 'sm' | 'md' | 'lg';
-  target?: string;
   variant?: 'outlined' | 'solid';
 };
+type ButtonWrapperProps = BaseButtonProps & {
+  Component: React.ElementType;
+};
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & BaseButtonProps;
+export type ButtonLinkProps = LinkProps &
+  BaseButtonProps & {
+    rel?: string;
+    target?: string;
+  };
+export type PayloadButtonLinkProps = PayloadButtonLinkField & {
+  className?: string;
+};
 
-export function ButtonLink({
+function BaseButton({
+  Component,
   children,
   className,
   color = 'neutral',
@@ -25,7 +38,7 @@ export function ButtonLink({
   size = 'md',
   variant = 'outlined',
   ...rest
-}: ButtonLinkProps) {
+}: ButtonWrapperProps) {
   const iconClass = {
     sm: 'text-base',
     md: 'text-lg',
@@ -61,20 +74,20 @@ export function ButtonLink({
   const themeClass = {
     neutral: {
       outlined:
-        'border-2 border-neutral-600 text-neutral-700 hover:border-neutral-600 hover:bg-neutral-600 hover:text-neutral-100 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-600/10',
+        'border-2 border-neutral-600 text-neutral-700 hover:border-neutral-600 hover:bg-neutral-600 hover:text-orange-50 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-600/10',
       solid:
-        'border-neutral-600 bg-neutral-600 text-neutral-50 hover:border-neutral-800 hover:bg-neutral-800 hover:text-neutral-100 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-800',
+        'border-neutral-600 bg-neutral-600 text-neutral-50 hover:border-neutral-800 hover:bg-neutral-800 hover:text-orange-50 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-800',
     },
     primary: {
       outlined:
-        'border-2 border-pink-800 text-pink-800 hover:border-pink-800 hover:bg-pink-800 hover:text-pink-100 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-800/10',
+        'border-2 border-pink-800 text-orange-800 hover:border-pink-900 hover:bg-pink-900 hover:text-orange-50 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-800/10',
       solid:
-        'border-pink-800 bg-pink-800 text-pink-50 hover:border-pink-900 hover:bg-pink-900 hover:text-pink-100 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-900',
+        'border-pink-800 bg-pink-800 text-orange-50 hover:border-pink-900 hover:bg-pink-900 hover:text-orange-50 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-900',
     },
   };
 
   return (
-    <Link
+    <Component
       {...rest}
       className={classes(
         className,
@@ -82,18 +95,18 @@ export function ButtonLink({
         paddingClass[iconPosition][size],
         sizeClass[size],
         themeClass[color][variant],
-        'flex w-fit items-center justify-center rounded-lg font-semibold no-underline transition-all hover:no-underline focus:outline-none focus:ring-2',
+        'flex w-fit items-center justify-center rounded-lg font-semibold no-underline shadow-neutral-900 transition-all hover:no-underline hover:shadow-lg focus:outline-none focus:ring-2',
       )}
     >
       {icon && <Icon name={icon!} className={iconClass[size]} />}
       {children}
-    </Link>
+    </Component>
   );
 }
 
-export type PayloadButtonLinkProps = PayloadButtonLinkField & {
-  className?: string;
-};
+export const Button = (props: ButtonProps) => <BaseButton Component="button" {...props} />;
+
+export const ButtonLink = (props: ButtonLinkProps) => <BaseButton Component={Link} {...props} />;
 
 export const PayloadButtonLink = (props: PayloadButtonLinkProps) => {
   const { className, color, link, size, variant } = props;
