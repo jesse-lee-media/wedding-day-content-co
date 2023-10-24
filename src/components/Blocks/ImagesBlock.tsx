@@ -6,9 +6,11 @@ function AppImage(props: PayloadMedia) {
   return (
     <Image
       src={props.sizes!.preview!.url!}
-      alt={props.alt!}
+      blurDataURL={props.dataUrl}
       width={props.sizes!.preview!.width!}
       height={props.sizes!.preview!.height!}
+      alt={props.alt!}
+      placeholder="blur"
       className="w-full"
     />
   );
