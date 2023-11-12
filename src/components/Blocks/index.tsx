@@ -1,59 +1,35 @@
 import {
-  PayloadButtonLinkBlock,
-  PayloadContentBlock,
-  PayloadContentCardsBlock,
-  PayloadFaqBlock,
-  PayloadFeatureCardsBlock,
-  PayloadHeroBlock,
-  PayloadHeroPageBlock,
-  PayloadHeroSectionBlock,
-  PayloadImagesBlock,
-  PayloadPackageCardsBlock,
-  PayloadSectionBlock,
+  PayloadBlockButtonLink,
+  PayloadBlockGallery,
+  PayloadBlockHero,
+  PayloadBlockPortfolioCards,
+  PayloadBlockSection,
 } from '@/lib/types/payload';
 
-import ButtonLinkBlock from './ButtonLinkBlock';
-import ContentBlock from './ContentBlock';
-import ContentCardsBlock from './ContentCardsBlock';
-import FaqBlock from './FaqBlock';
-import FeatureCardsBlock from './FeatureCardsBlock';
-import HeroBlock from './HeroBlock';
-import HeroPageBlock from './HeroPageBlock';
-import HeroSectionBlock from './HeroSectionBlock';
-import ImagesBlock from './ImagesBlock';
-import PackageCardsBlock from './PackageCardsBlock';
-import SectionBlock from './SectionBlock';
+import BlockButtonLink from './BlockButtonLink';
+import BlockGallery from './BlockGallery';
+import BlockHero from './BlockHero';
+import BlockPortfolioCards from './BlockPortfolioCards';
+import BlockSection from './BlockSection';
 
 const blocks = {
-  buttonLink: ButtonLinkBlock,
-  content: ContentBlock,
-  contentCards: ContentCardsBlock,
-  faq: FaqBlock,
-  featureCards: FeatureCardsBlock,
-  hero: HeroBlock,
-  heroPage: HeroPageBlock,
-  heroSection: HeroSectionBlock,
-  images: ImagesBlock,
-  packageCards: PackageCardsBlock,
-  section: SectionBlock,
+  buttonLink: BlockButtonLink,
+  gallery: BlockGallery,
+  hero: BlockHero,
+  portfolioCards: BlockPortfolioCards,
+  section: BlockSection,
 };
 
 export function Blocks(
   props:
-    | PayloadButtonLinkBlock
-    | PayloadContentBlock
-    | PayloadContentCardsBlock
-    | PayloadFaqBlock
-    | PayloadFeatureCardsBlock
-    | PayloadHeroBlock
-    | PayloadHeroPageBlock
-    | PayloadHeroSectionBlock
-    | PayloadImagesBlock
-    | PayloadPackageCardsBlock
-    | PayloadSectionBlock,
+    | PayloadBlockButtonLink
+    | PayloadBlockGallery
+    | PayloadBlockHero
+    | PayloadBlockPortfolioCards
+    | PayloadBlockSection,
 ) {
   const RenderBlock = blocks[props.blockType];
 
-  // @ts-expect-error - dynamic props
+  // @ts-expect-error – valid props
   return RenderBlock ? <RenderBlock {...props} /> : null;
 }

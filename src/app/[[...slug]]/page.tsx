@@ -1,8 +1,11 @@
 import { notFound } from 'next/navigation';
 
-import { Blocks } from '@/components/Blocks';
-import { fetchPage } from '@/lib/api';
-import { fetchPages } from '@/lib/graphql';
+import Serialize from '@/components/Serialize';
+import Breadcrumbs from '@/lib/components/Breadcrumbs';
+import { fetchPage, fetchPages } from '@/lib/graphql';
+import { pageTitle } from '@/lib/utils';
+
+import { metadata } from '../layout';
 
 export async function generateStaticParams() {
   try {
@@ -18,10 +21,8 @@ export async function generateMetadata({ params: { slug } }: { params: { slug: s
   const page = await fetchPage(slug);
 
   return {
-    title: page?.meta?.title || 'Jesse Lee Media',
-    description:
-      page?.meta?.description ||
-      'Content creator for events, weddings, brands, and everything in between—your moments, our artistry!',
+    title: pageTitle(page?.title, metadata),
+    description: page?.description || metadata.description,
   };
 }
 
@@ -32,5 +33,10 @@ export default async function Page({ params: { slug } }: { params: { slug: strin
     notFound();
   }
 
-  return page.content?.layout?.map((block, i) => <Blocks key={i} {...block} />);
+  return (
+    <>
+      {page.breadcrumbs.length > 1 && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
+      {page.content?.root?.children && <Serialize nodes={page.content.root.children} />}
+    </>
+  );
 }
