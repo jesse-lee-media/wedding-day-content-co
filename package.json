@@ -11,8 +11,8 @@
     "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx . --ignore-path .gitignore",
     "prettier": "prettier --check --ignore-unknown . --ignore-path .gitignore",
     "prettier:fix": "prettier --write --ignore-unknown . --ignore-path .gitignore",
-    "stylelint": "stylelint '**/*.{css,scss}' --ignore-path .gitignore",
-    "stylelint:fix": "stylelint '**/*.{css,scss}' --fix --ignore-path .gitignore",
+    "stylelint": "stylelint '**/*.css' --ignore-path .gitignore",
+    "stylelint:fix": "stylelint '**/*.css' --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "dependencies": {
