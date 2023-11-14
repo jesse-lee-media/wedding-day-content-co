@@ -1,3 +1,4 @@
+// [START] Payload API
 export interface PayloadApi<T = any> {
   docs: T[];
   totalDocs: number;
@@ -10,261 +11,155 @@ export interface PayloadApi<T = any> {
   prevPage: number | null;
   nextPage: number | null;
 }
-export type PayloadTagField = {
-  text: string;
-  icon?: string;
-  id?: string;
-};
-export type PayloadButtonLinkField = {
-  color: 'primary' | 'neutral';
+// [END] Payload API
+
+// [START] Payload Fields
+export interface PayloadFieldButtonLink {
   variant: 'outlined' | 'solid';
   size: 'sm' | 'md' | 'lg';
-  link: PayloadLinkField;
-  id?: string;
-};
-export type PayloadLinkField = {
+  link: PayloadFieldLink;
+}
+
+export interface PayloadFieldLink {
   text: string;
-  icon?: string;
-  iconPosition: 'none' | 'left' | 'right';
-  newTab?: boolean;
-  type: 'reference' | 'external';
-  reference: {
-    value: PayloadPage;
-    relationTo: 'pages';
+  icon?: string | null;
+  iconPosition: 'center' | 'left' | 'right';
+  type: 'internal' | 'external';
+  relationship: {
+    value: {
+      slug: string;
+      breadcrumbs: {
+        url: string;
+        label: string;
+      }[];
+    };
   };
+  anchor?: string | null;
   url: string;
-  id?: string;
-};
-export interface PayloadPage {
-  id: string;
-  name: string;
-  slug?: string;
-  meta: {
-    title: string;
-    description: string;
-  };
-  content: {
-    layout?: (PayloadHeroBlock | PayloadHeroSectionBlock | PayloadHeroPageBlock | PayloadSectionBlock)[];
-  };
-  parent?: PayloadPage;
-  breadcrumbs: {
-    doc: PayloadPage;
-    url: string;
-    label: string;
-    id: string;
-  }[];
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
+  rel: ('noreferrer' | 'nofollow')[];
+  newTab: boolean;
 }
-export interface PayloadHeroBlock {
-  maxWidth: 'full' | 'large' | 'medium';
-  heading: string;
-  description: string;
-  tags?: PayloadTagField[];
-  buttonLinks?: PayloadButtonLinkField[];
-  id?: string;
-  blockName?: string;
-  blockType: 'hero';
-}
-export interface PayloadHeroSectionBlock {
-  maxWidth: 'full' | 'large' | 'medium';
-  heading: string;
-  sectionId?: string;
-  layout?: (
-    | PayloadContentBlock
-    | PayloadButtonLinkBlock
-    | PayloadFaqBlock
-    | PayloadFeatureCardsBlock
-    | PayloadContentCardsBlock
-  )[];
-  id?: string;
-  blockName?: string;
-  blockType: 'heroSection';
-}
-export interface PayloadContentBlock {
-  content: {
-    [k: string]: unknown;
-  }[];
-  id?: string;
-  blockName?: string;
-  blockType: 'content';
-}
-export interface PayloadButtonLinkBlock {
-  color: 'primary' | 'neutral';
-  variant: 'outlined' | 'solid';
-  size: 'sm' | 'md' | 'lg';
-  link: PayloadLinkField;
-  margin?: boolean;
-  id?: string;
-  blockName?: string;
+// [END] Payload Fields
+
+// [START] Payload Blocks
+export interface PayloadBlockButtonLink extends PayloadFieldButtonLink {
   blockType: 'buttonLink';
 }
-export interface PayloadFaqBlock {
-  questions?: {
-    question: string;
-    answer: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-  }[];
-  id?: string;
-  blockName?: string;
-  blockType: 'faq';
+
+export interface PayloadBlockGallery {
+  blockType: 'gallery';
+  images: PayloadMedia[];
 }
-export interface PayloadFeatureCardsBlock {
-  maxWidth: 'full' | 'large' | 'medium';
-  listType: 'unordered' | 'ordered';
-  cards: {
-    heading: string;
-    icon: string;
-    content: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-  }[];
-  id?: string;
-  blockName?: string;
-  blockType: 'featureCards';
-}
-export interface PayloadContentCardsBlock {
-  variant: 'scroll' | 'grid';
-  cards: {
-    heading: string;
-    tags?: PayloadTagField[];
-    image: PayloadMedia;
-    link: PayloadLinkField;
-    id?: string;
-  }[];
-  showUpSellCard?: boolean;
-  upSellCard?: {
-    heading: string;
-    description: {
-      [k: string]: unknown;
-    }[];
-    buttonLink: PayloadButtonLinkField;
-  };
-  id?: string;
-  blockName?: string;
-  blockType: 'contentCards';
-}
-export interface PayloadMedia {
-  id: string;
-  alt?: string;
-  video?: boolean;
-  poster: PayloadMedia;
-  dataUrl?: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
-  sizes?: {
-    preview?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-    thumbnail?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-  };
-}
-export interface PayloadHeroPageBlock {
-  maxWidth: 'full' | 'large' | 'medium';
+
+export interface PayloadBlockHero {
+  blockType: 'hero';
   heading: string;
   description: string;
-  ctaButton?: boolean;
-  buttonLink?: PayloadButtonLinkField;
-  id?: string;
-  blockName?: string;
-  blockType: 'heroPage';
-}
-export interface PayloadSectionBlock {
-  maxWidth: 'full' | 'large' | 'medium';
-  sectionId: string;
-  layout?: (
-    | PayloadContentBlock
-    | PayloadButtonLinkBlock
-    | PayloadFaqBlock
-    | PayloadFeatureCardsBlock
-    | PayloadPackageCardsBlock
-    | PayloadContentCardsBlock
-    | PayloadImagesBlock
-  )[];
-  id?: string;
-  blockName?: string;
-  blockType: 'section';
-}
-export interface PayloadPackageCardsBlock {
-  packages: {
-    emphasize?: boolean;
-    heading: string;
-    icon: string;
-    description?: {
-      [k: string]: unknown;
-    }[];
-    itemGroups: {
-      heading: string;
-      icon: string;
-      items: {
-        text: string;
-        superscript?: string;
-        id?: string;
-      }[];
-      id?: string;
-    }[];
-    pricing: {
-      price: number;
-      description?: string;
-      buttonLink: PayloadButtonLinkField;
-      footnote?: string;
-    };
-    id?: string;
-  }[];
-  footnotes?: {
-    superscript: string;
-    text: string;
-    id?: string;
-  }[];
-  showCustomPackage?: boolean;
-  customPackage?: {
-    heading: string;
-    description: {
-      [k: string]: unknown;
-    }[];
-    buttonLink: PayloadButtonLinkField;
-  };
-  id?: string;
-  blockName?: string;
-  blockType: 'packageCards';
-}
-export interface PayloadImagesBlock {
   images: PayloadMedia[];
-  id?: string;
-  blockName?: string;
-  blockType: 'images';
+  buttonLinks: PayloadFieldButtonLink[];
 }
-export interface PayloadNavigation {
-  id: string;
-  links?: PayloadLinkField[];
-  updatedAt?: string;
-  createdAt?: string;
+
+export interface PayloadBlockPortfolioCards {
+  blockType: 'portfolioCards';
+  cards: {
+    image: PayloadMedia;
+    link: PayloadFieldLink;
+  }[];
 }
+
+export interface PayloadBlockSection {
+  blockType: 'section';
+  heading: string;
+  columns: '1' | '2';
+  content?: {
+    root: {
+      children?: { [k: string]: unknown }[];
+    };
+  } | null;
+  contentColumnOne?: {
+    root: {
+      children?: { [k: string]: unknown }[];
+    };
+  } | null;
+  contentColumnTwo: {
+    root: {
+      children?: { [k: string]: unknown }[];
+    };
+  } | null;
+}
+// [END] Payload Blocks
+
+// [START] Payload Collections
+export interface PayloadFaq {
+  question: string;
+  answer: {
+    root: {
+      children?: { [k: string]: unknown }[];
+    };
+  } | null;
+}
+
+export interface PayloadMedia {
+  alt: string;
+  hasLink?: boolean;
+  link: PayloadFieldLink;
+  dataUrl: string;
+  url: string;
+  mimeType: string;
+  width: number;
+  height: number;
+  sizes: {
+    preview: {
+      url: string;
+      width: number;
+      height: number;
+    };
+    thumbnail: {
+      url: string;
+      width: number;
+      height: number;
+    };
+  };
+}
+
+export interface PayloadPage {
+  title: string;
+  description: string;
+  content?: {
+    root: {
+      children?: { [k: string]: unknown }[];
+    };
+  } | null;
+  slug: string;
+  parent?: {
+    title: string;
+    slug: string;
+  } | null;
+  breadcrumbs: {
+    url: string;
+    label: string;
+  }[];
+}
+// [END] Payload Collections
+
+// [START] Globals
+export interface PayloadGlobals {
+  Footer: PayloadFooter;
+  Navigation: PayloadNavigation;
+}
+
 export interface PayloadFooter {
-  id: string;
-  socialLinks?: PayloadLinkField[];
-  updatedAt?: string;
-  createdAt?: string;
+  faqs?: PayloadFaq[] | null;
+  linkGroups: {
+    heading: string;
+    links: PayloadFieldLink[];
+  }[];
+  marquee?: string;
+  copyright?: string;
 }
+
+export interface PayloadNavigation {
+  callToAction: PayloadFieldButtonLink;
+  links?: PayloadFieldLink[];
+}
+// [END] Globals

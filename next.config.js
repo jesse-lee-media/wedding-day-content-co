@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: production ? 'https' : 'http',
-        hostname: production ? '*.jesselee.media' : 'localhost',
+        hostname: production ? '*.weddingdaycontent.co' : 'localhost',
         pathname: '/media/**',
       },
     ],

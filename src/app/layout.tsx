@@ -1,26 +1,26 @@
 import type { Metadata } from 'next';
-import { Figtree, Paytone_One } from 'next/font/google';
+import { Figtree } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import { fetchGlobal } from '@/lib/api';
-import { PayloadFooter, PayloadNavigation } from '@/lib/types/payload';
-import { classes } from '@/lib/utils/classes';
+import { fetchGlobals } from '@/lib/graphql';
+import { cn } from '@/lib/utils';
 
 import './globals.css';
 
+const zodiak = localFont({
+  src: '../../public/font/Zodiak-Variable.ttf',
+  display: 'swap',
+  variable: '--font-zodiak',
+});
 const figtree = Figtree({ subsets: ['latin'], display: 'swap', variable: '--font-figtree' });
-const paytoneOne = Paytone_One({ subsets: ['latin'], weight: ['400'], variable: '--font-paytone-one' });
-
 export const metadata: Metadata = {
-  title: 'Jesse Lee Media',
-  description: 'Content creator for events, weddings, brands, and everything in between—your moments, our artistry!',
+  title: 'Wedding Day Content Co.',
+  description: 'Content creator for weddings and events—your moments, our artistry.',
   keywords: [
-    'Jesse Lee Media',
-    'Jesse Lee',
-    'Jesse',
-    'Lee',
-    'Media',
+    'Wedding Day Content Co',
+    'Wedding Day Content',
     'Content',
     'Creator',
     'Content Creator',
@@ -30,9 +30,6 @@ export const metadata: Metadata = {
     'Weddings',
     'Wedding Content',
     'Wedding Content Creator',
-    'Brands',
-    'Brand Content',
-    'Brand Content Creator',
     'Photography',
     'Videography',
     'Photographer',
@@ -40,6 +37,7 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
+      { url: '/favicon.svg' },
       { url: '/favicon.ico' },
       { url: '/favicons/favicon-16x16.png', sizes: '16x16' },
       { url: '/favicons/favicon-32x32.png', sizes: '32x32' },
@@ -60,23 +58,22 @@ export const metadata: Metadata = {
       { url: '/favicons/apple-touch-icon-167x167.png', sizes: '167x167' },
     ],
     other: [
+      { url: '/favicons/mask-icon.svg', rel: 'mask-icon' },
       { url: '/favicons/android-chrome-192x192.png', sizes: '192x192' },
       { url: '/favicons/android-chrome-512x512.png', sizes: '512x512' },
     ],
   },
-  themeColor: '#ffedd5',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const navigation = await fetchGlobal<PayloadNavigation>('navigation');
-  const footer = await fetchGlobal<PayloadFooter>('footer');
+  const { Footer: footer, Navigation: navigation } = await fetchGlobals();
 
   return (
-    <html lang="en" className={classes(figtree.variable, paytoneOne.variable)}>
+    <html lang="en" className={cn(zodiak.variable, figtree.variable)}>
       <body>
-        <Navigation links={navigation?.links ?? []} />
-        <main className="flex flex-1 flex-col px-4 md:mt-16">{children}</main>
-        {footer && <Footer {...footer} />}
+        <Navigation {...navigation} />
+        <main className="mx-auto mt-16 w-full max-w-7xl px-4 py-12">{children}</main>
+        <Footer {...footer} />
       </body>
     </html>
   );

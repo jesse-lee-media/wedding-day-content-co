@@ -1,25 +1,21 @@
-@import url('@tabler/icons-webfont/tabler-icons.min.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   *::selection {
-    @apply bg-orange-200 text-orange-900;
+    @apply bg-pink-100 text-black dark:bg-pink-200;
   }
 
   html {
-    @apply h-full scroll-p-4 !scroll-smooth bg-orange-50 font-sans text-neutral-700 md:scroll-p-16;
+    @apply h-full scroll-p-28 !scroll-smooth bg-white font-sans text-black;
 
-    font-variation-settings: 'wght' 400;
+    font-variation-settings: 'wght' 350;
     font-optical-sizing: auto;
   }
 
   body {
     @apply flex h-full flex-col;
-
-    background: linear-gradient(to bottom, #ffedd5 4rem, #fff7ed 32rem, #fff7ed 100%);
   }
 
   h1,
@@ -28,24 +24,20 @@
   h4,
   h5,
   h6 {
-    @apply font-serif font-normal lowercase !leading-tight text-pink-800;
+    @apply font-serif font-light !leading-tight;
   }
 
   a {
-    @apply rounded text-pink-800 underline-offset-4 hover:text-pink-900 focus:outline-none focus:ring-2 focus:ring-pink-800/75;
+    @apply rounded no-underline focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75;
   }
 
-  a:hover {
+  a:hover:not(:focus-visible) {
     @apply underline underline-offset-4;
+
+    text-decoration-thickness: 1.5px;
   }
 
-  .scrollbar-hide {
-    scrollbar-width: none;
-
-    -ms-overflow-style: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  strong {
+    @apply font-bold;
   }
 }

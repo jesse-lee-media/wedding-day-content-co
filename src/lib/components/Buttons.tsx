@@ -2,29 +2,32 @@ import React from 'react';
 
 import Link, { LinkProps } from 'next/link';
 
-import Icon from './Icon';
-import { PayloadButtonLinkField } from '../types/payload';
-import { classes } from '../utils/classes';
+import Icons from './Icons';
+import { PayloadFieldButtonLink } from '../types/payload';
+import { cn, linkProps } from '../utils';
 
 type BaseButtonProps = {
   children: React.ReactNode;
   className?: string;
-  color?: 'neutral' | 'primary';
-  icon?: string;
-  iconPosition?: 'left' | 'right' | 'none';
+  icon?: string | null;
+  iconPosition?: 'left' | 'right' | 'center';
   size?: 'sm' | 'md' | 'lg';
   variant?: 'outlined' | 'solid';
 };
+
 type ButtonWrapperProps = BaseButtonProps & {
   Component: React.ElementType;
 };
+
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & BaseButtonProps;
+
 export type ButtonLinkProps = LinkProps &
   BaseButtonProps & {
     rel?: string;
     target?: string;
   };
-export type PayloadButtonLinkProps = PayloadButtonLinkField & {
+
+export type PayloadButtonLinkProps = PayloadFieldButtonLink & {
   className?: string;
 };
 
@@ -32,73 +35,68 @@ function BaseButton({
   Component,
   children,
   className,
-  color = 'neutral',
   icon,
-  iconPosition = 'none',
+  iconPosition = 'center',
   size = 'md',
   variant = 'outlined',
   ...rest
 }: ButtonWrapperProps) {
   const iconClass = {
-    sm: 'text-base',
-    md: 'text-lg',
-    lg: 'text-xl',
+    sm: 'h-3.5 w-3.5',
+    md: 'h-4 w-4',
+    lg: 'h-5 w-5',
   };
   const iconPositionClass = {
     left: 'flex-row',
     right: 'flex-row-reverse',
-    none: 'flex-row',
+    center: 'flex-row',
   };
   const paddingClass = {
     left: {
-      sm: 'pl-2 pr-3',
-      md: 'pr-4 pl-3',
-      lg: 'pr-5 pl-4',
+      sm: 'px-4 xs:pr-4 xs:pl-3',
+      md: 'px-6 xs:pr-6 xs:pl-5',
+      lg: 'px-8 xs:pr-8 xs:pl-7 ',
     },
     right: {
-      sm: 'pr-2 pl-3',
-      md: 'pl-4 pr-3',
-      lg: 'pl-5 pr-4',
+      sm: 'px-4 xs:pl-4 xs:pr-3',
+      md: 'px-6 xs:pl-6 xs:pr-5',
+      lg: 'px-8 xs:pl-8 xs:pr-7 ',
     },
-    none: {
-      sm: 'px-3',
-      md: 'px-4',
-      lg: 'px-5',
+    center: {
+      sm: 'px-0',
+      md: 'px-0',
+      lg: 'px-0',
     },
   };
   const sizeClass = {
-    sm: 'h-7 text-xs gap-1',
-    md: 'h-9 text-sm gap-1',
-    lg: 'h-11 text-base gap-[0.375rem]',
+    sm: 'h-10 text-sm gap-1.5',
+    md: 'h-12 text-base gap-2',
+    lg: 'h-14 text-lg gap-2.5',
+  };
+  const iconSizeClass = {
+    sm: 'xs:!w-10',
+    md: 'xs:!w-12',
+    lg: 'xs:!w-14',
   };
   const themeClass = {
-    neutral: {
-      outlined:
-        'border-2 border-neutral-600 text-neutral-700 hover:border-neutral-600 hover:bg-neutral-600 hover:text-orange-50 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-600/10',
-      solid:
-        'border-neutral-600 bg-neutral-600 text-neutral-50 hover:border-neutral-800 hover:bg-neutral-800 hover:text-orange-50 focus:ring-neutral-500/75 [&:not(:hover)]:focus:bg-neutral-800',
-    },
-    primary: {
-      outlined:
-        'border-2 border-pink-800 text-orange-800 hover:border-pink-900 hover:bg-pink-900 hover:text-orange-50 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-800/10',
-      solid:
-        'border-pink-800 bg-pink-800 text-orange-50 hover:border-pink-900 hover:bg-pink-900 hover:text-orange-50 focus:ring-pink-500/75 [&:not(:hover)]:focus:bg-pink-900',
-    },
+    outlined: 'bg-white text-black border border-black dark:bg-black dark:text-white dark:border-white',
+    solid: 'bg-black text-white border border-black dark:bg-white dark:text-black dark:border-white',
   };
 
   return (
     <Component
       {...rest}
-      className={classes(
-        className,
+      className={cn(
+        'flex w-full items-center justify-center rounded-xl border-opacity-75 font-medium !no-underline transition-all hover:border-opacity-100 hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/75 dark:hover:bg-pink-200 dark:hover:text-black dark:focus:ring-white/75 xs:w-fit',
         iconPositionClass[iconPosition],
+        icon && iconPosition === 'center' && iconSizeClass[size],
         paddingClass[iconPosition][size],
         sizeClass[size],
-        themeClass[color][variant],
-        'flex w-fit items-center justify-center rounded-lg font-semibold no-underline shadow-neutral-900 transition-all hover:no-underline hover:shadow-lg focus:outline-none focus:ring-2',
+        themeClass[variant],
+        className,
       )}
     >
-      {icon && <Icon name={icon!} className={iconClass[size]} />}
+      {icon && <Icons name={icon} className={iconClass[size]} />}
       {children}
     </Component>
   );
@@ -109,21 +107,18 @@ export const Button = (props: ButtonProps) => <BaseButton Component="button" {..
 export const ButtonLink = (props: ButtonLinkProps) => <BaseButton Component={Link} {...props} />;
 
 export const PayloadButtonLink = (props: PayloadButtonLinkProps) => {
-  const { className, color, link, size, variant } = props;
+  const { className, link, size, variant } = props;
 
   return (
     <ButtonLink
-      href={link.type === 'external' ? link.url : `/${link.reference.value.slug}`}
-      target={link.newTab ? '_blank' : undefined}
-      rel={link.type === 'external' ? 'noopener noreferrer' : undefined}
+      {...linkProps(link)}
       icon={link.icon}
-      iconPosition={link.iconPosition ?? 'none'}
+      iconPosition={link.iconPosition ?? 'center'}
       size={size}
-      color={color}
       variant={variant}
-      className={classes(className)}
+      className={className}
     >
-      {link.text}
+      {link.icon && link.iconPosition === 'center' ? null : link.text}
     </ButtonLink>
   );
 };
