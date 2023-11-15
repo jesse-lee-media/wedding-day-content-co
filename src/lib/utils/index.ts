@@ -13,12 +13,19 @@ export const internalLink = (link: PayloadFieldLink) => {
   return `${url === '/home' ? '/' : url}${anchor}`;
 };
 
-export const linkProps = (link: PayloadFieldLink) => ({
-  href: (link.type === 'internal' && link.relationship ? internalLink(link) : link.url) ?? '/',
-  target: link.newTab ? '_blank' : '_self',
-  ...(link.type === 'external' ? { rel: link.rel.join(',') } : {}),
-  'aria-label': link.text,
-});
+export const linkProps = (link: PayloadFieldLink) => {
+  const href = (link.type === 'internal' && link.relationship ? internalLink(link) : link.url) ?? '/';
+
+  return {
+    href,
+    target: link.newTab ? '_blank' : '_self',
+    ...(link.type === 'external' ? { rel: link.rel.join(',') } : {}),
+    'aria-label': link.text,
+    'data-umami-event': link.umamiEvent ?? 'Link',
+    'data-umami-event-id': link.umamiEventId ?? slugify(link.text),
+    'data-umami-event-url': href,
+  };
+};
 
 export const pageTitle = (title: string | undefined, metadata: Metadata) =>
   !title || title?.toLowerCase() === 'home' ? metadata.title : `${title} | ${metadata.title}`;

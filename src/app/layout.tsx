@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
@@ -15,6 +16,7 @@ const zodiak = localFont({
   variable: '--font-zodiak',
 });
 const figtree = Figtree({ subsets: ['latin'], display: 'swap', variable: '--font-figtree' });
+
 export const metadata: Metadata = {
   title: 'Wedding Day Content Co.',
   description: 'Content creator for weddings and events—your moments, our artistry.',
@@ -74,6 +76,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Navigation {...navigation} />
         <main className="mx-auto mt-16 w-full max-w-7xl px-4 py-12">{children}</main>
         <Footer {...footer} />
+        <Script
+          src="https://umami-hbug.vercel.app/script.js"
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
+          data-domains={process.env.NEXT_PUBLIC_DOMAINS}
+        />
       </body>
     </html>
   );
