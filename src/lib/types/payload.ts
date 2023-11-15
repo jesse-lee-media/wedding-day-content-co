@@ -38,6 +38,8 @@ export interface PayloadFieldLink {
   url: string;
   rel: ('noreferrer' | 'nofollow')[];
   newTab: boolean;
+  umamiEvent?: string | null;
+  umamiEventId?: string | null;
 }
 // [END] Payload Fields
 

@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
 import IconChevronDown from './Icons/IconChevronDown';
-import { cn } from '../utils';
+import { cn, slugify } from '../utils';
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -28,6 +28,8 @@ const AccordionTrigger = forwardRef<
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
+      data-umami-event="Accordion trigger"
+      data-umami-event-id={slugify(JSON.stringify(children))}
       className={cn(
         'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal transition-all hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
         className,
