@@ -32,9 +32,7 @@
   }
 
   a:hover:not(:focus-visible) {
-    @apply underline underline-offset-4;
-
-    text-decoration-thickness: 1.5px;
+    @apply underline decoration-black/75 decoration-[1.5px] underline-offset-4 dark:text-pink-200 dark:decoration-pink-200/75;
   }
 
   strong {

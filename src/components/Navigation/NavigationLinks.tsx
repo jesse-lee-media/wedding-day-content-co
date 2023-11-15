@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { useMediaQuery } from 'usehooks-ts';
 
-import { PayloadButtonLink } from '@/lib/components/Buttons';
 import IconMenu from '@/lib/components/Icons/IconMenu';
+import PayloadButtonLink from '@/lib/components/PayloadButtonLink';
 import PayloadLink from '@/lib/components/PayloadLink';
 import { Sheet, SheetContent, SheetTrigger } from '@/lib/components/Sheet';
 import { PayloadNavigation } from '@/lib/types/payload';

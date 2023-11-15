@@ -17,13 +17,13 @@ export interface PayloadApi<T = any> {
 export interface PayloadFieldButtonLink {
   variant: 'outlined' | 'solid';
   size: 'sm' | 'md' | 'lg';
+  icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
+  iconPosition: 'none' | 'left' | 'right' | 'center';
   link: PayloadFieldLink;
 }
 
 export interface PayloadFieldLink {
   text: string;
-  icon?: string | null;
-  iconPosition: 'center' | 'left' | 'right';
   type: 'internal' | 'external';
   relationship: {
     value: {
@@ -45,15 +45,18 @@ export interface PayloadFieldLink {
 
 // [START] Payload Blocks
 export interface PayloadBlockButtonLink extends PayloadFieldButtonLink {
+  blockName?: string;
   blockType: 'buttonLink';
 }
 
 export interface PayloadBlockGallery {
+  blockName?: string;
   blockType: 'gallery';
   images: PayloadMedia[];
 }
 
 export interface PayloadBlockHero {
+  blockName?: string;
   blockType: 'hero';
   heading: string;
   description: string;
@@ -62,6 +65,7 @@ export interface PayloadBlockHero {
 }
 
 export interface PayloadBlockPortfolioCards {
+  blockName?: string;
   blockType: 'portfolioCards';
   cards: {
     image: PayloadMedia;
@@ -70,6 +74,7 @@ export interface PayloadBlockPortfolioCards {
 }
 
 export interface PayloadBlockSection {
+  blockName?: string;
   blockType: 'section';
   heading: string;
   columns: '1' | '2';

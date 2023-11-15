@@ -12,7 +12,7 @@ const FaqAccordion = dynamic(() => import('./FaqAccordion'), { loading: () => <F
 
 export default function Footer({ copyright, faqs, linkGroups, marquee }: PayloadFooter) {
   return (
-    <footer className="dark flex flex-col bg-black py-16 text-white">
+    <footer className="dark flex flex-col gap-24 bg-black py-16 text-white">
       <div className="mx-auto w-full max-w-7xl px-4">
         {faqs && faqs.length > 0 && (
           <FaqSection heading="Frequently asked questions">

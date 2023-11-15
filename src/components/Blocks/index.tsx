@@ -20,16 +20,13 @@ const blocks = {
   section: BlockSection,
 };
 
-export function Blocks(
-  props:
-    | PayloadBlockButtonLink
-    | PayloadBlockGallery
-    | PayloadBlockHero
-    | PayloadBlockPortfolioCards
-    | PayloadBlockSection,
-) {
-  const RenderBlock = blocks[props.blockType];
+export function Blocks({
+  blockType,
+  ...props
+}: PayloadBlockButtonLink | PayloadBlockGallery | PayloadBlockHero | PayloadBlockPortfolioCards | PayloadBlockSection) {
+  delete props.blockName;
 
-  // @ts-expect-error – valid props
+  const RenderBlock: React.FC<any> = blocks[blockType];
+
   return RenderBlock ? <RenderBlock {...props} /> : null;
 }

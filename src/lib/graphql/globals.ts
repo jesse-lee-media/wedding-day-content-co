@@ -9,8 +9,6 @@ export const GLOBALS = `#graphql
         heading
         links {
           text
-          icon
-          iconPosition
           type
           relationship {
             value {
@@ -35,8 +33,6 @@ export const GLOBALS = `#graphql
     Navigation {
       links {
         text
-        icon
-        iconPosition
         type
         relationship {
           value {
@@ -57,10 +53,10 @@ export const GLOBALS = `#graphql
       callToAction {
         variant
         size
+        icon
+        iconPosition
         link {
           text
-          icon
-          iconPosition
           type
           relationship {
             value {

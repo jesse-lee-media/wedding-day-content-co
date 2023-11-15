@@ -1,4 +1,4 @@
-import { PayloadButtonLink } from '@/lib/components/Buttons';
+import PayloadButtonLink from '@/lib/components/PayloadButtonLink';
 import PayloadImage from '@/lib/components/PayloadImage';
 import { PayloadBlockHero } from '@/lib/types/payload';
 

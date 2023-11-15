@@ -31,7 +31,7 @@ const AccordionTrigger = forwardRef<
       data-umami-event="Accordion trigger"
       data-umami-event-id={slugify(JSON.stringify(children))}
       className={cn(
-        'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal transition-all hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
+        'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
         className,
       )}
       {...props}
@@ -50,7 +50,7 @@ const AccordionContent = forwardRef<
   <AccordionPrimitive.Content
     ref={ref}
     className={cn(
-      'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+      'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
       className,
     )}
     {...props}
