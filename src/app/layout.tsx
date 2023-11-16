@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { Figtree } from 'next/font/google';
 import localFont from 'next/font/local';
 import Script from 'next/script';
@@ -6,9 +7,12 @@ import Script from 'next/script';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { fetchGlobals } from '@/lib/graphql';
+import Providers from '@/lib/providers';
 import { cn } from '@/lib/utils';
 
 import './globals.css';
+
+const Toaster = dynamic(() => import('@/lib/components/Toaster'), { ssr: false });
 
 const zodiak = localFont({
   src: '../../public/font/Zodiak-Variable.ttf',
@@ -73,11 +77,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={cn(zodiak.variable, figtree.variable)}>
       <body>
-        <Navigation {...navigation} />
-        <main className="mx-auto mt-16 w-full max-w-7xl px-4 py-12">{children}</main>
-        <Footer {...footer} />
+        <Providers>
+          <Navigation {...navigation} />
+          <main className="mx-auto mt-16 w-full max-w-7xl px-4 py-12">{children}</main>
+          <Footer {...footer} />
+          <Toaster />
+        </Providers>
         <Script
-          src="https://umami-hbug.vercel.app/script.js"
+          src={process.env.NEXT_PUBLIC_UMAMI_SRC}
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
           data-domains={process.env.NEXT_PUBLIC_DOMAINS}
         />

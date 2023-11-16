@@ -58,6 +58,9 @@ const utilitiesPlugin = plugin(function ({ addUtilities }) {
       borderTopWidth: '1.5px',
       borderBottomWidth: '1.5px',
     },
+    '.form-sizing-content': {
+      formSizing: 'content',
+    },
   });
 });
 

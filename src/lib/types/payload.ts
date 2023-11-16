@@ -106,6 +106,20 @@ export interface PayloadFaq {
   } | null;
 }
 
+export interface PayloadInquiry {
+  first: string;
+  last: string;
+  email: string;
+  phone: string;
+  startDate: string;
+  endDate?: string | null;
+  budget: string;
+  location: string;
+  information: string;
+  photographerNames?: string | null;
+  openToOtherCreators: 'no' | 'yes';
+}
+
 export interface PayloadMedia {
   alt: string;
   hasLink?: boolean;
