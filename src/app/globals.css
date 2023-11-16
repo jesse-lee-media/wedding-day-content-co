@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *::selection {
+    @apply bg-pink-100 text-black dark:bg-pink-200;
+  }
+
+  html {
+    @apply h-full scroll-p-28 !scroll-smooth bg-white font-sans text-black;
+
+    font-variation-settings: 'wght' 350;
+    font-optical-sizing: auto;
+  }
+
+  body {
+    @apply flex h-full flex-col;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-light !leading-tight;
+  }
+
+  a {
+    @apply rounded no-underline focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75;
+  }
+
+  a:hover:not(:focus-visible) {
+    @apply underline decoration-black/75 decoration-[1.5px] underline-offset-4 dark:text-pink-200 dark:decoration-pink-200/75;
+  }
+
+  strong {
+    @apply font-bold;
+  }
+}
