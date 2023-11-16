@@ -21,7 +21,7 @@ const Image = ({ alt, className, dataUrl, sizes }: ImageProps) => (
     placeholder="blur"
     blurDataURL={dataUrl}
     alt={alt}
-    className={cn('transition-all group-hover/image:scale-105 group-focus/image:scale-105', className)}
+    className={cn('transition group-hover/image:scale-105 group-focus/image:scale-105', className)}
   />
 );
 

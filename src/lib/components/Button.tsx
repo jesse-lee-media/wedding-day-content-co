@@ -6,7 +6,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex w-full items-center justify-center rounded-xl border-opacity-75 font-medium !no-underline transition-all hover:border-opacity-100 hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/75 dark:hover:bg-pink-200 dark:hover:text-black dark:focus:ring-white/75 xs:w-fit',
+  'inline-flex w-full items-center justify-center border-opacity-75 font-medium !no-underline transition hover:border-opacity-100 hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/75 dark:hover:bg-pink-200 dark:hover:text-black dark:focus:ring-white/75 xs:w-fit',
   {
     variants: {
       variant: {
@@ -14,9 +14,9 @@ const buttonVariants = cva(
         outlined: 'bg-white text-black border border-black dark:bg-black dark:text-white dark:border-white',
       },
       size: {
-        sm: 'h-10 text-sm gap-1.5',
-        md: 'h-12 text-base gap-2',
-        lg: 'h-14 text-lg gap-2.5',
+        sm: 'h-10 text-sm gap-1.5 rounded-lg',
+        md: 'h-12 text-base gap-2 rounded-xl',
+        lg: 'h-14 text-lg gap-2.5 rounded-xl',
       },
       iconPosition: {
         left: 'flex-row-reverse',

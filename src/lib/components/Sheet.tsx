@@ -3,9 +3,9 @@
 import { forwardRef } from 'react';
 
 import * as SheetPrimitive from '@radix-ui/react-dialog';
+import { Xmark } from 'iconoir-react';
 import Link from 'next/link';
 
-import IconX from './Icons/IconX';
 import { cn } from '../utils';
 
 const Sheet = SheetPrimitive.Root;
@@ -52,7 +52,7 @@ const SheetContent = forwardRef<React.ElementRef<typeof SheetPrimitive.Content>,
               aria-label="Close"
               className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-black/5 focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75"
             >
-              <IconX className="h-6 w-6" />
+              <Xmark className="h-6 w-6" />
             </button>
           </SheetPrimitive.Close>
         </div>

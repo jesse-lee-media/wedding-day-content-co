@@ -1,7 +1,7 @@
+import { ArrowRight } from 'iconoir-react';
 import Link from 'next/link';
 
 import { Button } from '@/lib/components/Button';
-import IconArrowRight from '@/lib/components/Icons/IconArrowRight';
 
 export default function NotFound() {
   return (
@@ -13,7 +13,7 @@ export default function NotFound() {
       <Button asChild variant="solid" iconPosition="right">
         <Link href="/">
           Home
-          <IconArrowRight />
+          <ArrowRight />
         </Link>
       </Button>
     </section>

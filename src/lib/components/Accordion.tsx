@@ -3,8 +3,8 @@
 import { forwardRef } from 'react';
 
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { NavArrowDown } from 'iconoir-react';
 
-import IconChevronDown from './Icons/IconChevronDown';
 import { cn, slugify } from '../utils';
 
 const Accordion = AccordionPrimitive.Root;
@@ -37,7 +37,7 @@ const AccordionTrigger = forwardRef<
       {...props}
     >
       {children}
-      <IconChevronDown className="shrink-0 transition-transform duration-200" />
+      <NavArrowDown className="shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

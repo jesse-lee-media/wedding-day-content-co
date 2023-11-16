@@ -51,6 +51,11 @@ export default function Serialize({ nodes }: SerializeProps) {
   return !nodes || nodes.length === 0 ? null : (
     <Fragment>
       {nodes.map((node, i) => {
+        // @ts-expect-error – valid keys
+        const alignClass = alignClasses[node.format ?? 'left'];
+        // @ts-expect-error – valid keys
+        const indentClass = indentClasses[node.indent && node.indent < 5 ? node.indent : 0];
+
         switch (node.type) {
           case 'heading':
             return (
@@ -59,6 +64,8 @@ export default function Serialize({ nodes }: SerializeProps) {
                 id={slugify(node.children?.map((v: any) => v.text).join(' '))}
                 className={cn(
                   'first:mt-0 last:mb-0',
+                  alignClass,
+                  indentClass,
                   // @ts-expect-error – valid keys
                   headingClasses[node.tag],
                 )}
@@ -68,16 +75,7 @@ export default function Serialize({ nodes }: SerializeProps) {
             );
           case 'paragraph':
             return node.children?.length > 0 ? (
-              <p
-                key={i}
-                className={cn(
-                  'my-3 text-lg first:mt-0 last:mb-0',
-                  // @ts-expect-error – valid keys
-                  alignClasses[node.format ?? 'left'],
-                  // @ts-expect-error – valid keys
-                  indentClasses[node.indent && node.indent < 5 ? node.indent : 0],
-                )}
-              >
+              <p key={i} className={cn('my-3 text-lg first:mt-0 last:mb-0', alignClass, indentClass)}>
                 <Serialize nodes={node.children} />
               </p>
             ) : null;

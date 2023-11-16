@@ -1,22 +1,19 @@
+import { ArrowRight, ArrowUpRight, Menu, NavArrowDown, Xmark } from 'iconoir-react';
+
 import { cn } from '@/lib/utils';
 
-import IconArrowRight from './IconArrowRight';
-import IconArrowUpRight from './IconArrowUpRight';
-import IconChevronDown from './IconChevronDown';
 import IconInstagram from './IconInstagram';
-import IconMenu from './IconMenu';
 import IconTikTok from './IconTikTok';
-import IconX from './IconX';
 import { BaseProps } from '../../types/base-props';
 
 const icons = {
-  arrowRight: IconArrowRight,
-  arrowUpRight: IconArrowUpRight,
+  arrowRight: ArrowRight,
+  arrowUpRight: ArrowUpRight,
+  chevronDown: NavArrowDown,
   instagram: IconInstagram,
-  menu: IconMenu,
-  chevronDown: IconChevronDown,
+  menu: Menu,
   tikTok: IconTikTok,
-  x: IconX,
+  x: Xmark,
 };
 
 export type IconProps = Omit<BaseProps, 'children'> & {

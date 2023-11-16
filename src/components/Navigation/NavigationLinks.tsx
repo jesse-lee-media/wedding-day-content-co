@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+import { Menu } from 'iconoir-react';
 import { useMediaQuery } from 'usehooks-ts';
 
-import IconMenu from '@/lib/components/Icons/IconMenu';
 import PayloadButtonLink from '@/lib/components/PayloadButtonLink';
 import PayloadLink from '@/lib/components/PayloadLink';
 import { Sheet, SheetContent, SheetTrigger } from '@/lib/components/Sheet';
@@ -18,7 +18,7 @@ function MobileMenu({ callToAction, links }: PayloadNavigation) {
           aria-label="Menu"
           className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-black/5 focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75"
         >
-          <IconMenu className="h-5 w-5" />
+          <Menu className="h-5 w-5" />
         </button>
       </SheetTrigger>
       <SheetContent>
