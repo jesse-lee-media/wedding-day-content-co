@@ -1,5 +1,5 @@
 {
-  "*": "npm run prettier:fix",
-  "*.{js,jsx,ts,tsx}": "npm run eslint:fix",
-  "*.css": "npm run stylelint:fix"
+  "*": "prettier --write",
+  "*.{js,jsx,ts,tsx}": "eslint --fix",
+  "*.css": "stylelint --fix"
 }
