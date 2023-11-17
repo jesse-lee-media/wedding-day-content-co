@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 
-import { cn, slugify } from '@/lib/utils';
+import Link from 'next/link';
+
+import { PayloadFieldLink } from '@/lib/types/payload';
+import { cn, linkProps, slugify } from '@/lib/utils';
 
 import { Blocks } from './blocks';
 
@@ -36,9 +39,9 @@ export default function Serialize({ nodes }: SerializeProps) {
     right: 'text-right',
   };
   const headingClasses = {
-    h1: 'my-8 text-4xl xs:text-5xl',
-    h2: 'my-6 text-3xl xs:text-4xl',
-    h3: 'my-4 text-2xl xs:text-3xl',
+    h1: 'mt-10 mb-8 text-4xl xs:text-5xl',
+    h2: 'mt-8 mb-6 text-3xl xs:text-4xl',
+    h3: 'mt-6 mb-4 text-2xl xs:text-3xl',
   };
   const indentClasses = {
     0: '',
@@ -79,6 +82,54 @@ export default function Serialize({ nodes }: SerializeProps) {
                 <Serialize nodes={node.children} />
               </p>
             ) : null;
+          case 'link': {
+            const { fields } = node;
+            const link: PayloadFieldLink = {
+              text: '',
+              type: fields.linkType === 'custom' ? 'external' : 'internal',
+              relationship: fields.doc,
+              ...(fields.anchor ? { anchor: fields.anchor } : {}),
+              url: fields.url,
+              rel: fields.rel,
+              newTab: fields.newTab,
+              ...(fields.umamiEvent ? { umamiEvent: fields.umamiEvent } : {}),
+              ...(fields.umamiEventId ? { umamiEventId: fields.umamiEventId } : {}),
+            };
+
+            return (
+              <Link
+                key={i}
+                {...linkProps(link)}
+                className={cn(
+                  'underline underline-offset-2 hover:text-pink-700 hover:!decoration-pink-700/75 dark:hover:!decoration-pink-200/75',
+                  alignClass,
+                  indentClass,
+                )}
+              >
+                <Serialize nodes={node.children} />
+              </Link>
+            );
+          }
+          case 'list':
+            return (
+              <node.tag
+                key={i}
+                className={cn(
+                  node.listType === 'bullet' ? 'list-disc' : 'list-decimal',
+                  'my-3 flex flex-col gap-2 pl-8',
+                  alignClass,
+                  indentClass,
+                )}
+              >
+                <Serialize nodes={node.children} />
+              </node.tag>
+            );
+          case 'listitem':
+            return (
+              <li key={i} className={cn(alignClass, indentClass)}>
+                <Serialize nodes={node.children} />
+              </li>
+            );
           case 'block':
             return <Blocks key={i} {...node.fields.data} />;
           default:
