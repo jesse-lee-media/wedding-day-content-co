@@ -1,9 +1,28 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+import PayloadButtonLink from '@/lib/components/payload-button-link';
+import PayloadLink from '@/lib/components/payload-link';
 import { PayloadNavigation } from '@/lib/types/payload';
 
-const NavigationLinks = dynamic(() => import('./links'), { ssr: false });
+const MobileMenu = dynamic(() => import('./mobile-menu'), { ssr: false });
+
+function DesktopLinks({ callToAction, links }: PayloadNavigation) {
+  return (
+    <>
+      {links?.map((link, i) => (
+        <li key={i} className="hidden md:block">
+          <PayloadLink {...link} />
+        </li>
+      ))}
+      {callToAction && (
+        <li className="hidden md:block">
+          <PayloadButtonLink {...callToAction} />
+        </li>
+      )}
+    </>
+  );
+}
 
 export default function Navigation(props: PayloadNavigation) {
   return (
@@ -12,7 +31,8 @@ export default function Navigation(props: PayloadNavigation) {
         <li className="flex flex-1">
           <Link href="/">Wedding Day Content Co.</Link>
         </li>
-        <NavigationLinks {...props} />
+        <DesktopLinks {...props} />
+        <MobileMenu {...props} />
       </ul>
     </nav>
   );
