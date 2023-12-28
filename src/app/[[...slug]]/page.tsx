@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 
 import Serialize from '@/components/serialize';
+import { fetchPage } from '@/lib/api';
 import Breadcrumbs from '@/lib/components/breadcrumbs';
-import { fetchPage, fetchPages } from '@/lib/graphql';
+import { fetchPages } from '@/lib/graphql';
 import { pageTitle } from '@/lib/utils';
 
 import { metadata } from '../layout';
