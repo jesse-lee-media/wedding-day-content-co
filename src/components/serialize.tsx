@@ -131,7 +131,7 @@ export default function Serialize({ nodes }: SerializeProps) {
               </li>
             );
           case 'block':
-            return <Blocks key={i} {...node.fields.data} />;
+            return <Blocks key={i} {...node.fields} />;
           default:
             return <Fragment key={i}>{renderText(node)}</Fragment>;
         }

@@ -21,6 +21,8 @@ import { useToast } from '@/lib/hooks/use-toast';
 import { PayloadInquiry } from '@/lib/types/payload';
 import { cn } from '@/lib/utils';
 
+import { submitInquiry } from './inquiry.actions';
+
 const Row = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <div className={cn('flex w-full flex-col gap-6 sm:flex-row', className)}>{children}</div>
 );
@@ -105,18 +107,9 @@ export default function InquiryForm() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/inquiries`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(inquiry),
-      });
+      const data = await submitInquiry(inquiry);
 
-      const data = await res.json();
-
-      if (!res.ok || data.errors) {
+      if (data.errors) {
         toast({
           title: 'Oh no!',
           description: data.errors[0].message,

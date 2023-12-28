@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import InquiryFormLoading from '@/components/inquiry-form/inquiry-form-loading';
 import Serialize from '@/components/serialize';
-import { fetchPage } from '@/lib/graphql';
+import { fetchPage } from '@/lib/api';
 import { pageTitle } from '@/lib/utils';
 
 import { metadata } from '../layout';
