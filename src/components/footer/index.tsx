@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import { metadata } from '@/app/layout';
-import Marquee from '@/lib/components/marquee';
+import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
 import PayloadLink from '@/lib/components/payload-link';
 import { PayloadFooter } from '@/lib/types/payload';
 
@@ -10,7 +9,9 @@ import FaqsLoading from './faqs-loading';
 
 const FaqAccordion = dynamic(() => import('./faq-accordion'), { loading: () => <FaqsLoading /> });
 
-export default function Footer({ copyright, faqs, linkGroups, marquee }: PayloadFooter) {
+export default function Footer({ faqs, linkGroups, marquee }: PayloadFooter) {
+  const marqueeText = new Array(4).fill(marquee ?? '').join(' ') + ' ';
+
   return (
     <footer className="dark flex flex-col gap-24 bg-black py-16 text-white">
       <div className="mx-auto w-full max-w-7xl px-4">
@@ -40,10 +41,18 @@ export default function Footer({ copyright, faqs, linkGroups, marquee }: Payload
           </FaqSection>
         )}
       </div>
-      {marquee && <Marquee text={marquee} />}
-      <p className="text-center text-xs text-white/75">
-        &copy; {new Date().getFullYear()} {copyright ?? `${metadata.title}`}
-      </p>
+      {marquee && (
+        <Marquee>
+          <MarqueeContent asChild speed="slow">
+            <h1 className="text-8xl">{marqueeText}</h1>
+          </MarqueeContent>
+          <MarqueeContent asChild duplicate speed="slow">
+            <h1 className="text-8xl">{marqueeText}</h1>
+          </MarqueeContent>
+          <MarqueeFade side="left" />
+          <MarqueeFade side="right" />
+        </Marquee>
+      )}
     </footer>
   );
 }

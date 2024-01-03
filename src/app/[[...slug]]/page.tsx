@@ -36,7 +36,7 @@ export default async function Page({ params: { slug } }: { params: { slug: strin
 
   return (
     <>
-      {page.breadcrumbs.length > 1 && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
+      {page.slug !== 'home' && <Breadcrumbs {...page} />}
       {page.content?.root?.children && <Serialize nodes={page.content.root.children} />}
     </>
   );
