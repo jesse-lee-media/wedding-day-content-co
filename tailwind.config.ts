@@ -61,6 +61,15 @@ const utilitiesPlugin = plugin(function ({ addUtilities }) {
     '.form-sizing-content': {
       formSizing: 'content',
     },
+    '.mi-auto': {
+      marginInline: 'auto',
+    },
+    '.overflow-x-padded': {
+      overflow: 'hidden',
+      width: '100vw',
+      marginLeft: 'calc((100dvw - 100%) / -2)',
+      paddingInline: 'calc((100dvw - 100%) / 2)',
+    },
   });
 });
 
@@ -81,7 +90,9 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        marquee: 'marquee 90s linear infinite',
+        'marquee-slow': 'marquee 90s linear infinite',
+        'marquee-normal': 'marquee 60s linear infinite',
+        'marquee-fast': 'marquee 30s linear infinite',
       },
       keyframes: {
         'accordion-down': {
@@ -97,7 +108,7 @@ const config: Config = {
             transform: 'translateX(0)',
           },
           to: {
-            transform: 'translateX(-100%)',
+            transform: 'translateX(calc(-100% - 1.5rem))',
           },
         },
       },

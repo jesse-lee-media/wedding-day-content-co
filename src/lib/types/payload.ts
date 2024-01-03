@@ -53,6 +53,7 @@ export interface PayloadBlockGallery {
   blockName?: string;
   blockType: 'gallery';
   images: PayloadMedia[];
+  type: 'grid' | 'carousel';
 }
 
 export interface PayloadBlockHero {
@@ -62,6 +63,20 @@ export interface PayloadBlockHero {
   description: string;
   images: PayloadMedia[];
   buttonLinks: PayloadFieldButtonLink[];
+}
+
+export interface PayloadBlockImageStack {
+  blockName?: string;
+  blockType: 'imageStack';
+  images: PayloadMedia[];
+}
+
+export interface PayloadBlockMessagesMarquee {
+  blockName?: string;
+  blockType: 'messagesMarquee';
+  messages: {
+    content: string;
+  }[];
 }
 
 export interface PayloadBlockPortfolioCards {
@@ -122,8 +137,6 @@ export interface PayloadInquiry {
 
 export interface PayloadMedia {
   alt: string;
-  hasLink?: boolean;
-  link: PayloadFieldLink;
   dataUrl: string;
   url: string;
   mimeType: string;

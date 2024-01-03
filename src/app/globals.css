@@ -28,7 +28,7 @@
   }
 
   a {
-    @apply rounded no-underline focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75;
+    @apply rounded no-underline focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-black/75 dark:focus-visible:ring-white/75;
   }
 
   a:hover:not(:focus-visible) {

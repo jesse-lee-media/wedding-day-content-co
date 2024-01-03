@@ -21,7 +21,6 @@ export default function BlockHero({ buttonLinks, description, heading, images }:
           <PayloadImage
             key={i}
             {...image}
-            hasLink={false}
             className="rounded-2xl border border-black border-opacity-75 first:z-10 md:shadow-lg first:md:translate-x-12 first:md:translate-y-16 first:md:-rotate-3 last:md:-translate-x-4 last:md:rotate-3"
           />
         ))}
