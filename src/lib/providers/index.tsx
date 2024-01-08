@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 import { IconoirProvider } from 'iconoir-react';
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({ children }: { children: ReactNode }) {
   return (
     <IconoirProvider
       iconProps={{

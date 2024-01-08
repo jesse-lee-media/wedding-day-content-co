@@ -1,5 +1,7 @@
+import { CSSProperties, ReactNode } from 'react';
+
 export type BaseProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 };

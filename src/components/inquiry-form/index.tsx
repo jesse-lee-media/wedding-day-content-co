@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar as IconCalendar } from 'iconoir-react';
+import { ArrowRight, Calendar as IconCalendar } from 'iconoir-react';
 import { useForm } from 'react-hook-form';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import * as z from 'zod';
@@ -11,11 +11,11 @@ import * as z from 'zod';
 import { Button } from '@/lib/components/button';
 import { Calendar } from '@/lib/components/calendar';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/lib/components/form';
-import Icons from '@/lib/components/icons';
 import { Input } from '@/lib/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/popover';
 import { RadioGroup, RadioGroupItem } from '@/lib/components/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/lib/components/select';
+import { Spinner } from '@/lib/components/spinner';
 import { Textarea } from '@/lib/components/textarea';
 import { useToast } from '@/lib/hooks/use-toast';
 import { PayloadInquiry } from '@/lib/types/payload';
@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils';
 
 import { submitInquiry } from './inquiry.actions';
 
-const Row = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+const Row = ({ children, className }: { children: ReactNode; className?: string }) => (
   <div className={cn('flex w-full flex-col gap-6 sm:flex-row', className)}>{children}</div>
 );
 
@@ -361,11 +361,7 @@ export default function InquiryForm() {
             data-umami-event-email={form.watch('email')}
           >
             Submit
-            {pending ? (
-              <span className="h-5 w-5 animate-spin rounded-full border-2 border-black/25 border-t-black/10 dark:border-white/50 dark:border-t-white/25" />
-            ) : (
-              <Icons name="arrowRight" size="lg" />
-            )}
+            {pending ? <Spinner /> : <ArrowRight className="size-5" />}
           </Button>
         </Row>
       </form>

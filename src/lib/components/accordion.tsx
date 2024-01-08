@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { NavArrowDown } from 'iconoir-react';
@@ -10,8 +10,8 @@ import { cn, slugify } from '../utils';
 const Accordion = AccordionPrimitive.Root;
 
 const AccordionItem = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+  ElementRef<typeof AccordionPrimitive.Item>,
+  ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
@@ -21,31 +21,37 @@ const AccordionItem = forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
+const AccordionHeader = forwardRef<
+  ElementRef<typeof AccordionPrimitive.Header>,
+  ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Header ref={ref} className={cn('flex', className)} {...props} />
+));
+AccordionHeader.displayName = AccordionPrimitive.Header.displayName;
+
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+  ElementRef<typeof AccordionPrimitive.Trigger>,
+  ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      data-umami-event="Accordion trigger"
-      data-umami-event-id={slugify(JSON.stringify(children))}
-      className={cn(
-        'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <NavArrowDown className="shrink-0 transition-transform duration-200" />
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
+  <AccordionPrimitive.Trigger
+    ref={ref}
+    data-umami-event="Accordion trigger"
+    data-umami-event-id={slugify(JSON.stringify(children))}
+    className={cn(
+      'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
+      className,
+    )}
+    {...props}
+  >
+    {children}
+    <NavArrowDown className="shrink-0 transition-transform duration-200" />
+  </AccordionPrimitive.Trigger>
 ));
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+  ElementRef<typeof AccordionPrimitive.Content>,
+  ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
@@ -60,4 +66,4 @@ const AccordionContent = forwardRef<
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent };

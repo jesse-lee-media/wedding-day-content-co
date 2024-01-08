@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { Figtree } from 'next/font/google';
@@ -71,7 +73,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   const { Footer: footer, Navigation: navigation } = await fetchGlobals();
 
   return (

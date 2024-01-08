@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import {
   PayloadBlockButtonLink,
   PayloadBlockGallery,
@@ -39,7 +41,7 @@ export function Blocks({
   | PayloadBlockSection) {
   delete props.blockName;
 
-  const RenderBlock: React.FC<any> = blocks[blockType];
+  const RenderBlock: FC<any> = blocks[blockType];
 
   return RenderBlock ? <RenderBlock {...props} /> : null;
 }
