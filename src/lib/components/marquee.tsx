@@ -58,7 +58,7 @@ const MarqueeFade = forwardRef<HTMLDivElement, MarqueeFadeProps>(({ className, s
     <div
       ref={ref}
       className={cn(
-        'pointer-events-none absolute inset-y-0 w-1/4 from-white dark:from-black',
+        'pointer-events-none absolute inset-y-0 w-1/6 from-white dark:from-black md:w-1/5',
         slideClass[side],
         className,
       )}

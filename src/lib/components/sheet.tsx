@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { Xmark } from 'iconoir-react';
@@ -17,8 +17,8 @@ const SheetClose = SheetPrimitive.Close;
 const SheetPortal = SheetPrimitive.Portal;
 
 const SheetOverlay = forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+  ElementRef<typeof SheetPrimitive.Overlay>,
+  ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
@@ -31,9 +31,9 @@ const SheetOverlay = forwardRef<
 ));
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
-interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {}
+interface SheetContentProps extends ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {}
 
-const SheetContent = forwardRef<React.ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
+const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
   ({ className, children, ...props }, ref) => (
     <SheetPortal>
       <SheetOverlay />

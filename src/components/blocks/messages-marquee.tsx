@@ -5,7 +5,7 @@ export default function BlockMessagesMarquee({ messages }: PayloadBlockMessagesM
   const duplicatedMessages = [...messages, ...messages].map(({ content }, i) => (
     <div
       key={i}
-      className="max-w-80 shrink-0 text-balance rounded-xl border-2 border-black border-opacity-75 bg-pink-100 p-6 text-center text-xl shadow-lg odd:rotate-2 even:-rotate-2"
+      className="max-w-72 shrink-0 text-balance rounded-xl border border-black border-opacity-75 bg-pink-100 p-4 text-center text-base shadow-lg selection:bg-black selection:text-pink-200 odd:rotate-2 even:-rotate-2 md:max-w-80 md:p-6 md:text-lg"
     >
       {content}
     </div>
@@ -13,8 +13,10 @@ export default function BlockMessagesMarquee({ messages }: PayloadBlockMessagesM
 
   return (
     <Marquee className="py-6">
-      <MarqueeContent className="flex shrink-0 flex-row items-center gap-6">{duplicatedMessages}</MarqueeContent>
-      <MarqueeContent duplicate className="flex shrink-0 flex-row items-center gap-6">
+      <MarqueeContent className="flex shrink-0 flex-row items-center gap-6 whitespace-normal">
+        {duplicatedMessages}
+      </MarqueeContent>
+      <MarqueeContent duplicate className="flex shrink-0 flex-row items-center gap-6 whitespace-normal">
         {duplicatedMessages}
       </MarqueeContent>
       <MarqueeFade side="left" />

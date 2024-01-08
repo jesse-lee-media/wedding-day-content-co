@@ -3,6 +3,7 @@
 import {
   ComponentProps,
   HTMLAttributes,
+  KeyboardEvent,
   createContext,
   forwardRef,
   useCallback,
@@ -78,7 +79,7 @@ const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & Car
     }, [api]);
 
     const handleKeyDown = useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>) => {
+      (event: KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'ArrowLeft') {
           event.preventDefault();
           scrollPrev();
