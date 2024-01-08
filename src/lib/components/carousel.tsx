@@ -12,20 +12,16 @@ import {
   useState,
 } from 'react';
 
-import useEmblaCarousel, {
-  type EmblaCarouselType as CarouselApi,
-  type EmblaOptionsType as CarouselOptions,
-  type EmblaPluginType as CarouselPlugin,
-} from 'embla-carousel-react';
+import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'iconoir-react';
 
 import { Button } from '@/lib/components/button';
 import { cn } from '@/lib/utils';
 
 type CarouselProps = {
-  opts?: CarouselOptions;
-  plugins?: CarouselPlugin[];
-  setApi?: (api: CarouselApi) => void;
+  opts?: any;
+  plugins?: any[];
+  setApi?: (api: any) => void;
 };
 
 type CarouselContextProps = {
@@ -61,7 +57,7 @@ const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & Car
     const [canScrollPrev, setCanScrollPrev] = useState(false);
     const [canScrollNext, setCanScrollNext] = useState(false);
 
-    const onSelect = useCallback((api: CarouselApi) => {
+    const onSelect = useCallback((api: any) => {
       if (!api) {
         return;
       }
@@ -219,4 +215,4 @@ const CarouselNext = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>
 );
 CarouselNext.displayName = 'CarouselNext';
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
+export { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
