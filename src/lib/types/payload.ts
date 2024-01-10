@@ -88,6 +88,19 @@ export interface PayloadBlockPortfolioCards {
   }[];
 }
 
+export interface PayloadBlockQuotes {
+  blockName?: string;
+  blockType: 'quotes';
+  quotes: {
+    client: string;
+    content: {
+      root: {
+        children?: { [k: string]: unknown }[];
+      };
+    };
+  }[];
+}
+
 export interface PayloadBlockSection {
   blockName?: string;
   blockType: 'section';
@@ -108,6 +121,19 @@ export interface PayloadBlockSection {
       children?: { [k: string]: unknown }[];
     };
   } | null;
+}
+
+export interface PayloadBlockStepper {
+  blockName?: string;
+  blockType: 'stepper';
+  steps: {
+    heading: string;
+    content: {
+      root: {
+        children?: { [k: string]: unknown }[];
+      };
+    };
+  }[];
 }
 // [END] Payload Blocks
 

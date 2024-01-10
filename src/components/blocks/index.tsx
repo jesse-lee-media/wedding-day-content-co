@@ -7,7 +7,9 @@ import {
   PayloadBlockImageStack,
   PayloadBlockMessagesMarquee,
   PayloadBlockPortfolioCards,
+  PayloadBlockQuotes,
   PayloadBlockSection,
+  PayloadBlockStepper,
 } from '@/lib/types/payload';
 
 import BlockButtonLink from './button-link';
@@ -16,7 +18,9 @@ import BlockHero from './hero';
 import BlockImageStack from './image-stack';
 import BlockMessagesMarquee from './messages-marquee';
 import BlockPortfolioCards from './portfolio-cards';
+import BlockQuotes from './quotes';
 import BlockSection from './section';
+import BlockStepper from './stepper';
 
 const blocks = {
   buttonLink: BlockButtonLink,
@@ -25,7 +29,9 @@ const blocks = {
   imageStack: BlockImageStack,
   messagesMarquee: BlockMessagesMarquee,
   portfolioCards: BlockPortfolioCards,
+  quotes: BlockQuotes,
   section: BlockSection,
+  stepper: BlockStepper,
 };
 
 export function Blocks({
@@ -38,7 +44,9 @@ export function Blocks({
   | PayloadBlockImageStack
   | PayloadBlockMessagesMarquee
   | PayloadBlockPortfolioCards
-  | PayloadBlockSection) {
+  | PayloadBlockQuotes
+  | PayloadBlockSection
+  | PayloadBlockStepper) {
   delete props.blockName;
 
   const RenderBlock: FC<any> = blocks[blockType];
