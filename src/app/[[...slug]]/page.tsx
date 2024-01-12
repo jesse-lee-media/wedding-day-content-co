@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import Serialize from '@/components/serialize';
 import { fetchPage } from '@/lib/api';
-import Breadcrumbs from '@/lib/components/breadcrumbs';
+import { Breadcrumbs } from '@/lib/components/breadcrumbs';
 import { fetchPages } from '@/lib/graphql';
 import { pageTitle } from '@/lib/utils';
 
@@ -36,7 +36,7 @@ export default async function Page({ params: { slug } }: { params: { slug: strin
 
   return (
     <>
-      {page.slug !== 'home' && <Breadcrumbs {...page} />}
+      {page.slug !== 'home' && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
       {page.content?.root?.children && <Serialize nodes={page.content.root.children} />}
     </>
   );

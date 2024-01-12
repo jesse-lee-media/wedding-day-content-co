@@ -9,7 +9,7 @@ const Blockquote = forwardRef<HTMLQuoteElement, HTMLAttributes<HTMLQuoteElement>
     <blockquote
       ref={ref}
       className={cn(
-        'flex w-full flex-col items-center gap-4 rounded-xl border border-black p-4 text-center md:p-6',
+        'flex w-full flex-col items-center gap-4 rounded-xl border border-black/75 p-4 text-center md:p-6',
         className,
       )}
       {...props}

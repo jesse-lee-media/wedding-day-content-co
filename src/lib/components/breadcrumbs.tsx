@@ -1,12 +1,23 @@
-import { Fragment } from 'react';
+import { Fragment, HTMLAttributes, forwardRef } from 'react';
 
 import Link from 'next/link';
 
 import { PayloadPage } from '../types/payload';
 
-export default function Breadcrumbs({ breadcrumbs }: PayloadPage) {
+const homeBreadcrumb = {
+  url: '/',
+  label: 'Home',
+  id: 'home',
+};
+
+const Breadcrumbs = forwardRef<
+  HTMLUListElement,
+  HTMLAttributes<HTMLUListElement> & { breadcrumbs: PayloadPage['breadcrumbs'] }
+>(({ breadcrumbs: pageBreadcrumbs, ...props }, ref) => {
+  const breadcrumbs = [homeBreadcrumb, ...pageBreadcrumbs];
+
   return (
-    <ul className="mb-8 flex flex-row flex-wrap items-baseline gap-2">
+    <ul ref={ref} className="mb-8 flex flex-row flex-wrap items-baseline gap-2" {...props}>
       {breadcrumbs?.map(({ label, url }, i) => (
         <Fragment key={i}>
           {i > 0 && <span className="text-black/60 dark:text-white/60">/</span>}
@@ -23,4 +34,7 @@ export default function Breadcrumbs({ breadcrumbs }: PayloadPage) {
       ))}
     </ul>
   );
-}
+});
+Breadcrumbs.displayName = 'Breadcrumbs';
+
+export { Breadcrumbs };

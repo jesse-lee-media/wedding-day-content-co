@@ -7,10 +7,10 @@ export type PayloadLinkProps = PayloadFieldLink & {
   className?: string;
 };
 
-export default function PayloadLink({ className, ...link }: PayloadLinkProps) {
-  return (
-    <Link {...linkProps(link)} className={className}>
-      {link.text}
-    </Link>
-  );
-}
+const PayloadLink = ({ className, ...link }: PayloadLinkProps) => (
+  <Link {...linkProps(link)} className={className}>
+    {link.text}
+  </Link>
+);
+
+export { PayloadLink };

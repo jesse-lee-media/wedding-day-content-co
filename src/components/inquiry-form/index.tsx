@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { HTMLAttributes, forwardRef, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Calendar as IconCalendar } from 'iconoir-react';
@@ -23,9 +23,10 @@ import { cn } from '@/lib/utils';
 
 import { submitInquiry } from './inquiry.actions';
 
-const Row = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <div className={cn('flex w-full flex-col gap-6 sm:flex-row', className)}>{children}</div>
-);
+const Row = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('flex w-full flex-col gap-6 sm:flex-row', className)} {...props} />
+));
+Row.displayName = 'Row';
 
 const formSchema = z.object({
   first: z.string().min(1, {
@@ -206,7 +207,7 @@ export default function InquiryForm() {
                     <FormControl>
                       <button
                         className={cn(
-                          'flex h-14 w-full flex-row items-center justify-between rounded-xl border border-black border-opacity-75 bg-white pl-5 pr-4 text-lg text-black transition hover:border-opacity-100 hover:bg-black/5 focus:border-opacity-100 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:hover:bg-white/5 dark:focus:ring-white/75',
+                          'flex h-14 w-full flex-row items-center justify-between rounded-xl border border-black/75 bg-white pl-5 pr-4 text-lg text-black transition hover:border-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:hover:bg-white/5 dark:focus:ring-white/75',
                           !field.value && 'text-black/75',
                         )}
                       >

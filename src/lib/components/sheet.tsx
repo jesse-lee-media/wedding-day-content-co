@@ -40,7 +40,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
       <SheetPrimitive.Content
         ref={ref}
         className={cn(
-          'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right data-[state=open]:animate-in data-[state=closed]:animate-out fixed inset-y-0 right-0 z-50 h-full w-full max-w-xs gap-4 border-l border-black border-opacity-75 bg-white transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+          'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right data-[state=open]:animate-in data-[state=closed]:animate-out fixed inset-y-0 right-0 z-50 h-full w-full max-w-xs gap-4 border-l border-black/75 bg-white transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
           className,
         )}
         {...props}

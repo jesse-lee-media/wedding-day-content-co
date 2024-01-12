@@ -11,7 +11,7 @@ export default function BlockSection({
   contentColumnTwo,
 }: PayloadBlockSection) {
   return (
-    <section className="border-t border-black border-opacity-75 py-12 first:border-t-0 first:pt-0 last:pb-0">
+    <section className="border-t border-black/75 py-12 first:border-t-0 first:pt-0 last:pb-0">
       <h1 id={slugify(heading)} className="mb-8 text-4xl xs:text-5xl">
         {heading}
       </h1>

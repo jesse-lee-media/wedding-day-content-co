@@ -25,5 +25,7 @@ export const fetchPage = async (segments?: string[]): Promise<PayloadPage | unde
     return data.docs[0];
   } catch (err) {
     console.error(err);
+
+    return undefined;
   }
 };
