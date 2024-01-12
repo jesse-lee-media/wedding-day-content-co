@@ -148,17 +148,15 @@ const CarouselContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement
 });
 CarouselContent.displayName = 'CarouselContent';
 
-const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      role="group"
-      aria-roledescription="slide"
-      className={cn('min-w-0 shrink-0 grow-0 basis-full pl-4', className)}
-      {...props}
-    />
-  );
-});
+const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="group"
+    aria-roledescription="slide"
+    className={cn('min-w-0 shrink-0 grow-0 basis-full pl-4', className)}
+    {...props}
+  />
+));
 CarouselItem.displayName = 'CarouselItem';
 
 const CarouselPrevious = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
@@ -173,8 +171,8 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, ComponentProps<typeof But
         iconPosition={iconPosition}
         disabled={!canScrollPrev}
         className={cn(
-          '!w-12 sm:absolute sm:left-6 sm:top-1/2 sm:-translate-y-1/2',
-          !canScrollPrev && 'sm:hidden',
+          '!w-12 md:absolute md:left-6 md:top-1/2 md:-translate-y-1/2',
+          !canScrollPrev && 'md:hidden',
           className,
         )}
         onClick={scrollPrev}
@@ -200,8 +198,8 @@ const CarouselNext = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>
         iconPosition={iconPosition}
         disabled={!canScrollNext}
         className={cn(
-          'top-1/2 !w-12 sm:absolute sm:right-6 sm:-translate-y-1/2',
-          !canScrollNext && 'sm:hidden',
+          '!w-12 md:absolute md:right-6 md:top-1/2 md:-translate-y-1/2',
+          !canScrollNext && 'md:hidden',
           className,
         )}
         onClick={scrollNext}

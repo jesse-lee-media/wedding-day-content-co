@@ -101,7 +101,7 @@ export default function Serialize({ nodes }: SerializeProps) {
                 key={i}
                 {...linkProps(link)}
                 className={cn(
-                  'underline underline-offset-2 hover:text-pink-700 hover:!decoration-pink-700/75 dark:hover:!decoration-pink-200/75',
+                  'underline underline-offset-2 hover:text-pink-700 hover:dark:text-pink-200',
                   alignClass,
                   indentClass,
                 )}

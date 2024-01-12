@@ -6,14 +6,14 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex w-full items-center justify-center border-opacity-75 font-medium !no-underline transition focus:outline-none focus:ring-2 focus:ring-black/75 dark:focus:ring-white/75 xs:w-fit',
+  'inline-flex w-full items-center justify-center font-medium !no-underline transition focus:outline-none focus:ring-2 focus:ring-black/75 dark:focus:ring-white/75 xs:w-fit disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
         solid:
-          'bg-black text-white border border-black dark:bg-white dark:text-black dark:border-white disabled:bg-black/10 disabled:text-black/25 disabled:border-black/20 disabled:dark:bg-white/10 disabled:dark:text-white/25 disabled:dark:border-white/25',
+          'bg-black text-white border border-black/75 hover:border-black dark:bg-white dark:text-black dark:border-white disabled:bg-black/10 disabled:text-black/25 disabled:border-black/20 disabled:dark:bg-white/10 disabled:dark:text-white/25 disabled:dark:border-white/25',
         outlined:
-          'bg-white text-black border border-black dark:bg-black dark:text-white dark:border-white disabled:text-black/25 disabled:border-black/20 disabled:dark:text-white/50 disabled:dark:border-white/25',
+          'bg-white text-black border border-black/75 hover:border-black dark:bg-black dark:text-white dark:border-white disabled:text-black/25 disabled:border-black/20 disabled:dark:text-white/50 disabled:dark:border-white/25',
       },
       size: {
         sm: 'h-10 text-sm gap-1.5 rounded-lg',
@@ -92,6 +92,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'outlined',
       size: 'md',
+      iconPosition: 'none',
     },
   },
 );
@@ -101,7 +102,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, Va
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, iconPosition = 'none', variant, size, ...props }, ref) => {
+  ({ asChild = false, className, iconPosition, variant, size, ...props }, ref) => {
     const Component = asChild ? Slot : 'button';
 
     return (
@@ -111,8 +112,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           buttonVariants({ variant, size, className, iconPosition }),
           asChild
-            ? 'hover:border-opacity-100 hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg dark:hover:bg-pink-200 dark:hover:text-black'
-            : 'hover:enabled:border-opacity-100 hover:enabled:bg-pink-100 hover:enabled:text-black hover:enabled:!no-underline hover:enabled:shadow-lg dark:hover:enabled:bg-pink-200 dark:hover:enabled:text-black',
+            ? 'hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg dark:hover:bg-pink-200 dark:hover:text-black'
+            : 'hover:enabled:bg-pink-100 hover:enabled:text-black hover:enabled:!no-underline hover:enabled:shadow-lg dark:hover:enabled:bg-pink-200 dark:hover:enabled:text-black',
         )}
       />
     );

@@ -1,10 +1,11 @@
+import { VariantProps, cva } from 'class-variance-authority';
 import { ArrowRight, ArrowUpRight, Menu, NavArrowDown, Xmark } from 'iconoir-react';
 
+import { BaseProps } from '@/lib/types/base-props';
 import { cn } from '@/lib/utils';
 
 import IconInstagram from './instagram';
 import IconTikTok from './tiktok';
-import { BaseProps } from '../../types/base-props';
 
 const icons = {
   arrowRight: ArrowRight,
@@ -16,20 +17,25 @@ const icons = {
   x: Xmark,
 };
 
-export type IconProps = Omit<BaseProps, 'children'> & {
+const iconVariants = cva('', {
+  variants: {
+    size: {
+      sm: 'h-3.5 w-3.5',
+      md: 'h-4 w-4',
+      lg: 'h-5 w-5',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+export interface IconProps extends Omit<BaseProps, 'children'>, VariantProps<typeof iconVariants> {
   name: keyof typeof icons;
-  size?: 'sm' | 'md' | 'lg';
-};
+}
 
-export default function Icons(props: IconProps) {
-  const { className, name, size = 'md', ...rest } = props;
-  const iconClass = {
-    sm: 'h-3.5 w-3.5',
-    md: 'h-4 w-4',
-    lg: 'h-5 w-5',
-  };
-
+export default function Icons({ className, name, size, ...rest }: IconProps) {
   const IconComponent = icons[name];
 
-  return IconComponent && <IconComponent {...rest} className={cn(iconClass[size], className)} />;
+  return <IconComponent className={cn(iconVariants({ size }), className)} {...rest} />;
 }
