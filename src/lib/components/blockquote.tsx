@@ -9,12 +9,12 @@ const Blockquote = forwardRef<HTMLQuoteElement, HTMLAttributes<HTMLQuoteElement>
     <blockquote
       ref={ref}
       className={cn(
-        'flex w-full flex-col items-center gap-4 rounded-xl border border-black/75 p-4 text-center md:p-6',
+        'flex w-full flex-col items-center gap-4 rounded-xl border border-black/75 bg-pink-50 p-4 text-center md:p-6',
         className,
       )}
       {...props}
     >
-      <QuoteSolidSolid aria-hidden className="size-12 stroke-black stroke-[0.75px] text-pink-100" />
+      <QuoteSolidSolid aria-hidden className="size-12" />
       {children}
     </blockquote>
   ),

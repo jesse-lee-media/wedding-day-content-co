@@ -12,9 +12,9 @@ export default function MobileMenu({ callToAction, links }: PayloadNavigation) {
         <li className="md-lg:hidden">
           <button
             aria-label="Menu"
-            className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-black/5 focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75"
+            className="flex size-9 items-center justify-center rounded-lg hover:bg-black/5 focus:outline-none focus:ring-[1.5px] focus:ring-black/75 dark:focus:ring-white/75"
           >
-            <Menu className="h-5 w-5" />
+            <Menu className="size-5" />
           </button>
         </li>
       </SheetTrigger>

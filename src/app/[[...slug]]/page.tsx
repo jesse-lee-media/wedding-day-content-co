@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   try {
     const pages = await fetchPages();
 
-    return pages.map(({ slug }) => ({ slug: [slug] }));
+    return pages.map(({ slug }) => ({ slug: [slug] })).filter(({ slug }) => !slug.includes('inquire'));
   } catch {
     return [{ slug: undefined }];
   }
