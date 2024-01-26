@@ -57,7 +57,7 @@ const ToastClose = forwardRef<
     toast-close=""
     {...props}
   >
-    <Xmark className="h-4 w-4" />
+    <Xmark className="size-4" />
   </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;
