@@ -11,7 +11,7 @@ export default function BlockStepper({ steps }: PayloadBlockStepper) {
         <Fragment key={i}>
           <h2 className="mb-6 mt-8 flex items-center text-3xl first:mt-0 last:mb-0 xs:text-4xl">
             <span className="sr-only">Step</span>
-            <span className="absolute -ml-[49.5px] inline-flex size-8 items-center justify-center rounded-full border border-black/75 bg-pink-100 font-sans text-xl ring-8 ring-white">
+            <span className="absolute -ml-[49.5px] inline-flex size-8 items-center justify-center rounded-full border border-black/75 bg-pink-50 font-sans text-xl ring-8 ring-white">
               {i + 1}
             </span>
             {heading}
