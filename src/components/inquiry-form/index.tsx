@@ -1,6 +1,6 @@
 'use client';
 
-import { HTMLAttributes, forwardRef, useState } from 'react';
+import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, Calendar as IconCalendar } from 'iconoir-react';
@@ -22,11 +22,6 @@ import { PayloadInquiry } from '@/lib/types/payload';
 import { cn } from '@/lib/utils';
 
 import { submitInquiry } from './inquiry.actions';
-
-const Row = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('flex w-full flex-col gap-6 sm:flex-row', className)} {...props} />
-));
-Row.displayName = 'Row';
 
 const formSchema = z.object({
   first: z.string().min(1, {
@@ -138,155 +133,147 @@ export default function InquiryForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-6">
-        <Row>
-          <FormField
-            control={form.control}
-            name="first"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First name</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="last"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last name</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email address</FormLabel>
-                <FormControl>
-                  <Input {...field} type="email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone number</FormLabel>
-                <FormControl>
-                  <Input {...field} type="tel" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="dates"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Dates</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <button
-                        className={cn(
-                          'flex h-14 w-full flex-row items-center justify-between rounded-xl border border-black/75 bg-white pl-5 pr-4 text-lg text-black transition hover:border-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:hover:bg-white/5 dark:focus:ring-white/75',
-                          !field.value && 'text-black/75',
-                        )}
-                      >
-                        {field.value?.from ? (
-                          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                            {field.value.to ? (
-                              <>
-                                {formatDateShort(field.value.from)} &ndash; {formatDateShort(field.value.to)}
-                              </>
-                            ) : (
-                              formatDateShort(field.value.from)
-                            )}
-                          </span>
-                        ) : (
-                          <span />
-                        )}
-                        <IconCalendar className={cn(!field.value && 'text-black', 'justify-end')} />
-                      </button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="range"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
-                      numberOfMonths={1}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="budget"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Budget</FormLabel>
-                <Select value={field.value} onValueChange={field.onChange} defaultValue={field.value}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+        <FormField
+          control={form.control}
+          name="first"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="last"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email address</FormLabel>
+              <FormControl>
+                <Input {...field} type="email" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone number</FormLabel>
+              <FormControl>
+                <Input {...field} type="tel" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dates"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Dates</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
                   <FormControl>
-                    <SelectTrigger className="pr-4">
-                      <SelectValue />
-                    </SelectTrigger>
+                    <button
+                      className={cn(
+                        'flex h-14 w-full flex-row items-center justify-between rounded-xl border border-black/75 bg-white pl-5 pr-4 text-lg text-black transition hover:border-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:hover:bg-white/5 dark:focus:ring-white/75',
+                        !field.value && 'text-black/75',
+                      )}
+                    >
+                      {field.value?.from ? (
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                          {field.value.to ? (
+                            <>
+                              {formatDateShort(field.value.from)} &ndash; {formatDateShort(field.value.to)}
+                            </>
+                          ) : (
+                            formatDateShort(field.value.from)
+                          )}
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      <IconCalendar className={cn(!field.value && 'text-black', 'justify-end')} />
+                    </button>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="$1,000 – $1,500">$1,000 &ndash; $1,500</SelectItem>
-                    <SelectItem value="$1,500 – $2,000">$1,500 &ndash; $2,000</SelectItem>
-                    <SelectItem value="$2,000 – $2,500">$2,000 &ndash; $2,500</SelectItem>
-                    <SelectItem value="$2,500+">$2,500+</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
-        <Row>
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Location</FormLabel>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="range"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) => date < new Date()}
+                    numberOfMonths={1}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="budget"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Budget</FormLabel>
+              <Select value={field.value} onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <Input {...field} />
+                  <SelectTrigger className="pr-4">
+                    <SelectValue />
+                  </SelectTrigger>
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Row>
+                <SelectContent>
+                  <SelectItem value="$1,000 – $1,500">$1,000 &ndash; $1,500</SelectItem>
+                  <SelectItem value="$1,500 – $2,000">$1,500 &ndash; $2,000</SelectItem>
+                  <SelectItem value="$2,000 – $2,500">$2,000 &ndash; $2,500</SelectItem>
+                  <SelectItem value="$2,500+">$2,500+</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem className="sm:col-span-2">
+              <FormLabel>Location</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="information"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="sm:col-span-2">
               <FormLabel>Information</FormLabel>
               <FormControl>
                 <Textarea {...field} />
@@ -303,7 +290,7 @@ export default function InquiryForm() {
           control={form.control}
           name="names"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="sm:col-span-2">
               <FormLabel>Photographer and videographer names (optional)</FormLabel>
               <FormControl>
                 <Input {...field} />
@@ -316,7 +303,7 @@ export default function InquiryForm() {
           control={form.control}
           name="openToOtherCreators"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="sm:col-span-2">
               <FormLabel>
                 Are you comfortable working with another creator on our team if Jesse is unavailable?
               </FormLabel>
@@ -347,8 +334,7 @@ export default function InquiryForm() {
             </FormItem>
           )}
         />
-
-        <Row className="col-span-2 mt-6 flex items-end justify-end">
+        <div className="flex justify-end sm:col-span-2">
           <Button
             type="submit"
             disabled={pending}
@@ -364,7 +350,7 @@ export default function InquiryForm() {
             Submit
             {pending ? <Spinner /> : <ArrowRight className="size-5" />}
           </Button>
-        </Row>
+        </div>
       </form>
     </Form>
   );
