@@ -1,6 +1,6 @@
 import { HTMLAttributes, forwardRef } from 'react';
 
-import { QuoteSolidSolid } from 'iconoir-react';
+import { QuoteSolid } from 'iconoir-react';
 
 import { cn } from '../utils';
 
@@ -14,7 +14,7 @@ const Blockquote = forwardRef<HTMLQuoteElement, HTMLAttributes<HTMLQuoteElement>
       )}
       {...props}
     >
-      <QuoteSolidSolid aria-hidden className="size-12" />
+      <QuoteSolid aria-hidden className="size-12" />
       {children}
     </blockquote>
   ),
