@@ -246,8 +246,7 @@ export default function InquiryForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="$1,000 – $1,500">$1,000 &ndash; $1,500</SelectItem>
-                  <SelectItem value="$1,500 – $2,000">$1,500 &ndash; $2,000</SelectItem>
+                  <SelectItem value="$1,650 – $2,000">$1,650 &ndash; $2,000</SelectItem>
                   <SelectItem value="$2,000 – $2,500">$2,000 &ndash; $2,500</SelectItem>
                   <SelectItem value="$2,500+">$2,500+</SelectItem>
                 </SelectContent>
