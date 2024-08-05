@@ -31,7 +31,7 @@ const SheetOverlay = forwardRef<
 ));
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
-interface SheetContentProps extends ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {}
+type SheetContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content>;
 
 const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
   ({ className, children, ...props }, ref) => (
