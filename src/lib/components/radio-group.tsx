@@ -11,7 +11,13 @@ const RadioGroup = forwardRef<
   ElementRef<typeof RadioGroupPrimitive.Root>,
   ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  return <RadioGroupPrimitive.Root className={cn('flex flex-col gap-2', className)} {...props} ref={ref} />;
+  return (
+    <RadioGroupPrimitive.Root
+      className={cn('flex flex-col gap-2', className)}
+      {...props}
+      ref={ref}
+    />
+  );
 });
 RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
 

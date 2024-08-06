@@ -10,11 +10,25 @@ import * as z from 'zod';
 
 import { Button } from '@/lib/components/button';
 import { Calendar } from '@/lib/components/calendar';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/lib/components/form';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/lib/components/form';
 import { Input } from '@/lib/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/popover';
 import { RadioGroup, RadioGroupItem } from '@/lib/components/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/lib/components/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/lib/components/select';
 import { Spinner } from '@/lib/components/spinner';
 import { Textarea } from '@/lib/components/textarea';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -133,7 +147,10 @@ export default function InquiryForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2"
+      >
         <FormField
           control={form.control}
           name="first"
@@ -205,7 +222,8 @@ export default function InquiryForm() {
                         <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                           {field.value.to ? (
                             <>
-                              {formatDateShort(field.value.from)} &ndash; {formatDateShort(field.value.to)}
+                              {formatDateShort(field.value.from)} &ndash;{' '}
+                              {formatDateShort(field.value.to)}
                             </>
                           ) : (
                             formatDateShort(field.value.from)
@@ -278,8 +296,8 @@ export default function InquiryForm() {
                 <Textarea {...field} />
               </FormControl>
               <FormDescription>
-                Tell me more about your venue (name, location, theme, etc.), wedding events that you&apos;d like covered
-                (welcome party, rehearsal dinner, etc.), or anything else!
+                Tell me more about your venue (name, location, theme, etc.), wedding events that
+                you&apos;d like covered (welcome party, rehearsal dinner, etc.), or anything else!
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -304,7 +322,8 @@ export default function InquiryForm() {
           render={({ field }) => (
             <FormItem className="sm:col-span-2">
               <FormLabel>
-                Are you comfortable working with another creator on our team if Jesse is unavailable?
+                Are you comfortable working with another creator on our team if Jesse is
+                unavailable?
               </FormLabel>
               <FormControl>
                 <RadioGroup
@@ -317,7 +336,9 @@ export default function InquiryForm() {
                     <FormControl>
                       <RadioGroupItem value="no" />
                     </FormControl>
-                    <FormLabel className="text-lg font-normal text-black">No, I only want to work with Jesse</FormLabel>
+                    <FormLabel className="text-lg font-normal text-black">
+                      No, I only want to work with Jesse
+                    </FormLabel>
                   </FormItem>
                   <FormItem className="flex flex-row gap-3">
                     <FormControl>

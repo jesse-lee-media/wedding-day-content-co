@@ -1,4 +1,10 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/components/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/lib/components/carousel';
 import { PayloadImage } from '@/lib/components/payload-image';
 import { PayloadBlockGallery } from '@/lib/types/payload';
 

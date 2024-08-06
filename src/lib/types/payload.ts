@@ -17,7 +17,9 @@ export interface PayloadApi<T = any> {
 export interface PayloadFieldButtonLink {
   variant: 'outlined' | 'solid';
   size: 'sm' | 'md' | 'lg';
-  icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
+  icon?:
+    | ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x')
+    | null;
   iconPosition: 'none' | 'left' | 'right' | 'center';
   link: PayloadFieldLink;
 }

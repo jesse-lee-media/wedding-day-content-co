@@ -26,7 +26,9 @@ export default function Footer({ faqs, linkGroups, marquee }: PayloadFooter) {
               <ul className="grid grid-cols-1 gap-8 @xs:grid-cols-2 @sm:grid-cols-3">
                 {linkGroups.map((group, i) => (
                   <li key={i} className="flex flex-col gap-2">
-                    <h2 className="font-sans text-sm !leading-normal text-white/75">{group.heading}</h2>
+                    <h2 className="font-sans text-sm !leading-normal text-white/75">
+                      {group.heading}
+                    </h2>
                     <ul className="flex flex-col gap-1">
                       {group?.links?.map((link, i) => (
                         <li key={i}>

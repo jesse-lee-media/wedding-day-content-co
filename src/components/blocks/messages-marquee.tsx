@@ -16,7 +16,10 @@ export default function BlockMessagesMarquee({ messages }: PayloadBlockMessagesM
       <MarqueeContent className="flex shrink-0 flex-row items-center gap-6 whitespace-normal">
         {duplicatedMessages}
       </MarqueeContent>
-      <MarqueeContent duplicate className="flex shrink-0 flex-row items-center gap-6 whitespace-normal">
+      <MarqueeContent
+        duplicate
+        className="flex shrink-0 flex-row items-center gap-6 whitespace-normal"
+      >
         {duplicatedMessages}
       </MarqueeContent>
       <MarqueeFade side="left" />

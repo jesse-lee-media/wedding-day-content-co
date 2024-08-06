@@ -137,26 +137,30 @@ const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & Car
 );
 Carousel.displayName = 'Carousel';
 
-const CarouselContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
-  const { carouselRef } = useCarousel();
+const CarouselContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const { carouselRef } = useCarousel();
 
-  return (
-    <div ref={carouselRef}>
-      <div ref={ref} className={cn('-ml-4 flex', className)} {...props} />
-    </div>
-  );
-});
+    return (
+      <div ref={carouselRef}>
+        <div ref={ref} className={cn('-ml-4 flex', className)} {...props} />
+      </div>
+    );
+  },
+);
 CarouselContent.displayName = 'CarouselContent';
 
-const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="group"
-    aria-roledescription="slide"
-    className={cn('min-w-0 shrink-0 grow-0 basis-full pl-4', className)}
-    {...props}
-  />
-));
+const CarouselItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="group"
+      aria-roledescription="slide"
+      className={cn('min-w-0 shrink-0 grow-0 basis-full pl-4', className)}
+      {...props}
+    />
+  ),
+);
 CarouselItem.displayName = 'CarouselItem';
 
 const CarouselPrevious = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(

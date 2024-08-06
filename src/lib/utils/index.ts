@@ -7,14 +7,16 @@ import { PayloadFieldLink } from '../types/payload';
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 export const internalLink = (link: PayloadFieldLink) => {
-  const url = link.relationship.value.breadcrumbs[link.relationship.value.breadcrumbs.length - 1].url;
+  const url =
+    link.relationship.value.breadcrumbs[link.relationship.value.breadcrumbs.length - 1].url;
   const anchor = link.anchor ? `#${link.anchor}` : '';
 
   return `${url === '/home' ? '/' : url}${anchor}`;
 };
 
 export const linkProps = (link: PayloadFieldLink) => {
-  const href = (link.type === 'internal' && link.relationship ? internalLink(link) : link.url) ?? '/';
+  const href =
+    (link.type === 'internal' && link.relationship ? internalLink(link) : link.url) ?? '/';
 
   return {
     href,

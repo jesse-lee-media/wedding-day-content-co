@@ -21,14 +21,18 @@ const Blockquote = forwardRef<HTMLQuoteElement, HTMLAttributes<HTMLQuoteElement>
 );
 Blockquote.displayName = 'Blockquote';
 
-const BlockquoteBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('text-lg italic', className)} {...props} />
-));
+const BlockquoteBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('text-lg italic', className)} {...props} />
+  ),
+);
 BlockquoteBody.displayName = 'BlockquoteBody';
 
-const BlockquoteFooter = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(({ className, ...props }, ref) => (
-  <footer ref={ref} className={cn('text-xl font-medium', className)} {...props} />
-));
+const BlockquoteFooter = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
+  ({ className, ...props }, ref) => (
+    <footer ref={ref} className={cn('text-xl font-medium', className)} {...props} />
+  ),
+);
 BlockquoteFooter.displayName = 'BlockquoteFooter';
 
 export { Blockquote, BlockquoteBody, BlockquoteFooter };

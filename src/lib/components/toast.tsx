@@ -14,7 +14,10 @@ const ToastViewport = forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Viewport
     ref={ref}
-    className={cn('fixed right-0 top-0 z-[100] flex max-h-screen w-full flex-col p-2 md:max-w-[420px]', className)}
+    className={cn(
+      'fixed right-0 top-0 z-[100] flex max-h-screen w-full flex-col p-2 md:max-w-[420px]',
+      className,
+    )}
     {...props}
   />
 ));
@@ -40,7 +43,13 @@ const Toast = forwardRef<
   ElementRef<typeof ToastPrimitives.Root>,
   ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => {
-  return <ToastPrimitives.Root ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />;
+  return (
+    <ToastPrimitives.Root
+      ref={ref}
+      className={cn(toastVariants({ variant }), className)}
+      {...props}
+    />
+  );
 });
 Toast.displayName = ToastPrimitives.Root.displayName;
 
@@ -74,10 +83,22 @@ const ToastDescription = forwardRef<
   ElementRef<typeof ToastPrimitives.Description>,
   ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
 >(({ className, ...props }, ref) => (
-  <ToastPrimitives.Description ref={ref} className={cn('text-base opacity-90', className)} {...props} />
+  <ToastPrimitives.Description
+    ref={ref}
+    className={cn('text-base opacity-90', className)}
+    {...props}
+  />
 ));
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
 type ToastProps = ComponentPropsWithoutRef<typeof Toast>;
 
-export { type ToastProps, ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose };
+export {
+  type ToastProps,
+  ToastProvider,
+  ToastViewport,
+  Toast,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+};

@@ -1,5 +1,11 @@
 import { Blockquote, BlockquoteBody, BlockquoteFooter } from '@/lib/components/blockquote';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/components/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/lib/components/carousel';
 import { PayloadBlockQuotes } from '@/lib/types/payload';
 
 import Serialize from '../serialize';

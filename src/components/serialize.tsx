@@ -78,7 +78,10 @@ export default function Serialize({ nodes }: SerializeProps) {
             );
           case 'paragraph':
             return node.children?.length > 0 ? (
-              <p key={i} className={cn('my-3 text-lg first:mt-0 last:mb-0', alignClass, indentClass)}>
+              <p
+                key={i}
+                className={cn('my-3 text-lg first:mt-0 last:mb-0', alignClass, indentClass)}
+              >
                 <Serialize nodes={node.children} />
               </p>
             ) : null;

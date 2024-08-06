@@ -8,7 +8,10 @@ import { pageTitle } from '@/lib/utils';
 
 import { metadata } from '../layout';
 
-const InquiryForm = dynamic(() => import('@/components/inquiry-form'), { ssr: false, loading: InquiryFormLoading });
+const InquiryForm = dynamic(() => import('@/components/inquiry-form'), {
+  ssr: false,
+  loading: InquiryFormLoading,
+});
 
 export async function generateMetadata() {
   const page = await fetchPage(['inquire']);
