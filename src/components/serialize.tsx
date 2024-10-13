@@ -2,10 +2,10 @@ import { Fragment } from 'react';
 
 import Link from 'next/link';
 
-import { PayloadFieldLink } from '@/lib/types/payload';
-import { cn, linkProps, slugify } from '@/lib/utils';
-
-import { Blocks } from './blocks';
+import { Blocks } from '@/components/blocks';
+import { cn } from '@/lib/utils/cn';
+import { linkProps } from '@/lib/utils/link';
+import { slugify } from '@/lib/utils/slugify';
 
 export type SerializeProps = {
   nodes: any[];
@@ -32,7 +32,7 @@ const renderText = (node: any) => {
   }
 };
 
-export default function Serialize({ nodes }: SerializeProps) {
+export function Serialize({ nodes }: SerializeProps) {
   const alignClasses = {
     left: 'text-left',
     center: 'text-center',
@@ -87,24 +87,13 @@ export default function Serialize({ nodes }: SerializeProps) {
             ) : null;
           case 'link': {
             const { fields } = node;
-            const link: PayloadFieldLink = {
-              text: '',
-              type: fields.linkType === 'custom' ? 'external' : 'internal',
-              relationship: fields.doc,
-              ...(fields.anchor ? { anchor: fields.anchor } : {}),
-              url: fields.url,
-              rel: fields.rel,
-              newTab: fields.newTab,
-              ...(fields.umamiEvent ? { umamiEvent: fields.umamiEvent } : {}),
-              ...(fields.umamiEventId ? { umamiEventId: fields.umamiEventId } : {}),
-            };
 
             return (
               <Link
                 key={i}
-                {...linkProps(link)}
+                {...linkProps(fields)}
                 className={cn(
-                  'underline underline-offset-2 hover:text-pink-700 hover:dark:text-pink-200',
+                  'underline underline-offset-2 hover:text-dusty-rose-800 hover:dark:text-dusty-rose-300',
                   alignClass,
                   indentClass,
                 )}

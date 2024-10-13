@@ -2,6 +2,7 @@ import containerQueriesPlugin from '@tailwindcss/container-queries';
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
+import animatePlugin from 'tailwindcss-animate';
 
 const utilitiesPlugin = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -36,29 +37,6 @@ const utilitiesPlugin = plugin(function ({ addUtilities }) {
     '.text-wrap-balance': {
       textWrap: 'balance',
     },
-    '.border': {
-      borderWidth: '1.5px',
-    },
-    '.border-t': {
-      borderTopWidth: '1.5px',
-    },
-    '.border-r': {
-      borderRightWidth: '1.5px',
-    },
-    '.border-b': {
-      borderBottomWidth: '1.5px',
-    },
-    '.border-l': {
-      borderLeftWidth: '1.5px',
-    },
-    '.border-x': {
-      borderLeftWidth: '1.5px',
-      borderRightWidth: '1.5px',
-    },
-    '.border-y': {
-      borderTopWidth: '1.5px',
-      borderBottomWidth: '1.5px',
-    },
     '.form-sizing-content': {
       formSizing: 'content',
     },
@@ -71,7 +49,26 @@ const utilitiesPlugin = plugin(function ({ addUtilities }) {
       marginLeft: 'calc((100dvw - 100%) / -2)',
       paddingInline: 'calc((100dvw - 100%) / 2)',
     },
+    '.overflow-section': {
+      width: 'calc(100dvw)',
+      marginLeft: 'calc((100dvw - 100%) / -2)',
+      paddingInline: 'calc((100dvw - 100%) / 2)',
+    },
+    '.items-last-baseline': {
+      alignItems: 'last baseline',
+    },
   });
+});
+
+const textShadowPlugin = plugin(function ({ matchUtilities, theme }) {
+  matchUtilities(
+    {
+      'text-shadow': (value) => ({
+        textShadow: value,
+      }),
+    },
+    { values: theme('textShadow') },
+  );
 });
 
 const config: Config = {
@@ -82,6 +79,19 @@ const config: Config = {
       colors: {
         black: '#111',
         white: '#fff',
+        'dusty-rose': {
+          '50': '#faf5f7',
+          '100': '#f7ecf0',
+          '200': '#f0dae3',
+          '300': '#e5bccc',
+          '400': '#d393aa',
+          '500': '#c3718e',
+          '600': '#ae546f',
+          '700': '#a24860',
+          '800': '#7b394a',
+          '900': '#683340',
+          '950': '#3e1922',
+        },
       },
       screens: {
         xxs: '375px',
@@ -113,6 +123,11 @@ const config: Config = {
           },
         },
       },
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
+      },
     },
     fontFamily: {
       sans: [
@@ -129,7 +144,7 @@ const config: Config = {
       ],
     },
   },
-  plugins: [utilitiesPlugin, containerQueriesPlugin],
+  plugins: [utilitiesPlugin, containerQueriesPlugin, textShadowPlugin, animatePlugin],
 };
 
 export default config;

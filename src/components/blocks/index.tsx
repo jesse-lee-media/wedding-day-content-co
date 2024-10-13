@@ -1,55 +1,58 @@
 import { FC } from 'react';
 
+import { ButtonLinkBlock } from '@/components/blocks/button-link';
+import { FormBlock } from '@/components/blocks/form';
+import { GalleryBlock } from '@/components/blocks/gallery';
+import { HeroBlock } from '@/components/blocks/hero';
+import { ImageLinksBlock } from '@/components/blocks/image-links';
+import { ImageStackBlock } from '@/components/blocks/image-stack';
+import { MessagesMarqueeBlock } from '@/components/blocks/messages-marquee';
+import { QuotesBlock } from '@/components/blocks/quotes';
+import { SectionBlock } from '@/components/blocks/section';
+import { StepperBlock } from '@/components/blocks/stepper';
 import {
-  PayloadBlockButtonLink,
-  PayloadBlockGallery,
-  PayloadBlockHero,
-  PayloadBlockImageStack,
-  PayloadBlockMessagesMarquee,
-  PayloadBlockPortfolioCards,
-  PayloadBlockQuotes,
-  PayloadBlockSection,
-  PayloadBlockStepper,
-} from '@/lib/types/payload';
-
-import BlockButtonLink from './button-link';
-import BlockGallery from './gallery';
-import BlockHero from './hero';
-import BlockImageStack from './image-stack';
-import BlockMessagesMarquee from './messages-marquee';
-import BlockPortfolioCards from './portfolio-cards';
-import BlockQuotes from './quotes';
-import BlockSection from './section';
-import BlockStepper from './stepper';
+  PayloadButtonLinkBlock,
+  PayloadFormBlock,
+  PayloadGalleryBlock,
+  PayloadHeroBlock,
+  PayloadImageLinksBlock,
+  PayloadImageStackBlock,
+  PayloadMessagesMarqueeBlock,
+  PayloadQuotesBlock,
+  PayloadSectionBlock,
+  PayloadStepperBlock,
+} from '@/payload/payload-types';
 
 const blocks = {
-  buttonLink: BlockButtonLink,
-  gallery: BlockGallery,
-  hero: BlockHero,
-  imageStack: BlockImageStack,
-  messagesMarquee: BlockMessagesMarquee,
-  portfolioCards: BlockPortfolioCards,
-  quotes: BlockQuotes,
-  section: BlockSection,
-  stepper: BlockStepper,
+  buttonLink: ButtonLinkBlock,
+  gallery: GalleryBlock,
+  hero: HeroBlock,
+  imageStack: ImageStackBlock,
+  messagesMarquee: MessagesMarqueeBlock,
+  imageLinks: ImageLinksBlock,
+  quotes: QuotesBlock,
+  section: SectionBlock,
+  stepper: StepperBlock,
+  formBlock: FormBlock,
 };
 
 export function Blocks({
   blockType,
   ...props
 }:
-  | PayloadBlockButtonLink
-  | PayloadBlockGallery
-  | PayloadBlockHero
-  | PayloadBlockImageStack
-  | PayloadBlockMessagesMarquee
-  | PayloadBlockPortfolioCards
-  | PayloadBlockQuotes
-  | PayloadBlockSection
-  | PayloadBlockStepper) {
-  delete props.blockName;
-
+  | PayloadButtonLinkBlock
+  | PayloadFormBlock
+  | PayloadGalleryBlock
+  | PayloadHeroBlock
+  | PayloadImageLinksBlock
+  | PayloadImageStackBlock
+  | PayloadMessagesMarqueeBlock
+  | PayloadQuotesBlock
+  | PayloadSectionBlock
+  | PayloadStepperBlock) {
   const RenderBlock: FC<any> = blocks[blockType];
+
+  delete props.blockName;
 
   return RenderBlock ? <RenderBlock {...props} /> : null;
 }

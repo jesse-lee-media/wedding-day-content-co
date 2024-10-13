@@ -1,3 +1,4 @@
+import { Serialize } from '@/components/serialize';
 import {
   Accordion,
   AccordionContent,
@@ -5,22 +6,26 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/lib/components/accordion';
-import { PayloadFaq } from '@/lib/types/payload';
+import { PayloadFooterGlobal } from '@/payload/payload-types';
 
-import Serialize from '../serialize';
+export default function FaqAccordion({ faqs }: { faqs: PayloadFooterGlobal['faqs'] }) {
+  const faqsArray = faqs?.filter((faq) => typeof faq !== 'string');
 
-export default function FaqAccordion({ faqs }: { faqs: PayloadFaq[] }) {
+  if (!faqsArray?.length) {
+    return null;
+  }
+
   return (
-    <Accordion type={faqs.length === 1 ? 'single' : 'multiple'}>
-      {faqs.map((faq, i) => (
-        <AccordionItem value={`faq-${i}`} key={i}>
+    <Accordion type={faqsArray.length === 1 ? 'single' : 'multiple'}>
+      {faqsArray.map((faq) => (
+        <AccordionItem value={faq.id} key={faq.id}>
           <AccordionHeader asChild>
             <h2>
               <AccordionTrigger>{faq.question}</AccordionTrigger>
             </h2>
           </AccordionHeader>
-          <AccordionContent className="text-white/75">
-            {faq.answer?.root?.children && <Serialize nodes={faq.answer.root.children} />}
+          <AccordionContent>
+            {faq.answer?.root?.children ? <Serialize nodes={faq.answer.root.children} /> : null}
           </AccordionContent>
         </AccordionItem>
       ))}

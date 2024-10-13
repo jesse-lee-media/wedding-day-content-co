@@ -1,19 +1,43 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { ComponentProps } from 'react';
 
-import { cn } from '../utils';
+import { cn } from '@/lib/utils/cn';
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement>;
+const baseClass =
+  'h-14 w-full rounded shadow shadow-black/10 border-2 border-neutral-200 bg-white px-4 text-lg text-black transition placeholder:text-neutral-500 hover:border-neutral-600/75 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
-  <input
-    ref={ref}
-    className={cn(
-      'h-14 w-full rounded-xl border border-black/75 bg-white px-5 text-lg text-black transition placeholder:text-black/75 hover:border-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:placeholder:text-white/75 dark:hover:bg-white/5 dark:focus:ring-white/75',
-      className,
-    )}
-    {...props}
-  />
-));
-Input.displayName = 'Input';
+const Input = ({ className, ...props }: ComponentProps<'input'>) => (
+  <input className={cn(baseClass, className)} {...props} />
+);
 
-export { Input };
+export type InputButtonProps = ComponentProps<'button'> & {
+  displayChildren?: boolean;
+  icon?: any;
+  placeholder?: string;
+};
+
+const InputButton = ({
+  children,
+  className,
+  displayChildren,
+  icon,
+  placeholder,
+  ...props
+}: InputButtonProps) => {
+  const IconComponent = icon;
+
+  return (
+    <button
+      className={cn(baseClass, 'group flex flex-row items-center', icon && 'pr-3', className)}
+      {...props}
+    >
+      {placeholder && !displayChildren ? (
+        <span className="text-neutral-500">{placeholder}</span>
+      ) : null}
+      {displayChildren ? children : null}
+      <span className="flex-grow" />
+      {IconComponent ? <IconComponent className="flex-shrink-0 text-neutral-500" /> : null}
+    </button>
+  );
+};
+
+export { Input, InputButton };
