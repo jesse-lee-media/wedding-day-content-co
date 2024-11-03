@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *::selection {
+    @apply bg-dusty-rose-200 text-dusty-rose-950 dark:bg-dusty-rose-300;
+  }
+
+  html {
+    font-variation-settings: 'wght' 350;
+    font-optical-sizing: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-light !leading-tight drop-shadow-lg;
+  }
+
+  a {
+    @apply rounded-sm no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/75 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-white/75 dark:focus-visible:ring-offset-black;
+  }
+
+  a:hover:not(:focus-visible) {
+    @apply underline underline-offset-2;
+  }
+
+  strong {
+    @apply font-bold;
+  }
+
+  .dot-mask {
+    background-image: radial-gradient(theme('colors.neutral.100') 1px, transparent 1px);
+    background-size: 1rem 1rem;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
+  }
+}

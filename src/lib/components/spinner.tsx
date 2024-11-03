@@ -1,19 +1,15 @@
-import { HTMLAttributes, forwardRef } from 'react';
+import { ComponentProps } from 'react';
 
-import { cn } from '../utils';
+import { cn } from '@/lib/utils/cn';
 
-const Spinner = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
-  ({ className, ...props }, ref) => (
-    <span
-      ref={ref}
-      className={cn(
-        'size-5 animate-spin rounded-full border border-black/25 border-t-black/10 dark:border-white/50 dark:border-t-white/25',
-        className,
-      )}
-      {...props}
-    />
-  ),
+const Spinner = ({ className, ...props }: ComponentProps<'span'>) => (
+  <span
+    className={cn(
+      'size-4 animate-spin rounded-full border-2 border-neutral-400 border-t-neutral-300',
+      className,
+    )}
+    {...props}
+  />
 );
-Spinner.displayName = 'Spinner';
 
 export { Spinner };

@@ -1,30 +1,38 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { ComponentProps } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex w-full items-center justify-center font-medium !no-underline transition focus:outline-none focus:ring-2 focus:ring-black/75 dark:focus:ring-white/75 xs:w-fit disabled:cursor-not-allowed',
+  'rounded transition inline-flex w-full items-center justify-center font-medium !no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:ring-offset-2 xs:w-fit disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-400 disabled:border-y-2 disabled:border-b-neutral-300 disabled:border-t-neutral-100',
   {
     variants: {
       variant: {
-        solid:
-          'bg-black text-white border border-black/75 hover:border-black dark:bg-white dark:text-black dark:border-white disabled:bg-black/10 disabled:text-black/25 disabled:border-black/20 disabled:dark:bg-white/10 disabled:dark:text-white/25 disabled:dark:border-white/25',
-        outlined:
-          'bg-white text-black border border-black/75 hover:border-black dark:bg-black dark:text-white dark:border-white disabled:text-black/25 disabled:border-black/20 disabled:dark:text-white/50 disabled:dark:border-white/25',
+        primary:
+          'bg-neutral-800 dark:bg-dusty-rose-800 text-neutral-100 dark:text-dusty-rose-50 border-y-2 border-t-neutral-600 dark:border-t-dusty-rose-600 border-b-neutral-950 dark:border-b-dusty-rose-950',
+        secondary:
+          'bg-neutral-100 text-neutral-900 border-y-2 border-t-neutral-50/75 border-b-neutral-200/75',
       },
       size: {
-        sm: 'h-10 text-sm gap-1.5 rounded-lg',
-        md: 'h-12 text-base gap-2 rounded-xl',
-        lg: 'h-14 text-lg gap-2.5 rounded-xl',
+        sm: 'h-10 text-sm gap-1.5',
+        md: 'h-12 text-base gap-2',
+        lg: 'h-14 text-xl gap-2.5',
       },
       iconPosition: {
         left: 'flex-row-reverse',
         right: 'flex-row',
         center: 'flex-row',
         none: 'flex-row',
+      },
+      asChild: {
+        true: 'hover:shadow-lg hover:shadow-black/10 hover:!no-underline',
+        false: 'hover:enabled:shadow-lg hover:enabled:shadow-black/10 hover:enabled:!no-underline',
+      },
+      background: {
+        default: 'focus-visible:ring-offset-white',
+        dark: 'focus-visible:ring-offset-black',
       },
     },
     compoundVariants: [
@@ -88,39 +96,61 @@ const buttonVariants = cva(
         size: 'lg',
         className: 'xs:!w-14',
       },
+      {
+        variant: 'primary',
+        asChild: true,
+        className:
+          'hover:bg-black dark:hover:bg-dusty-rose-900 hover:text-white dark:hover:text-dusty-rose-100',
+      },
+      {
+        variant: 'primary',
+        asChild: false,
+        className:
+          'hover:enabled:bg-black dark:hover:enabled:bg-dusty-rose-900 hover:enabled:text-white dark:hover:enabled:text-dusty-rose-100',
+      },
+      {
+        variant: 'secondary',
+        asChild: true,
+        className: 'hover:bg-neutral-200 hover:text-black',
+      },
+      {
+        variant: 'secondary',
+        asChild: false,
+        className: 'hover:enabled:bg-neutral-200 hover:enabled:text-black',
+      },
     ],
     defaultVariants: {
-      variant: 'outlined',
+      variant: 'primary',
       size: 'md',
       iconPosition: 'none',
     },
   },
 );
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+export type ButtonProps = ComponentProps<'button'> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, iconPosition, variant, size, ...props }, ref) => {
-    const Component = asChild ? Slot : 'button';
+const Button = ({
+  asChild = false,
+  background,
+  className,
+  iconPosition,
+  variant,
+  size,
+  ...props
+}: ButtonProps) => {
+  const Component = asChild ? Slot : 'button';
 
-    return (
-      <Component
-        ref={ref}
-        {...props}
-        className={cn(
-          buttonVariants({ variant, size, className, iconPosition }),
-          asChild
-            ? 'hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg dark:hover:bg-pink-200 dark:hover:text-black'
-            : 'hover:enabled:bg-pink-100 hover:enabled:text-black hover:enabled:!no-underline hover:enabled:shadow-lg dark:hover:enabled:bg-pink-200 dark:hover:enabled:text-black',
-        )}
-      />
-    );
-  },
-);
-Button.displayName = 'Button';
+  return (
+    <Component
+      {...props}
+      className={cn(
+        buttonVariants({ variant, size, className, iconPosition, asChild, background }),
+      )}
+    />
+  );
+};
 
-export { Button, buttonVariants };
+export { Button };

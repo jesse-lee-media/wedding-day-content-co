@@ -6,29 +6,46 @@ import {
   CarouselPrevious,
 } from '@/lib/components/carousel';
 import { PayloadImage } from '@/lib/components/payload-image';
-import { PayloadBlockGallery } from '@/lib/types/payload';
+import { PayloadGalleryBlock, PayloadMediaCollection } from '@/payload/payload-types';
 
-export default function BlockGallery({ images, type }: PayloadBlockGallery) {
+export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
   if (type === 'grid') {
+    const columns: PayloadMediaCollection[][] = [[], [], []];
+
+    images
+      .filter((image) => typeof image !== 'string')
+      .forEach((image, index) => columns[index % 3].push(image));
+
     return (
-      <ul className="my-6 grid grid-cols-1 gap-4 first:mt-0 last:mb-0 sm:grid-cols-2 md:grid-cols-3">
-        {images.map((image, i) => (
-          <li key={i}>
-            <PayloadImage {...image} className="overflow-clip rounded-2xl border border-black/75" />
-          </li>
+      <div className="my-6 flex flex-col gap-4 first:mt-0 last:mb-0 sm:flex-row">
+        {columns.map((images, i) => (
+          <div key={i} className="flex w-full flex-col gap-4">
+            {images.map((image) => (
+              <PayloadImage
+                key={image.id}
+                className="w-full rounded shadow-lg shadow-black/10 ring-2 ring-neutral-200"
+                {...image}
+              />
+            ))}
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
 
   return (
     <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0" opts={{ dragFree: true }}>
-      <CarouselContent>
-        {images.map((image, i) => (
-          <CarouselItem key={i} className="mi-auto sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-            <PayloadImage {...image} className="overflow-clip rounded-2xl border border-black/75" />
-          </CarouselItem>
-        ))}
+      <CarouselContent className="items-center py-2">
+        {images
+          .filter((image) => typeof image !== 'string')
+          .map((image) => (
+            <CarouselItem key={image.id} className="mi-auto sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+              <PayloadImage
+                {...image}
+                className="overflow-clip rounded ring-2 ring-neutral-200 dark:ring-neutral-700"
+              />
+            </CarouselItem>
+          ))}
       </CarouselContent>
       <div className="flex justify-between py-4 md:py-0">
         <CarouselPrevious />

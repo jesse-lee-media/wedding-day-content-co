@@ -1,19 +1,24 @@
 import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
-import { PayloadBlockMessagesMarquee } from '@/lib/types/payload';
+import { PayloadMessagesMarqueeBlock } from '@/payload/payload-types';
 
-export default function BlockMessagesMarquee({ messages }: PayloadBlockMessagesMarquee) {
-  const duplicatedMessages = [...messages, ...messages].map(({ content }, i) => (
+export function MessagesMarqueeBlock({ messages }: PayloadMessagesMarqueeBlock) {
+  if (!messages?.length) {
+    return null;
+  }
+
+  const duplicatedMessages = messages.concat(messages).map(({ content }, i) => (
     <div
       key={i}
-      className="max-w-72 shrink-0 text-balance rounded-xl border border-black/75 bg-pink-50 p-4 text-center text-base selection:bg-black selection:text-pink-200 odd:rotate-2 even:-rotate-2 md:max-w-80 md:p-6 md:text-lg"
+      className="relative isolate max-w-72 shrink-0 overflow-clip text-balance rounded bg-neutral-50 p-4 text-center text-base shadow-lg shadow-black/10 ring-2 ring-neutral-200/75 dark:bg-neutral-900 dark:ring-neutral-600/75 md:max-w-80 md:p-6 md:text-lg"
     >
       {content}
+      <div className="absolute -z-10 h-32 w-48 rotate-45 rounded-full bg-dusty-rose-300/25 blur-3xl group-odd:-right-1/4 group-odd:top-1/4 group-even:right-1/4 group-even:top-1/2"></div>
     </div>
   ));
 
   return (
-    <Marquee className="py-6">
-      <MarqueeContent className="flex shrink-0 flex-row items-center gap-6 whitespace-normal">
+    <Marquee className="overflow-hidden py-6 overflow-section">
+      <MarqueeContent className="flex shrink-0 flex-row items-center gap-8 whitespace-normal">
         {duplicatedMessages}
       </MarqueeContent>
       <MarqueeContent

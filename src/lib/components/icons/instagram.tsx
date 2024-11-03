@@ -1,6 +1,6 @@
 import { BaseProps } from '@/lib/types/base-props';
 
-export default function IconInstagram(props: Omit<BaseProps, 'children'>) {
+export function IconInstagram(props: Omit<BaseProps, 'children'>) {
   return (
     <svg
       stroke="currentColor"

@@ -1,10 +1,8 @@
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
-import { PayloadBlockButtonLink } from '@/lib/types/payload';
+import { PayloadButtonLinkBlock } from '@/payload/payload-types';
 
-export default function BlockButtonLink(props: PayloadBlockButtonLink) {
+export function ButtonLinkBlock({ id, ...props }: PayloadButtonLinkBlock) {
   return (
-    <div className="my-6 first:mt-0 last:mb-0">
-      <PayloadButtonLink {...props} />
-    </div>
+    <PayloadButtonLink id={id ?? undefined} className="my-6 first:mt-0 last:mb-0" {...props} />
   );
 }
