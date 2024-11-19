@@ -6,6 +6,7 @@ import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion'
 import { NavArrowDown } from 'iconoir-react';
 
 import { cn } from '@/lib/utils/cn';
+import { slugify } from '@/lib/utils/slugify';
 
 const Accordion = Root;
 
@@ -26,6 +27,8 @@ const AccordionTrigger = ({ className, children, ...props }: ComponentProps<type
       '-mx-4 flex flex-1 justify-between overflow-clip rounded p-4 text-left text-xl font-normal hover:underline hover:underline-offset-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black group-first:-mt-4 group-last:-mb-4 dark:focus-visible:ring-white [&[data-state=open]>svg]:rotate-180',
       className,
     )}
+    data-umami-event="Accordion trigger"
+    data-umami-event-id={slugify(JSON.stringify(children))}
     {...props}
   >
     {children}

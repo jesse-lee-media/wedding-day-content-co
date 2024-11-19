@@ -2,10 +2,11 @@
 /* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
 import React from 'react';
 
-import { RootLayout } from '@payloadcms/next/layouts';
+import { RootLayout, handleServerFunctions } from '@payloadcms/next/layouts';
+import type { ServerFunctionClient } from 'payload';
 
 import { importMap } from '@/app/(payload)/admin/importMap';
-import configPromise from '@payload-config';
+import config from '@payload-config';
 
 import '@payloadcms/next/css';
 
@@ -13,8 +14,18 @@ type Args = {
   children: React.ReactNode;
 };
 
+const serverFunction: ServerFunctionClient = async function (args) {
+  'use server';
+
+  return handleServerFunctions({
+    ...args,
+    config,
+    importMap,
+  });
+};
+
 const Layout = ({ children }: Args) => (
-  <RootLayout config={configPromise} importMap={importMap}>
+  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
     {children}
   </RootLayout>
 );

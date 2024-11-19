@@ -5,10 +5,12 @@ import type { Metadata } from 'next';
 import { unstable_cache } from 'next/cache';
 import { Figtree } from 'next/font/google';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 import { GlobalSlug } from 'payload';
 
 import { Footer } from '@/components/footer';
 import { Navigation } from '@/components/navigation';
+import { env } from '@/env/client';
 import { Toaster } from '@/lib/components/toaster';
 import { Providers } from '@/lib/providers';
 import { cn } from '@/lib/utils/cn';
@@ -82,7 +84,7 @@ export const metadata: Metadata = {
 const fetchGlobal = async (slug: GlobalSlug) => {
   const payload = await getPayloadHMR({ config: payloadConfig });
 
-  return await payload.findGlobal({ slug });
+  return payload.findGlobal({ slug });
 };
 
 const fetchCachedGlobal = <T,>(slug: GlobalSlug) =>
@@ -107,10 +109,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <div className="dot-mask fixed inset-0 -z-10 h-full w-full" />
         <Providers>
           <Navigation {...navigation} />
-          <main className="mx-auto mt-16 w-full max-w-7xl px-6 py-12">{children}</main>
+          <div className="mt-16 flex flex-1 flex-col">{children}</div>
           <Footer {...footer} />
         </Providers>
         <Toaster />
+        <Script
+          src={env.NEXT_PUBLIC_UMAMI_SRC}
+          data-website-id={env.NEXT_PUBLIC_UMAMI_ID}
+          data-domains={env.NEXT_PUBLIC_DOMAINS}
+        />
       </body>
     </html>
   );

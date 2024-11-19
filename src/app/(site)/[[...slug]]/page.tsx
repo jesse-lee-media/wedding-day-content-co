@@ -39,9 +39,9 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <>
+    <main className="mx-auto w-full max-w-7xl px-6 py-12">
       {page.slug !== 'home' && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
       {page.content?.root?.children ? <Serialize nodes={page.content.root.children} /> : null}
-    </>
+    </main>
   );
 }

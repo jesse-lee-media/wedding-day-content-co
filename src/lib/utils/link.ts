@@ -1,3 +1,4 @@
+import { slugify } from '@/lib/utils/slugify';
 import { PayloadLinkGroupField } from '@/payload/payload-types';
 
 export const internalLink = (link: PayloadLinkGroupField) => {
@@ -19,5 +20,9 @@ export const linkProps = (link: PayloadLinkGroupField) => {
     href: href ?? '/',
     target: link.newTab ? '_blank' : '_self',
     ...rel,
+    'aria-label': link.text,
+    'data-umami-event': link.umamiEvent ?? 'Link',
+    'data-umami-event-id': link.umamiEventId ?? slugify(link.text),
+    'data-umami-event-url': href,
   };
 };

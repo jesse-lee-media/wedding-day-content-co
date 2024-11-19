@@ -18,6 +18,8 @@ export type PayloadLinkArrayField = {
   url?: string | null;
   rel?: ('noopener' | 'noreferrer' | 'nofollow')[] | null;
   newTab?: boolean | null;
+  umamiEvent?: string | null;
+  umamiEventId?: string | null;
   id?: string | null;
 }[];
 /**
@@ -47,7 +49,8 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsSelect?: {
+  collectionsJoins: {};
+  collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
@@ -64,7 +67,7 @@ export interface Config {
     navigation: PayloadNavigationGlobal;
     footer: PayloadFooterGlobal;
   };
-  globalsSelect?: {
+  globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
@@ -72,9 +75,9 @@ export interface Config {
   user: PayloadUsersCollection & {
     collection: 'users';
   };
-  jobs?: {
+  jobs: {
     tasks: unknown;
-    workflows?: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -843,6 +846,8 @@ export interface PayloadLinkGroupField {
   url?: string | null;
   rel?: ('noopener' | 'noreferrer' | 'nofollow')[] | null;
   newTab?: boolean | null;
+  umamiEvent?: string | null;
+  umamiEventId?: string | null;
   id?: string | null;
 }
 /**
@@ -878,6 +883,8 @@ export interface NavigationSelect<T extends boolean = true> {
         url?: T;
         rel?: T;
         newTab?: T;
+        umamiEvent?: T;
+        umamiEventId?: T;
         id?: T;
       };
   callToAction?:
@@ -897,6 +904,8 @@ export interface NavigationSelect<T extends boolean = true> {
               url?: T;
               rel?: T;
               newTab?: T;
+              umamiEvent?: T;
+              umamiEventId?: T;
               id?: T;
             };
         id?: T;
@@ -925,6 +934,8 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               rel?: T;
               newTab?: T;
+              umamiEvent?: T;
+              umamiEventId?: T;
               id?: T;
             };
         id?: T;

@@ -135,11 +135,11 @@ export function Navigation({
                 <PayloadLink {...link} />
               </li>
             ))}
-            {callToAction && (
+            {callToAction.link.text ? (
               <li className="hidden md-lg:block">
                 <PayloadButtonLink id={id ?? undefined} {...callToAction} />
               </li>
-            )}
+            ) : null}
             <button
               onClick={toggleMenu}
               aria-label={open ? 'Close navigation' : 'Open navigation'}
@@ -167,7 +167,7 @@ export function Navigation({
                   </PayloadLink>
                 </li>
               ))}
-              {callToAction && (
+              {callToAction.link.text ? (
                 <li className="mt-2 flex">
                   <PayloadButtonLink
                     {...callToAction}
@@ -177,7 +177,7 @@ export function Navigation({
                     className="flex-1"
                   />
                 </li>
-              )}
+              ) : null}
             </ul>
           </dialog>
         </FocusScope>

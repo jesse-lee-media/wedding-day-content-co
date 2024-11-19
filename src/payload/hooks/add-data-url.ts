@@ -17,7 +17,7 @@ export const addDataUrl: CollectionAfterChangeHook<PayloadMediaCollection> = asy
   const sharpBuffer = await sharp(imageBuffer).resize(50).toBuffer();
   const dataUrl = `data:${doc.mimeType};base64,${sharpBuffer.toString('base64')}`;
 
-  return await req.payload.update({
+  return req.payload.update({
     collection: 'media',
     id: doc.id,
     data: {

@@ -84,6 +84,26 @@ export const linkFields: Field[] = [
     type: 'checkbox',
     defaultValue: false,
   },
+  {
+    type: 'row',
+    fields: [
+      {
+        name: 'umamiEvent',
+        type: 'text',
+        admin: {
+          width: '50%',
+        },
+      },
+      {
+        name: 'umamiEventId',
+        label: 'Umami Event ID',
+        type: 'text',
+        admin: {
+          width: '50%',
+        },
+      },
+    ],
+  },
 ];
 
 export const linkGroup: Field = {

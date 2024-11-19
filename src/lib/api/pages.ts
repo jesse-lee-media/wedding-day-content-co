@@ -31,5 +31,5 @@ export const fetchCachedPage = async (segments?: string[]) => {
   const slugSegments = segments || ['home'];
   const slug = slugSegments[slugSegments.length - 1];
 
-  return await unstable_cache(fetchPage, [slug], { tags: [`page_${slug}`] })(slug);
+  return unstable_cache(fetchPage, [slug], { tags: [`page_${slug}`] })(slug);
 };
