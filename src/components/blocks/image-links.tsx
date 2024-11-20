@@ -5,7 +5,7 @@ import { OverflowText } from '@/lib/components/overflow-text';
 import { PayloadImage } from '@/lib/components/payload-image';
 import { PolaroidImage } from '@/lib/components/polaroid-image';
 import { linkProps } from '@/lib/utils/link';
-import { PayloadImageLinksBlock } from '@/payload/payload-types';
+import type { PayloadImageLinksBlock } from '@/payload/payload-types';
 
 export function ImageLinksBlock({ cards }: PayloadImageLinksBlock) {
   return (

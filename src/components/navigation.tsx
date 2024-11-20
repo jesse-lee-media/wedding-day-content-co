@@ -37,7 +37,7 @@ import Link from 'next/link';
 
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
 import { PayloadLink } from '@/lib/components/payload-link';
-import { PayloadNavigationGlobal } from '@/payload/payload-types';
+import type { PayloadNavigationGlobal } from '@/payload/payload-types';
 
 function createFocusGuard() {
   const element = document.createElement('span');

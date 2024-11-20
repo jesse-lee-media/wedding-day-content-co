@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 'use client';
 
 import { useState } from 'react';
@@ -36,7 +40,7 @@ import {
 import { Spinner } from '@/lib/components/spinner';
 import { Textarea } from '@/lib/components/textarea';
 import { cn } from '@/lib/utils/cn';
-import { PayloadFormCollection } from '@/payload/payload-types';
+import type { PayloadFormCollection } from '@/payload/payload-types';
 
 const REQUIRED_MESSAGE = 'Field is required';
 
@@ -132,8 +136,8 @@ export const FormClient = (props: PayloadFormCollection) => {
                 defaultValues = Object.assign(defaultValues, {
                   [field.name]: field.defaultDateValues?.length
                     ? field.defaultDateValues
-                        .filter((v: any) => !!v.value)
-                        .map((v: any) => new Date(v.value))
+                        .filter((v) => !!v.value)
+                        .map((v) => new Date(v.value!))
                     : [],
                 });
 
@@ -217,6 +221,7 @@ export const FormClient = (props: PayloadFormCollection) => {
     <Form {...form}>
       <form
         id={id}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2"
       >

@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from '@/lib/components/carousel';
 import { PayloadImage } from '@/lib/components/payload-image';
-import { PayloadGalleryBlock, PayloadMediaCollection } from '@/payload/payload-types';
+import type { PayloadGalleryBlock, PayloadMediaCollection } from '@/payload/payload-types';
 
 export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
   if (type === 'grid') {

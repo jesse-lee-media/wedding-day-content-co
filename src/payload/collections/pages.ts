@@ -1,6 +1,6 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { revalidateTag } from 'next/cache';
-import { CollectionAfterChangeHook, CollectionConfig, FieldHook } from 'payload';
+import type { CollectionAfterChangeHook, CollectionConfig, FieldHook } from 'payload';
 
 import { slugify } from '@/lib/utils/slugify';
 import { Role, hasRole, hasRoleOrPublished } from '@/payload/access';
@@ -11,9 +11,12 @@ import { Hero } from '@/payload/blocks/hero';
 import { ImageLinks } from '@/payload/blocks/image-links';
 import { Section } from '@/payload/blocks/section';
 import { revalidatePages, revalidatePagesAfterDelete } from '@/payload/hooks/revalidate-pages';
-import { PayloadPagesCollection } from '@/payload/payload-types';
+import type { PayloadPagesCollection } from '@/payload/payload-types';
 
-const useSlug: FieldHook = ({ operation, siblingData }) => {
+const useSlug: FieldHook<PayloadPagesCollection, string | undefined, PayloadPagesCollection> = ({
+  operation,
+  siblingData,
+}) => {
   if (operation === 'create' || operation === 'update') {
     return slugify(siblingData?.title);
   }

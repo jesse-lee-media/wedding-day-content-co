@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { cn } from '@/lib/utils/cn';
 
@@ -23,11 +23,17 @@ const InputButton = ({
   placeholder,
   ...props
 }: InputButtonProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const IconComponent = icon;
 
   return (
     <button
-      className={cn(baseClass, 'group flex flex-row items-center', icon && 'pr-3', className)}
+      className={cn(
+        baseClass,
+        'group flex flex-row items-center',
+        icon ? 'pr-3' : undefined,
+        className,
+      )}
       {...props}
     >
       {placeholder && !displayChildren ? (

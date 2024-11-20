@@ -1,7 +1,7 @@
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
 import { PayloadImage } from '@/lib/components/payload-image';
 import { PolaroidImage } from '@/lib/components/polaroid-image';
-import { PayloadHeroBlock } from '@/payload/payload-types';
+import type { PayloadHeroBlock } from '@/payload/payload-types';
 
 export function HeroBlock({ buttonLinks, description, heading, images }: PayloadHeroBlock) {
   return (

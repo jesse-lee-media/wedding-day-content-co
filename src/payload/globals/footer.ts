@@ -1,4 +1,4 @@
-import { Field, GlobalConfig } from 'payload';
+import type { Field, GlobalConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
 import { linkArray } from '@/payload/fields/link';

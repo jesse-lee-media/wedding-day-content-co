@@ -1,13 +1,13 @@
 import { revalidateTag } from 'next/cache';
-import { GlobalAfterChangeHook } from 'payload';
+import type { GlobalAfterChangeHook } from 'payload';
 
 export const revalidateGlobalAfterChange: GlobalAfterChangeHook = ({
   doc,
-  global,
+  global: { slug },
   req: { payload },
 }) => {
-  payload.logger.info(`Revalidating global: ${global.slug}`);
-  revalidateTag(`global_${doc.slug}`);
+  payload.logger.info(`Revalidating global: ${slug}`);
+  revalidateTag(`global_${slug}`);
 
   return doc;
 };

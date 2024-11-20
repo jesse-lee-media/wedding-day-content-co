@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/lib/components/carousel';
-import { PayloadQuotesBlock } from '@/payload/payload-types';
+import type { PayloadQuotesBlock } from '@/payload/payload-types';
 
 export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
   if (!quotes || quotes.length === 0) {

@@ -1,4 +1,4 @@
-import { Block } from 'payload';
+import type { Block } from 'payload';
 
 export const Gallery: Block = {
   slug: 'gallery',

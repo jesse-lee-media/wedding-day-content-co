@@ -1,4 +1,4 @@
-import { Field } from 'payload';
+import type { Field } from 'payload';
 
 import { linkGroup } from '@/payload/fields/link';
 

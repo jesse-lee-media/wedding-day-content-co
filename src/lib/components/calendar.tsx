@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { DayPicker } from 'react-day-picker';

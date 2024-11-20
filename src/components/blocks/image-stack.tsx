@@ -1,6 +1,6 @@
 import { PayloadImage } from '@/lib/components/payload-image';
 import { PolaroidImage } from '@/lib/components/polaroid-image';
-import { PayloadImageStackBlock } from '@/payload/payload-types';
+import type { PayloadImageStackBlock } from '@/payload/payload-types';
 
 export function ImageStackBlock({ images }: PayloadImageStackBlock) {
   const filteredImages = images.filter((image) => typeof image !== 'string');

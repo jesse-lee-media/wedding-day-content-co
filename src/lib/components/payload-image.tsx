@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils/cn';
-import { PayloadMediaCollection } from '@/payload/payload-types';
+import type { PayloadMediaCollection } from '@/payload/payload-types';
 
 export type PayloadImageProps = PayloadMediaCollection & {
   className?: string;

@@ -1,5 +1,5 @@
 import { slugify } from '@/lib/utils/slugify';
-import { PayloadLinkGroupField } from '@/payload/payload-types';
+import type { PayloadLinkGroupField } from '@/payload/payload-types';
 
 export const internalLink = (link: PayloadLinkGroupField) => {
   if (typeof link.relationship === 'string' || !link.relationship?.breadcrumbs) {

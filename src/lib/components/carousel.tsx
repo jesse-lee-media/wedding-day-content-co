@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client';
 
-import {
-  ComponentProps,
-  KeyboardEvent,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import type { ComponentProps, KeyboardEvent } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'iconoir-react';
@@ -51,13 +48,7 @@ const Carousel = ({
   children,
   ...props
 }: ComponentProps<'div'> & CarouselProps) => {
-  const [carouselRef, api] = useEmblaCarousel(
-    {
-      ...opts,
-      axis: 'x',
-    },
-    plugins,
-  );
+  const [carouselRef, api] = useEmblaCarousel(Object.assign(opts, { axis: 'x' }), plugins);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { linkProps } from '@/lib/utils/link';
-import { PayloadLinkGroupField } from '@/payload/payload-types';
+import type { PayloadLinkGroupField } from '@/payload/payload-types';
 
 export type PayloadLinkProps = PayloadLinkGroupField & {
   children?: React.ReactNode;

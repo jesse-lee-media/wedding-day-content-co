@@ -1,8 +1,9 @@
-import { ComponentProps, Fragment } from 'react';
+import type { ComponentProps } from 'react';
+import { Fragment } from 'react';
 
 import Link from 'next/link';
 
-import { PayloadPagesCollection } from '@/payload/payload-types';
+import type { PayloadPagesCollection } from '@/payload/payload-types';
 
 const homeBreadcrumb = {
   url: '/',

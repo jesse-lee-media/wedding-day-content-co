@@ -1,5 +1,5 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
-import { Block, Field } from 'payload';
+import type { Block, Field } from 'payload';
 
 import { ButtonLink } from '@/payload/blocks/button-link';
 import { Gallery } from '@/payload/blocks/gallery';

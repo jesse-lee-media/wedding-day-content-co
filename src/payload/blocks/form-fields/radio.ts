@@ -1,7 +1,8 @@
-import { Block } from 'payload';
+import type { Block } from 'payload';
 
 import { baseFormFields } from '@/payload/fields/base-form-fields';
 import { required } from '@/payload/fields/required';
+import type { PayloadRadioBlock } from '@/payload/payload-types';
 
 export const Radio: Block = {
   slug: 'radio',
@@ -44,12 +45,12 @@ export const Radio: Block = {
     {
       name: 'defaultValue',
       type: 'text',
-      validate: (value: any, { siblingData }: any) => {
+      validate: (value: any, { siblingData }: { siblingData: Partial<PayloadRadioBlock> }) => {
         if (!value) {
           return true;
         }
 
-        const option = siblingData?.options?.find((option: any) => option.value === value);
+        const option = siblingData?.options?.find((option) => option.value === value);
 
         if (!option) {
           return 'Field must equal the value from one of the options';

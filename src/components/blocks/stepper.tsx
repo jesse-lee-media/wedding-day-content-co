@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { Serialize } from '@/components/serialize';
-import { PayloadStepperBlock } from '@/payload/payload-types';
+import type { PayloadStepperBlock } from '@/payload/payload-types';
 
 export function StepperBlock({ steps }: PayloadStepperBlock) {
   if (!steps?.length) {

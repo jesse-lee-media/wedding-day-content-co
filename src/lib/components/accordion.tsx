@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
 import { NavArrowDown } from 'iconoir-react';

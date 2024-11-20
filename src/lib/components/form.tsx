@@ -1,15 +1,10 @@
-import { ComponentProps, createContext, useContext, useId } from 'react';
+import type { ComponentProps } from 'react';
+import { createContext, useContext, useId } from 'react';
 
-import { Root } from '@radix-ui/react-label';
+import type { Root } from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-} from 'react-hook-form';
+import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form';
+import { Controller, FormProvider, useFormContext } from 'react-hook-form';
 
 import { Label } from '@/lib/components/label';
 import { cn } from '@/lib/utils/cn';

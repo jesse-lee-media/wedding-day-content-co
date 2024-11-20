@@ -1,5 +1,5 @@
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
-import { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
 import { Date } from '@/payload/blocks/form-fields/date';

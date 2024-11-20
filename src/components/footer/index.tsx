@@ -4,7 +4,7 @@ import { FaqSection } from '@/components/footer/faq-section';
 import { FaqsLoading } from '@/components/footer/faqs-loading';
 import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
 import { PayloadLink } from '@/lib/components/payload-link';
-import { PayloadFooterGlobal } from '@/payload/payload-types';
+import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 const FaqAccordion = dynamic(() => import('./faq-accordion'), { loading: () => <FaqsLoading /> });
 

@@ -1,6 +1,6 @@
 import { FormClient } from '@/components/blocks/form/form.client';
 import { Serialize } from '@/components/serialize';
-import { PayloadFormBlock } from '@/payload/payload-types';
+import type { PayloadFormBlock } from '@/payload/payload-types';
 
 export function FormBlock(props: PayloadFormBlock) {
   const { form } = props;

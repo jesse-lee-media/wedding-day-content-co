@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import { Indicator, Item, Root } from '@radix-ui/react-radio-group';
 import { Circle } from 'iconoir-react';

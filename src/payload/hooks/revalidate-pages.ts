@@ -1,5 +1,5 @@
 import { revalidateTag } from 'next/cache';
-import { BasePayload, CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
+import type { BasePayload, CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
 
 export const revalidatePages = (payload: BasePayload) => {
   payload.logger.info('Revalidating pages');

@@ -1,7 +1,7 @@
 import { Serialize } from '@/components/serialize';
 import { cn } from '@/lib/utils/cn';
 import { slugify } from '@/lib/utils/slugify';
-import { PayloadSectionBlock } from '@/payload/payload-types';
+import type { PayloadSectionBlock } from '@/payload/payload-types';
 
 export function SectionBlock({
   background,

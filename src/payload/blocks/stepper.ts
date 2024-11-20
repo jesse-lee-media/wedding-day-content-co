@@ -1,5 +1,5 @@
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
-import { Block } from 'payload';
+import type { Block } from 'payload';
 
 export const Stepper: Block = {
   slug: 'stepper',

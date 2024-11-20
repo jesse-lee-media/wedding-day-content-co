@@ -1,4 +1,4 @@
-import { BaseProps } from '@/lib/types/base-props';
+import type { BaseProps } from '@/lib/types/base-props';
 
 export function IconInstagram(props: Omit<BaseProps, 'children'>) {
   return (

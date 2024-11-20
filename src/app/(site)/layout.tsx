@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import type { Metadata } from 'next';
@@ -6,7 +6,7 @@ import { unstable_cache } from 'next/cache';
 import { Figtree } from 'next/font/google';
 import localFont from 'next/font/local';
 import Script from 'next/script';
-import { GlobalSlug } from 'payload';
+import type { GlobalSlug } from 'payload';
 
 import { Footer } from '@/components/footer';
 import { Navigation } from '@/components/navigation';
@@ -14,7 +14,7 @@ import { env } from '@/env/client';
 import { Toaster } from '@/lib/components/toaster';
 import { Providers } from '@/lib/providers';
 import { cn } from '@/lib/utils/cn';
-import { PayloadFooterGlobal, PayloadNavigationGlobal } from '@/payload/payload-types';
+import type { PayloadFooterGlobal, PayloadNavigationGlobal } from '@/payload/payload-types';
 import payloadConfig from '@payload-config';
 
 import './globals.css';

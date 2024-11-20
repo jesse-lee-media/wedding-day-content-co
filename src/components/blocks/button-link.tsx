@@ -1,5 +1,5 @@
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
-import { PayloadButtonLinkBlock } from '@/payload/payload-types';
+import type { PayloadButtonLinkBlock } from '@/payload/payload-types';
 
 export function ButtonLinkBlock({ id, ...props }: PayloadButtonLinkBlock) {
   return (

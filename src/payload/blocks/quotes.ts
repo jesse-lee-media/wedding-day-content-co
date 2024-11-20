@@ -1,5 +1,5 @@
 import { ParagraphFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
-import { Block } from 'payload';
+import type { Block } from 'payload';
 
 export const Quotes: Block = {
   slug: 'quotes',

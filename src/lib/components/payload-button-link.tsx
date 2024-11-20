@@ -1,11 +1,11 @@
-import { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 import Link from 'next/link';
 
 import { Button } from '@/lib/components/button';
 import { Icons } from '@/lib/components/icons';
 import { linkProps } from '@/lib/utils/link';
-import { PayloadButtonLinkGroupField } from '@/payload/payload-types';
+import type { PayloadButtonLinkGroupField } from '@/payload/payload-types';
 
 export type PayloadButtonLinkProps = ComponentProps<typeof Button> & PayloadButtonLinkGroupField;
 

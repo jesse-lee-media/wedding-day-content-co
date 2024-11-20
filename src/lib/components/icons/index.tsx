@@ -1,9 +1,10 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { ArrowRight, ArrowUpRight, Menu, NavArrowDown, Xmark } from 'iconoir-react';
 
 import { IconInstagram } from '@/lib/components/icons/instagram';
 import { IconTikTok } from '@/lib/components/icons/tiktok';
-import { BaseProps } from '@/lib/types/base-props';
+import type { BaseProps } from '@/lib/types/base-props';
 import { cn } from '@/lib/utils/cn';
 
 const icons = {

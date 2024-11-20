@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { ButtonLinkBlock } from '@/components/blocks/button-link';
 import { FormBlock } from '@/components/blocks/form';
@@ -10,7 +10,7 @@ import { MessagesMarqueeBlock } from '@/components/blocks/messages-marquee';
 import { QuotesBlock } from '@/components/blocks/quotes';
 import { SectionBlock } from '@/components/blocks/section';
 import { StepperBlock } from '@/components/blocks/stepper';
-import {
+import type {
   PayloadButtonLinkBlock,
   PayloadFormBlock,
   PayloadGalleryBlock,

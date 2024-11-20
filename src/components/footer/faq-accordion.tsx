@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/lib/components/accordion';
-import { PayloadFooterGlobal } from '@/payload/payload-types';
+import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 export default function FaqAccordion({ faqs }: { faqs: PayloadFooterGlobal['faqs'] }) {
   const faqsArray = faqs?.filter((faq) => typeof faq !== 'string');
