@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/unbound-method */
 import containerQueriesPlugin from '@tailwindcss/container-queries';
-import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 import animatePlugin from 'tailwindcss-animate';
@@ -73,7 +70,8 @@ const textShadowPlugin = plugin(function ({ matchUtilities, theme }) {
   );
 });
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class',
   theme: {
@@ -82,17 +80,17 @@ const config: Config = {
         black: '#111',
         white: '#fff',
         'dusty-rose': {
-          '50': '#faf5f7',
-          '100': '#f7ecf0',
-          '200': '#f0dae3',
-          '300': '#e5bccc',
-          '400': '#d393aa',
-          '500': '#c3718e',
-          '600': '#ae546f',
-          '700': '#a24860',
-          '800': '#7b394a',
-          '900': '#683340',
-          '950': '#3e1922',
+          50: '#faf5f7',
+          100: '#f7ecf0',
+          200: '#f0dae3',
+          300: '#e5bccc',
+          400: '#d393aa',
+          500: '#c3718e',
+          600: '#ae546f',
+          700: '#a24860',
+          800: '#7b394a',
+          900: '#683340',
+          950: '#3e1922',
         },
       },
       screens: {
@@ -148,5 +146,3 @@ const config: Config = {
   },
   plugins: [utilitiesPlugin, containerQueriesPlugin, textShadowPlugin, animatePlugin],
 };
-
-export default config;
