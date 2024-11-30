@@ -2,12 +2,8 @@ import type { CollectionConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
 import { addDataUrl } from '@/payload/hooks/add-data-url';
-import {
-  revalidatePagesAfterChange,
-  revalidatePagesAfterDelete,
-} from '@/payload/hooks/revalidate-pages';
 
-export const Media: CollectionConfig = {
+export const Media: CollectionConfig<'media'> = {
   slug: 'media',
   typescript: {
     interface: 'PayloadMediaCollection',
@@ -23,8 +19,7 @@ export const Media: CollectionConfig = {
     delete: hasRole(Role.Admin),
   },
   hooks: {
-    afterChange: [addDataUrl, revalidatePagesAfterChange],
-    afterDelete: [revalidatePagesAfterDelete],
+    afterChange: [addDataUrl],
   },
   upload: {
     adminThumbnail: 'thumbnail',

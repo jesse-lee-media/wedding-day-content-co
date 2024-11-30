@@ -12,7 +12,7 @@ export function HeroBlock({ buttonLinks, description, heading, images }: Payload
         </h1>
         <p className="text-xl text-wrap-balance lg:text-2xl">{description}</p>
         <ul className="flex flex-col items-center gap-4 xs:flex-row">
-          {buttonLinks.map(({ id, ...buttonLink }) => (
+          {buttonLinks?.map(({ id, ...buttonLink }) => (
             <li key={id} className="flex w-full xs:w-fit">
               <PayloadButtonLink id={id ?? undefined} {...buttonLink} />
             </li>
@@ -21,7 +21,7 @@ export function HeroBlock({ buttonLinks, description, heading, images }: Payload
       </div>
       <div className="grid grid-cols-1 gap-4 xs:grid-cols-2">
         {images
-          .filter((image) => typeof image !== 'string')
+          ?.filter((image) => typeof image !== 'string')
           .map((image) => (
             <PolaroidImage
               key={image.id}

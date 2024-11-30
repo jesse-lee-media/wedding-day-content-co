@@ -832,7 +832,6 @@ export interface PayloadButtonLinkGroupField {
   icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
   iconPosition?: ('none' | 'left' | 'right' | 'center') | null;
   link: PayloadLinkGroupField;
-  id?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -908,7 +907,6 @@ export interface NavigationSelect<T extends boolean = true> {
               umamiEventId?: T;
               id?: T;
             };
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

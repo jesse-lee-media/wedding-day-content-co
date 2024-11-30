@@ -9,12 +9,8 @@ import { Radio } from '@/payload/blocks/form-fields/radio';
 import { Select } from '@/payload/blocks/form-fields/select';
 import { Text } from '@/payload/blocks/form-fields/text';
 import { Textarea } from '@/payload/blocks/form-fields/textarea';
-import {
-  revalidatePagesAfterChange,
-  revalidatePagesAfterDelete,
-} from '@/payload/hooks/revalidate-pages';
 
-export const Forms: CollectionConfig = {
+export const Forms: CollectionConfig<'forms'> = {
   slug: 'forms',
   typescript: {
     interface: 'PayloadFormCollection',
@@ -28,10 +24,6 @@ export const Forms: CollectionConfig = {
     create: hasRole(Role.Admin, Role.Editor),
     update: hasRole(Role.Admin, Role.Editor),
     delete: hasRole(Role.Admin),
-  },
-  hooks: {
-    afterChange: [revalidatePagesAfterChange],
-    afterDelete: [revalidatePagesAfterDelete],
   },
   fields: [
     {

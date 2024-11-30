@@ -1,27 +1,37 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { unstable_cache } from 'next/cache';
+import { draftMode } from 'next/headers';
+import { getPayload } from 'payload';
 
 import config from '@payload-config';
 
 export const fetchPages = async () => {
-  const payload = await getPayloadHMR({ config });
+  const payload = await getPayload({ config });
   const pages = await payload.find({
     collection: 'pages',
-    where: { _status: { equals: 'published' } },
+    draft: false,
     pagination: false,
+    overrideAccess: false,
   });
 
   return pages.docs.map(({ slug }) => ({ slug }));
 };
 
 export const fetchPage = async (slug: string) => {
-  const payload = await getPayloadHMR({ config });
-  const page = await payload.find({
+  const { isEnabled: draft } = await draftMode();
+  const payload = await getPayload({ config });
+  const pages = await payload.find({
     collection: 'pages',
-    where: { and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }] },
+    draft,
+    limit: 1,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
   });
 
-  return page?.docs?.[0] || null;
+  return pages?.docs?.[0] || null;
 };
 
 export const fetchCachedPages = async () =>

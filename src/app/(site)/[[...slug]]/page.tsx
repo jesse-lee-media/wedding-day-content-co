@@ -1,28 +1,66 @@
+import { cache } from 'react';
+
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { getPayload } from 'payload';
 
 import { metadata } from '@/app/(site)/layout';
 import { Serialize } from '@/components/serialize';
-import { fetchCachedPage, fetchCachedPages } from '@/lib/api/pages';
 import { Breadcrumbs } from '@/lib/components/breadcrumbs';
 import { pageTitle } from '@/lib/utils/page-title';
+import config from '@payload-config';
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
 
+const queryPage = cache(async ({ slug: segments }: { slug: string[] }) => {
+  const slugSegments = segments || ['home'];
+  const slug = slugSegments[slugSegments.length - 1];
+
+  const draftModePromis = draftMode();
+  const payloadPromise = getPayload({ config });
+
+  const [{ isEnabled: draft }, payload] = await Promise.all([draftModePromis, payloadPromise]);
+
+  const result = await payload.find({
+    collection: 'pages',
+    draft,
+    pagination: false,
+    limit: 1,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  return result.docs?.[0] || null;
+});
+
 export async function generateStaticParams() {
   try {
-    const pages = await fetchCachedPages();
+    const payload = await getPayload({ config });
+    const pages = await payload.find({
+      collection: 'pages',
+      draft: false,
+      pagination: false,
+      overrideAccess: false,
+      select: {
+        slug: true,
+      },
+    });
 
-    return pages.map(({ slug }) => ({ slug: [slug] }));
+    return pages.docs.map(({ slug }) => ({ slug: [slug] }));
   } catch {
     return [{ slug: undefined }];
   }
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const slug = await params.then(({ slug }) => slug);
-  const page = await fetchCachedPage(slug);
+  const { slug } = await params;
+  const page = await queryPage({ slug });
 
   return {
     title: pageTitle(page?.title, metadata),
@@ -31,8 +69,8 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params }: PageProps) {
-  const slug = await params.then(({ slug }) => slug);
-  const page = await fetchCachedPage(slug);
+  const { slug } = await params;
+  const page = await queryPage({ slug });
 
   if (!page) {
     notFound();

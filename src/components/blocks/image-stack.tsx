@@ -3,9 +3,9 @@ import { PolaroidImage } from '@/lib/components/polaroid-image';
 import type { PayloadImageStackBlock } from '@/payload/payload-types';
 
 export function ImageStackBlock({ images }: PayloadImageStackBlock) {
-  const filteredImages = images.filter((image) => typeof image !== 'string');
+  const filteredImages = images?.filter((image) => typeof image !== 'string');
 
-  if (filteredImages.length === 0) {
+  if (!filteredImages?.length) {
     return null;
   }
 

@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 
-import { getPayloadHMR } from '@payloadcms/next/utilities';
 import type { Metadata } from 'next';
 import { unstable_cache } from 'next/cache';
 import { Figtree } from 'next/font/google';
 import localFont from 'next/font/local';
 import Script from 'next/script';
-import type { GlobalSlug } from 'payload';
+import { type GlobalSlug, getPayload } from 'payload';
 
 import { Footer } from '@/components/footer';
+import { LivePreviewListener } from '@/components/live-preview-listener';
 import { Navigation } from '@/components/navigation';
 import { env } from '@/env/client';
 import { Toaster } from '@/lib/components/toaster';
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
 };
 
 const fetchGlobal = async (slug: GlobalSlug) => {
-  const payload = await getPayloadHMR({ config: payloadConfig });
+  const payload = await getPayload({ config: payloadConfig });
 
   return payload.findGlobal({ slug });
 };
@@ -107,9 +107,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <body className="relative flex h-full flex-col">
         <div className="dot-mask fixed inset-0 -z-10 h-full w-full" />
+        <LivePreviewListener />
         <Providers>
           <Navigation {...navigation} />
-          <div className="mt-16 flex flex-1 flex-col">{children}</div>
+          <div className="mt-[4.5rem] flex flex-1 flex-col">{children}</div>
           <Footer {...footer} />
         </Providers>
         <Toaster />

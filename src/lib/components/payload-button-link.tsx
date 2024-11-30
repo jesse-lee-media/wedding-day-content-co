@@ -18,7 +18,7 @@ const PayloadButtonLink = ({
 }: PayloadButtonLinkProps) => (
   <Button asChild iconPosition={iconPosition} size={size} {...props}>
     <Link {...linkProps(link)}>
-      {iconPosition !== 'center' && link.text}
+      {iconPosition !== 'center' ? link.text : null}
       {icon && <Icons name={icon} size={size} />}
     </Link>
   </Button>
