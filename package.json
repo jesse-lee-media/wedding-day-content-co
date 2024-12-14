@@ -32,14 +32,14 @@
   "packageManager": "pnpm@9.12.3",
   "dependencies": {
     "@hookform/resolvers": "^3",
-    "@payloadcms/db-postgres": "^3",
-    "@payloadcms/email-resend": "^3",
-    "@payloadcms/live-preview-react": "^3",
-    "@payloadcms/next": "^3",
-    "@payloadcms/plugin-nested-docs": "^3",
-    "@payloadcms/richtext-lexical": "^3",
-    "@payloadcms/storage-s3": "^3",
-    "@payloadcms/ui": "^3",
+    "@payloadcms/db-postgres": "3.7.0",
+    "@payloadcms/email-resend": "3.7.0",
+    "@payloadcms/live-preview-react": "3.7.0",
+    "@payloadcms/next": "3.7.0",
+    "@payloadcms/plugin-nested-docs": "3.7.0",
+    "@payloadcms/richtext-lexical": "3.7.0",
+    "@payloadcms/storage-s3": "3.7.0",
+    "@payloadcms/ui": "3.7.0",
     "@radix-ui/react-accordion": "^1",
     "@radix-ui/react-focus-scope": "^1",
     "@radix-ui/react-label": "^2",
@@ -55,11 +55,11 @@
     "iconoir-react": "^7",
     "jiti": "^1",
     "jsonwebtoken": "^9",
-    "next": "^15",
-    "payload": "^3",
-    "react": "19.0.0-rc-66855b96-20241106",
+    "next": "15.1.0",
+    "payload": "3.7.0",
+    "react": "19.0.0",
     "react-day-picker": "^8",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0",
     "react-hook-form": "^7",
     "resend": "^3",
     "sharp": "^0.33",
@@ -74,8 +74,8 @@
     "@tailwindcss/container-queries": "^0.1",
     "@types/jsonwebtoken": "^9",
     "@types/node": "^20",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.1",
     "@types/validator": "^13",
     "autoprefixer": "^10",
     "eslint": "^9",
@@ -95,15 +95,5 @@
     "tailwindcss-animate": "^1",
     "typescript": "^5",
     "typescript-eslint": "^8"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
