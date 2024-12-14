@@ -1,6 +1,14 @@
-import type { CollectionConfig, RelationshipFieldSingleValidation } from 'payload';
+import type {
+  CollectionAfterOperationHook,
+  CollectionConfig,
+  RelationshipFieldSingleValidation,
+} from 'payload';
+import { Resend } from 'resend';
 
+import { env } from '@/env/server';
 import { Role, hasRole } from '@/payload/access';
+import { FormSubmissionEmailTemplate } from '@/payload/components/form-submission-email-template';
+import type { PayloadFormCollection } from '@/payload/payload-types';
 
 const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   value,
@@ -14,13 +22,13 @@ const formRelationshipValidation: RelationshipFieldSingleValidation = async (
 
   try {
     const id = typeof value === 'string' || typeof value === 'number' ? value : value.value;
-    const form = await payload.findByID({
-      id,
+    await payload.findByID({
       collection: 'forms',
+      id,
       req,
     });
 
-    return !!form || errorMessage;
+    return true;
   } catch (error) {
     payload.logger.error(error);
 
@@ -28,7 +36,46 @@ const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   }
 };
 
-export const FormSubmissions: CollectionConfig<'forms'> = {
+const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> = async ({
+  operation,
+  req: { payload },
+  req,
+  result,
+}) => {
+  if (operation === 'create') {
+    try {
+      let form: PayloadFormCollection;
+
+      if (typeof result.form === 'string' || typeof result.form === 'number') {
+        form = await payload.findByID({
+          collection: 'forms',
+          id: result.form,
+          req,
+        });
+      } else {
+        form = result.form;
+      }
+
+      const resend = new Resend(env.RESEND_API_KEY);
+      const { error } = await resend.emails.send({
+        from: `Wedding Day Content Co. <${env.DEFAULT_FROM_ADDRESS}>`,
+        to: env.DEFAULT_TO_ADDRESS,
+        subject: `New ${form.title} Submission`,
+        react: FormSubmissionEmailTemplate({ data: result.data, form }),
+      });
+
+      if (error) {
+        payload.logger.error(error);
+      }
+    } catch (error) {
+      payload.logger.error(error);
+    }
+  }
+
+  return result;
+};
+
+export const FormSubmissions: CollectionConfig<'form-submissions'> = {
   slug: 'form-submissions',
   typescript: {
     interface: 'PayloadFormSubmissionCollection',
@@ -38,6 +85,9 @@ export const FormSubmissions: CollectionConfig<'forms'> = {
     read: hasRole(Role.Admin, Role.Editor),
     update: () => false,
     delete: hasRole(Role.Admin),
+  },
+  hooks: {
+    afterOperation: [sendFormSubmissionEmail],
   },
   fields: [
     {
