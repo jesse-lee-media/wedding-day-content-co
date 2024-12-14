@@ -8,13 +8,13 @@ import Script from 'next/script';
 import { type GlobalSlug, getPayload } from 'payload';
 
 import { Footer } from '@/components/footer';
-import { LivePreviewListener } from '@/components/live-preview-listener';
 import { Navigation } from '@/components/navigation';
 import { env } from '@/env/client';
 import { Toaster } from '@/lib/components/toaster';
 import { Providers } from '@/lib/providers';
 import { cn } from '@/lib/utils/cn';
 import type { PayloadFooterGlobal, PayloadNavigationGlobal } from '@/payload/payload-types';
+import { getServerSideUrl } from '@/payload/utils/get-server-side-url';
 import payloadConfig from '@payload-config';
 
 import './globals.css';
@@ -27,6 +27,7 @@ const zodiak = localFont({
 const figtree = Figtree({ subsets: ['latin'], display: 'swap', variable: '--font-figtree' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getServerSideUrl()),
   title: 'Wedding Day Content Co.',
   description: 'Content creator for weddings and events—your moments, our artistry.',
   keywords: [
@@ -107,7 +108,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <body className="relative flex h-full flex-col">
         <div className="dot-mask fixed inset-0 -z-10 h-full w-full" />
-        <LivePreviewListener />
         <Providers>
           <Navigation {...navigation} />
           <div className="mt-[4.5rem] flex flex-1 flex-col">{children}</div>

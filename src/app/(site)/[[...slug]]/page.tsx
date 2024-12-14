@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 
 import { metadata } from '@/app/(site)/layout';
+import { LivePreviewListener } from '@/components/live-preview-listener';
 import { Serialize } from '@/components/serialize';
 import { Breadcrumbs } from '@/lib/components/breadcrumbs';
 import { pageTitle } from '@/lib/utils/page-title';
@@ -78,6 +79,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-12">
+      <LivePreviewListener />
       {page.slug !== 'home' && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
       {page.content?.root?.children ? <Serialize nodes={page.content.root.children} /> : null}
     </main>

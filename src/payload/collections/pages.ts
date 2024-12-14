@@ -12,7 +12,6 @@ import { ImageLinks } from '@/payload/blocks/image-links';
 import { Section } from '@/payload/blocks/section';
 import type { PayloadPagesCollection } from '@/payload/payload-types';
 import { generatePreviewPath } from '@/payload/utils/generate-preview-path';
-import { getServerSideURL } from '@/payload/utils/get-server-side-url';
 
 const useSlug: FieldHook<PayloadPagesCollection, string | undefined, PayloadPagesCollection> = ({
   operation,
@@ -61,23 +60,19 @@ export const Pages: CollectionConfig<'pages'> = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status', 'updatedAt'],
     livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
+      url: ({ data, req }) =>
+        generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'pages',
-        });
-
-        return getServerSideURL(path);
-      },
+          req,
+        }),
     },
-    preview: (data) => {
-      const path = generatePreviewPath({
+    preview: (data, { req }) =>
+      generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'pages',
-      });
-
-      return getServerSideURL(path);
-    },
+        req,
+      }),
   },
   access: {
     read: hasRoleOrPublished(Role.Admin, Role.Editor),
