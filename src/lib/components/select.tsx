@@ -83,7 +83,6 @@ const SelectContent = ({
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
       <Viewport
         className={cn(
           'flex flex-col gap-1 p-1',
@@ -92,7 +91,6 @@ const SelectContent = ({
       >
         {children}
       </Viewport>
-      <SelectScrollDownButton />
     </Content>
   </Portal>
 );

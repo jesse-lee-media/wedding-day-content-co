@@ -28,6 +28,7 @@ import sharp from 'sharp';
 import { env } from '@/env/server';
 import { Role } from '@/payload/access';
 import { Faqs } from '@/payload/collections/faqs';
+import { FormSubmissions } from '@/payload/collections/form-submissions';
 import { Forms } from '@/payload/collections/forms';
 import { Media } from '@/payload/collections/media';
 import { Pages } from '@/payload/collections/pages';
@@ -67,7 +68,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Pages, Media, Faqs, Forms, Users],
+  collections: [Pages, Media, Faqs, Forms, FormSubmissions, Users],
   cors: whitelist,
   csrf: whitelist,
   db: postgresAdapter({

@@ -12,6 +12,7 @@ import { linkProps } from '@/lib/utils/link';
 import { slugify } from '@/lib/utils/slugify';
 
 export type SerializeProps = {
+  form?: boolean;
   nodes: any[];
 };
 
@@ -36,7 +37,7 @@ const renderText = (node: any) => {
   }
 };
 
-export function Serialize({ nodes }: SerializeProps) {
+export function Serialize({ form, nodes }: SerializeProps) {
   const alignClasses = {
     left: 'text-left',
     center: 'text-center',
@@ -84,7 +85,12 @@ export function Serialize({ nodes }: SerializeProps) {
             return node.children?.length > 0 ? (
               <p
                 key={i}
-                className={cn('my-3 text-lg first:mt-0 last:mb-0', alignClass, indentClass)}
+                className={cn(
+                  'my-3 first:mt-0 last:mb-0',
+                  form ? 'text-sm text-neutral-500' : 'text-lg',
+                  alignClass,
+                  indentClass,
+                )}
               >
                 <Serialize nodes={node.children} />
               </p>

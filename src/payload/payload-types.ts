@@ -44,6 +44,7 @@ export interface Config {
     media: PayloadMediaCollection;
     faqs: PayloadFaqCollection;
     forms: PayloadFormCollection;
+    'form-submissions': PayloadFormSubmissionCollection;
     users: PayloadUsersCollection;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -55,6 +56,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -234,6 +236,7 @@ export interface PayloadFormCollection {
   )[];
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -467,6 +470,22 @@ export interface PayloadPhoneNumberBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface PayloadFormSubmissionCollection {
+  id: string;
+  form: string | PayloadFormCollection;
+  data: {
+    label: string;
+    name: string;
+    value: string;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface PayloadUsersCollection {
@@ -507,6 +526,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'forms';
         value: string | PayloadFormCollection;
+      } | null)
+    | ({
+        relationTo: 'form-submissions';
+        value: string | PayloadFormSubmissionCollection;
       } | null)
     | ({
         relationTo: 'users';
@@ -760,6 +783,24 @@ export interface FormsSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  form?: T;
+  data?:
+    | T
+    | {
+        label?: T;
+        name?: T;
+        value?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -819,6 +860,7 @@ export interface PayloadNavigationGlobal {
   id: string;
   links?: PayloadLinkArrayField;
   callToAction: PayloadButtonLinkGroupField;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -864,6 +906,7 @@ export interface PayloadFooterGlobal {
       }[]
     | null;
   marquee: string;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -908,6 +951,7 @@ export interface NavigationSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -939,6 +983,7 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   marquee?: T;
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
