@@ -10,7 +10,7 @@ import type { PayloadImageLinksBlock } from '@/payload/payload-types';
 export function ImageLinksBlock({ cards }: PayloadImageLinksBlock) {
   return (
     <div className="my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-      {cards.map(({ image, link }) =>
+      {cards?.map(({ image, link }) =>
         typeof image !== 'string' ? (
           <PolaroidImage asChild key={image.id}>
             <Link

@@ -54,10 +54,7 @@ function createFocusGuard() {
 
 let count = 0;
 
-export function Navigation({
-  callToAction: { id, ...callToAction },
-  links,
-}: PayloadNavigationGlobal) {
+export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
   const [open, setOpen] = useState(false);
 
   const ref = useRef<HTMLUListElement>(null);
@@ -137,7 +134,7 @@ export function Navigation({
             ))}
             {callToAction.link.text ? (
               <li className="hidden md-lg:block">
-                <PayloadButtonLink id={id ?? undefined} {...callToAction} />
+                <PayloadButtonLink {...callToAction} />
               </li>
             ) : null}
             <button
@@ -171,7 +168,6 @@ export function Navigation({
                 <li className="mt-2 flex">
                   <PayloadButtonLink
                     {...callToAction}
-                    id={id ?? undefined}
                     onClick={closeMenu}
                     size="md"
                     className="flex-1"

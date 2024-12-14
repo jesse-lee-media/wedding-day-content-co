@@ -11,6 +11,13 @@ export const Navigation: GlobalConfig = {
   typescript: {
     interface: 'PayloadNavigationGlobal',
   },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
+  },
   access: {
     read: () => true,
     update: hasRole(Role.Admin),

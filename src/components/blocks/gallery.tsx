@@ -9,6 +9,10 @@ import { PayloadImage } from '@/lib/components/payload-image';
 import type { PayloadGalleryBlock, PayloadMediaCollection } from '@/payload/payload-types';
 
 export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
+  if (!images?.length) {
+    return null;
+  }
+
   if (type === 'grid') {
     const columns: PayloadMediaCollection[][] = [[], [], []];
 

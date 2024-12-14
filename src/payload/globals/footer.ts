@@ -10,6 +10,13 @@ export const Footer: GlobalConfig = {
   typescript: {
     interface: 'PayloadFooterGlobal',
   },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
+  },
   access: {
     read: () => true,
     update: hasRole(Role.Admin),

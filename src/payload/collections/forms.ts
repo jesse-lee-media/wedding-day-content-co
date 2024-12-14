@@ -19,6 +19,13 @@ export const Forms: CollectionConfig<'forms'> = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'fields', 'createdAt', 'updatedAt'],
   },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
+  },
   access: {
     read: () => true,
     create: hasRole(Role.Admin, Role.Editor),
