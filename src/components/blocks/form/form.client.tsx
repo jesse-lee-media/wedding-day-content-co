@@ -15,7 +15,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import { z } from 'zod';
 
 import { submitForm } from '@/components/blocks/form/form.action';
-import { Serialize } from '@/components/serialize';
+import { RichText } from '@/components/rich-text';
 import { Button } from '@/lib/components/button';
 import { Calendar } from '@/lib/components/calendar';
 import {
@@ -387,9 +387,12 @@ export const FormClient = (props: PayloadFormCollection) => {
                       );
                   }
                 })()}
-                {payloadField.description?.root?.children ? (
+                {payloadField.description ? (
                   <div>
-                    <Serialize form nodes={payloadField.description.root.children} />
+                    <RichText
+                      data={payloadField.description}
+                      overrideClasses={{ paragraph: 'text-sm text-neutral-500' }}
+                    />
                   </div>
                 ) : null}
                 <FormMessage />

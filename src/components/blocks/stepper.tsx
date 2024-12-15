@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { Serialize } from '@/components/serialize';
+import { RichText } from '@/components/rich-text';
 import type { PayloadStepperBlock } from '@/payload/payload-types';
 
 export function StepperBlock({ steps }: PayloadStepperBlock) {
@@ -19,7 +19,7 @@ export function StepperBlock({ steps }: PayloadStepperBlock) {
             </span>
             <span className="drop-shadow-lg">{heading}</span>
           </h2>
-          {content ? <Serialize nodes={content.root.children} /> : null}
+          <RichText data={content} />
         </Fragment>
       ))}
     </div>

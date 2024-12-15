@@ -1,4 +1,4 @@
-import { Serialize } from '@/components/serialize';
+import { RichText } from '@/components/rich-text';
 import { Blockquote, BlockquoteBody, BlockquoteFooter } from '@/lib/components/blockquote';
 import {
   Carousel,
@@ -20,7 +20,7 @@ export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
         {quotes.map(({ client, content, id }) => (
           <Blockquote key={id} className="last:md:col-span-2 last:lg:col-span-1">
             <BlockquoteBody>
-              {content?.root?.children ? <Serialize nodes={content.root.children} /> : null}
+              <RichText data={content} />
             </BlockquoteBody>
             <BlockquoteFooter>{client}</BlockquoteFooter>
           </Blockquote>
@@ -36,7 +36,7 @@ export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
           <CarouselItem key={id} className="mi-auto md:basis-1/2 xl:basis-1/3">
             <Blockquote>
               <BlockquoteBody>
-                {content?.root?.children ? <Serialize nodes={content.root.children} /> : null}
+                <RichText data={content} />
               </BlockquoteBody>
               <BlockquoteFooter>{client}</BlockquoteFooter>
             </Blockquote>

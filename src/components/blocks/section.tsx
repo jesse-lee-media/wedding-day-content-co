@@ -1,4 +1,4 @@
-import { Serialize } from '@/components/serialize';
+import { RichText } from '@/components/rich-text';
 import { cn } from '@/lib/utils/cn';
 import { slugify } from '@/lib/utils/slugify';
 import type { PayloadSectionBlock } from '@/payload/payload-types';
@@ -25,29 +25,21 @@ export function SectionBlock({
       >
         {heading}
       </h1>
-      {columns === '1' && content?.root?.children ? (
-        <Serialize nodes={content.root.children} />
-      ) : null}
+      {columns === '1' && content?.root?.children ? <RichText data={content} /> : null}
       {columns === '2' && (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-12">
           {contentColumnOne?.root?.children ? (
             <div>
-              <Serialize nodes={contentColumnOne.root.children} />
+              <RichText data={contentColumnOne} />
             </div>
           ) : null}
           {contentColumnTwo?.root?.children ? (
             <div>
-              <Serialize nodes={contentColumnTwo.root.children} />
+              <RichText data={contentColumnTwo} />
             </div>
           ) : null}
         </div>
       )}
-      {/* {background === 'dark' ? (
-        <>
-          <div className="absolute -left-8 top-64 -z-10 h-64 w-96 rotate-45 rounded-full bg-neutral-300/10 blur-3xl"></div>
-          <div className="absolute right-72 top-0 -z-10 h-64 w-56 rotate-45 rounded-full bg-neutral-400/10 blur-3xl"></div>
-        </>
-      ) : null} */}
     </section>
   );
 }

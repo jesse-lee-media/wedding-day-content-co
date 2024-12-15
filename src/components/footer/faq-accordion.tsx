@@ -1,4 +1,4 @@
-import { Serialize } from '@/components/serialize';
+import { RichText } from '@/components/rich-text';
 import {
   Accordion,
   AccordionContent,
@@ -25,7 +25,7 @@ export default function FaqAccordion({ faqs }: { faqs: PayloadFooterGlobal['faqs
             </h2>
           </AccordionHeader>
           <AccordionContent>
-            {faq.answer?.root?.children ? <Serialize nodes={faq.answer.root.children} /> : null}
+            <RichText data={faq.answer} />
           </AccordionContent>
         </AccordionItem>
       ))}
