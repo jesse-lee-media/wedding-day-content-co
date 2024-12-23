@@ -70,6 +70,7 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params }: PageProps) {
+  const { isEnabled: draft } = await draftMode();
   const { slug } = await params;
   const page = await queryPage({ slug });
 
@@ -79,7 +80,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-12">
-      <LivePreviewListener />
+      {draft ? <LivePreviewListener /> : null}
       {page.slug !== 'home' && <Breadcrumbs breadcrumbs={page.breadcrumbs} />}
       <RichText data={page.content} />
     </main>
