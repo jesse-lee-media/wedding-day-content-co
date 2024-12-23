@@ -117,7 +117,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Script
           src={env.NEXT_PUBLIC_UMAMI_SRC}
           data-website-id={env.NEXT_PUBLIC_UMAMI_ID}
-          data-domains={env.NEXT_PUBLIC_DOMAINS}
+          data-domains={env.NEXT_PUBLIC_DOMAIN}
         />
       </body>
     </html>

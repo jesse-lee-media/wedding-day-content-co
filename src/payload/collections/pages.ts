@@ -1,6 +1,11 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
-import { revalidatePath } from 'next/cache';
-import type { CollectionAfterChangeHook, CollectionConfig, FieldHook } from 'payload';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+  FieldHook,
+} from 'payload';
 
 import { slugify } from '@/lib/utils/slugify';
 import { Role, hasRole, hasRoleOrPublished } from '@/payload/access';
@@ -32,6 +37,7 @@ const revalidatePageAfterChange: CollectionAfterChangeHook<PayloadPagesCollectio
 
     payload.logger.info(`Revalidating path: ${path}`);
     revalidatePath(path);
+    revalidateTag('pages-sitemap');
   }
 
   if (previousDoc?._status === 'published' && doc._status !== 'published') {
@@ -39,6 +45,21 @@ const revalidatePageAfterChange: CollectionAfterChangeHook<PayloadPagesCollectio
 
     payload.logger.info(`Revalidating previous path: ${oldPath}`);
     revalidatePath(oldPath);
+    revalidateTag('pages-sitemap');
+  }
+
+  return doc;
+};
+
+export const revalidatePageAfterDelete: CollectionAfterDeleteHook<PayloadPagesCollection> = ({
+  doc,
+  req: { context },
+}) => {
+  if (!context.disableRevalidate) {
+    const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`;
+
+    revalidatePath(path);
+    revalidateTag('pages-sitemap');
   }
 
   return doc;
@@ -82,6 +103,7 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   hooks: {
     afterChange: [revalidatePageAfterChange],
+    afterDelete: [revalidatePageAfterDelete],
   },
   defaultPopulate: {
     breadcrumbs: true,
