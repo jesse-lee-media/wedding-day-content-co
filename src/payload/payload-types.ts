@@ -665,125 +665,146 @@ export interface FormsSelect<T extends boolean = true> {
   fields?:
     | T
     | {
-        text?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        textarea?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        date?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              mode?: T;
-              allowedDates?: T;
-              defaultDateValue?: T;
-              defaultDateValues?:
-                | T
-                | {
-                    value?: T;
-                    id?: T;
-                  };
-              defaultDateFromValue?: T;
-              defaultDateToValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        select?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              options?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        radio?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              options?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        email?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
-        phoneNumber?:
-          | T
-          | {
-              name?: T;
-              label?: T;
-              placeholder?: T;
-              width?: T;
-              description?: T;
-              defaultValue?: T;
-              required?: T;
-              id?: T;
-              blockName?: T;
-            };
+        text?: T | PayloadTextBlockSelect<T>;
+        textarea?: T | PayloadTextareaBlockSelect<T>;
+        date?: T | PayloadDateBlockSelect<T>;
+        select?: T | PayloadSelectBlockSelect<T>;
+        radio?: T | PayloadRadioBlockSelect<T>;
+        email?: T | PayloadEmailBlockSelect<T>;
+        phoneNumber?: T | PayloadPhoneNumberBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadTextBlock_select".
+ */
+export interface PayloadTextBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadTextareaBlock_select".
+ */
+export interface PayloadTextareaBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadDateBlock_select".
+ */
+export interface PayloadDateBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  mode?: T;
+  allowedDates?: T;
+  defaultDateValue?: T;
+  defaultDateValues?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  defaultDateFromValue?: T;
+  defaultDateToValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadSelectBlock_select".
+ */
+export interface PayloadSelectBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  options?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadRadioBlock_select".
+ */
+export interface PayloadRadioBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  options?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadEmailBlock_select".
+ */
+export interface PayloadEmailBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadPhoneNumberBlock_select".
+ */
+export interface PayloadPhoneNumberBlockSelect<T extends boolean = true> {
+  name?: T;
+  label?: T;
+  placeholder?: T;
+  width?: T;
+  description?: T;
+  defaultValue?: T;
+  required?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -915,46 +936,55 @@ export interface PayloadFooterGlobal {
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
-  links?:
-    | T
-    | {
-        text?: T;
-        type?: T;
-        relationship?: T;
-        anchor?: T;
-        url?: T;
-        rel?: T;
-        newTab?: T;
-        umamiEvent?: T;
-        umamiEventId?: T;
-        id?: T;
-      };
-  callToAction?:
-    | T
-    | {
-        variant?: T;
-        size?: T;
-        icon?: T;
-        iconPosition?: T;
-        link?:
-          | T
-          | {
-              text?: T;
-              type?: T;
-              relationship?: T;
-              anchor?: T;
-              url?: T;
-              rel?: T;
-              newTab?: T;
-              umamiEvent?: T;
-              umamiEventId?: T;
-              id?: T;
-            };
-      };
+  links?: T | PayloadLinkArrayFieldSelect<T>;
+  callToAction?: T | PayloadButtonLinkGroupFieldSelect<T>;
   _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadLinkArrayField_select".
+ */
+export interface PayloadLinkArrayFieldSelect<T extends boolean = true> {
+  text?: T;
+  type?: T;
+  relationship?: T;
+  anchor?: T;
+  url?: T;
+  rel?: T;
+  newTab?: T;
+  umamiEvent?: T;
+  umamiEventId?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadButtonLinkGroupField_select".
+ */
+export interface PayloadButtonLinkGroupFieldSelect<T extends boolean = true> {
+  variant?: T;
+  size?: T;
+  icon?: T;
+  iconPosition?: T;
+  link?: T | PayloadLinkGroupFieldSelect<T>;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadLinkGroupField_select".
+ */
+export interface PayloadLinkGroupFieldSelect<T extends boolean = true> {
+  text?: T;
+  type?: T;
+  relationship?: T;
+  anchor?: T;
+  url?: T;
+  rel?: T;
+  newTab?: T;
+  umamiEvent?: T;
+  umamiEventId?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -966,20 +996,7 @@ export interface FooterSelect<T extends boolean = true> {
     | T
     | {
         heading?: T;
-        links?:
-          | T
-          | {
-              text?: T;
-              type?: T;
-              relationship?: T;
-              anchor?: T;
-              url?: T;
-              rel?: T;
-              newTab?: T;
-              umamiEvent?: T;
-              umamiEventId?: T;
-              id?: T;
-            };
+        links?: T | PayloadLinkArrayFieldSelect<T>;
         id?: T;
       };
   marquee?: T;
