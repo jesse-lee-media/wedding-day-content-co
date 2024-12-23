@@ -58,8 +58,8 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
 
       const resend = new Resend(env.RESEND_API_KEY);
       const { error } = await resend.emails.send({
-        from: `Wedding Day Content Co. <${env.DEFAULT_FROM_ADDRESS}>`,
-        to: env.DEFAULT_TO_ADDRESS,
+        from: `Wedding Day Content Co. <${env.RESEND_FROM_ADDRESS_PAYLOAD}>`,
+        to: env.RESEND_TO_ADDRESS_DEFAULT,
         subject: `New ${form.title} Submission`,
         react: FormSubmissionEmailTemplate({ data: result.data, form }),
       });

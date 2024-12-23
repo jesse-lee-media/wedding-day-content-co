@@ -3,9 +3,6 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
-    DEFAULT_FROM_ADDRESS: z.string().min(1),
-    DEFAULT_FROM_NAME: z.string().min(1),
-    DEFAULT_TO_ADDRESS: z.string().min(1),
     DOMAIN: z.string().min(1),
     PAYLOAD_ADMIN_PASSWORD: z.string().min(1),
     PAYLOAD_ADMIN_USER: z.string().min(1),
@@ -16,6 +13,10 @@ export const env = createEnv({
     R2_ENDPOINT: z.string().min(1),
     R2_SECRET_ACCESS_KEY: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
+    RESEND_FROM_ADDRESS_DEFAULT: z.string().min(1),
+    RESEND_FROM_ADDRESS_PAYLOAD: z.string().min(1),
+    RESEND_FROM_NAME_DEFAULT: z.string().min(1),
+    RESEND_TO_ADDRESS_DEFAULT: z.string().min(1),
     SERVER_URL: z
       .string()
       .min(1)
@@ -24,9 +25,6 @@ export const env = createEnv({
       ),
   },
   runtimeEnv: {
-    DEFAULT_FROM_ADDRESS: process.env.DEFAULT_FROM_ADDRESS,
-    DEFAULT_FROM_NAME: process.env.DEFAULT_FROM_NAME,
-    DEFAULT_TO_ADDRESS: process.env.DEFAULT_TO_ADDRESS,
     DOMAIN: process.env.DOMAIN,
     PAYLOAD_ADMIN_PASSWORD: process.env.PAYLOAD_ADMIN_PASSWORD,
     PAYLOAD_ADMIN_USER: process.env.PAYLOAD_ADMIN_USER,
@@ -37,6 +35,10 @@ export const env = createEnv({
     R2_ENDPOINT: process.env.R2_ENDPOINT,
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_FROM_ADDRESS_DEFAULT: process.env.RESEND_FROM_ADDRESS_DEFAULT,
+    RESEND_FROM_ADDRESS_PAYLOAD: process.env.RESEND_FROM_ADDRESS_PAYLOAD,
+    RESEND_FROM_NAME_DEFAULT: process.env.RESEND_FROM_NAME_DEFAULT,
+    RESEND_TO_ADDRESS_DEFAULT: process.env.RESEND_TO_ADDRESS_DEFAULT,
     SERVER_URL: process.env.SERVER_URL,
   },
 });
