@@ -29,7 +29,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.1.8",
     "iconoir-react": "^7.8.0",
-    "next": "14.2.5",
+    "next": "14.2.15",
     "react-day-picker": "^8.10.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.52.2",
