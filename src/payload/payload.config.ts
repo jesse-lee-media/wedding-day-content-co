@@ -101,8 +101,8 @@ export default buildConfig({
     ],
   }),
   email: resendAdapter({
-    defaultFromAddress: env.DEFAULT_FROM_ADDRESS,
-    defaultFromName: env.DEFAULT_FROM_NAME,
+    defaultFromAddress: env.RESEND_FROM_ADDRESS_DEFAULT,
+    defaultFromName: env.RESEND_FROM_NAME_DEFAULT,
     apiKey: env.RESEND_API_KEY,
   }),
   globals: [Navigation, Footer],
