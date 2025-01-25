@@ -40,3 +40,4 @@ next-env.d.ts
 
 **/payload-types.ts
 **/importMap.js
+**/migrations
