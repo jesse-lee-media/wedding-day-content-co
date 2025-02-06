@@ -43,7 +43,7 @@ export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
         {images
           .filter((image) => typeof image !== 'string')
           .map((image) => (
-            <CarouselItem key={image.id} className="mi-auto sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+            <CarouselItem key={image.id} className="mi-auto sm:basis-1/2 md:basis-1/3">
               <PayloadImage
                 {...image}
                 className="overflow-clip rounded ring-2 ring-neutral-200 dark:ring-neutral-700"

@@ -1,3 +1,4 @@
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import type { Field, GlobalConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
@@ -10,13 +11,6 @@ export const Footer: GlobalConfig = {
   typescript: {
     interface: 'PayloadFooterGlobal',
   },
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 100,
-      },
-    },
-  },
   access: {
     read: () => true,
     update: hasRole(Role.Admin),
@@ -25,6 +19,13 @@ export const Footer: GlobalConfig = {
     afterChange: [revalidateGlobalAfterChange],
   },
   fields: [
+    {
+      name: 'contact',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
+    },
     {
       name: 'faqs',
       label: 'FAQs',

@@ -31,7 +31,7 @@ export const Stepper: Block = {
           name: 'content',
           type: 'richText',
           editor: lexicalEditor({
-            features: ({ rootFeatures }) => [...rootFeatures],
+            features: ({ rootFeatures }) => rootFeatures,
           }),
         },
       ],

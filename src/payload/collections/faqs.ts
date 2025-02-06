@@ -39,7 +39,7 @@ export const Faqs: CollectionConfig<'faqs'> = {
       name: 'answer',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => [...rootFeatures],
+        features: ({ rootFeatures }) => rootFeatures,
       }),
     },
   ],

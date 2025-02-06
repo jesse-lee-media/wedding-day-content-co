@@ -42,7 +42,7 @@ export const Forms: CollectionConfig<'forms'> = {
       name: 'description',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => [...rootFeatures],
+        features: ({ rootFeatures }) => rootFeatures,
       }),
     },
     {

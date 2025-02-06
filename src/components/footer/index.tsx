@@ -1,26 +1,34 @@
 import dynamic from 'next/dynamic';
 
-import { FaqSection } from '@/components/footer/faq-section';
+import { FooterSection } from '@/components/footer/faq-section';
 import { FaqsLoading } from '@/components/footer/faqs-loading';
+import { RichText } from '@/components/rich-text';
 import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
 import { PayloadLink } from '@/lib/components/payload-link';
 import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 const FaqAccordion = dynamic(() => import('./faq-accordion'), { loading: () => <FaqsLoading /> });
 
-export function Footer({ faqs, linkGroups, marquee }: PayloadFooterGlobal) {
+export function Footer({ contact, faqs, linkGroups, marquee }: PayloadFooterGlobal) {
   const marqueeText = new Array(4).fill(marquee ?? '').join(' ') + ' ';
 
   return (
     <footer className="dark flex flex-col gap-24 bg-black py-16 text-white">
       <div className="mx-auto w-full max-w-7xl px-4">
-        {faqs && faqs.length > 0 && (
-          <FaqSection heading="Frequently asked questions">
+        {contact ? (
+          <FooterSection heading="Contact">
+            <div>
+              <RichText data={contact} />
+            </div>
+          </FooterSection>
+        ) : null}
+        {faqs && faqs.length > 0 ? (
+          <FooterSection heading="Frequently asked questions">
             <FaqAccordion faqs={faqs} />
-          </FaqSection>
-        )}
+          </FooterSection>
+        ) : null}
         {linkGroups && linkGroups.length > 0 && (
-          <FaqSection heading="Links">
+          <FooterSection heading="Links">
             <div className="@container">
               <ul className="grid grid-cols-1 gap-8 @xs:grid-cols-2 @sm:grid-cols-3">
                 {linkGroups.map(({ heading, id, links }) => (
@@ -37,10 +45,10 @@ export function Footer({ faqs, linkGroups, marquee }: PayloadFooterGlobal) {
                 ))}
               </ul>
             </div>
-          </FaqSection>
+          </FooterSection>
         )}
       </div>
-      {marquee && (
+      {marquee ? (
         <Marquee>
           <MarqueeContent asChild speed="slow">
             <h1 className="text-8xl">{marqueeText}</h1>
@@ -51,7 +59,7 @@ export function Footer({ faqs, linkGroups, marquee }: PayloadFooterGlobal) {
           <MarqueeFade side="left" />
           <MarqueeFade side="right" />
         </Marquee>
-      )}
+      ) : null}
     </footer>
   );
 }

@@ -10,7 +10,7 @@ export function HeroBlock({ buttonLinks, description, heading, images }: Payload
         <h1 className="text-4xl shadow-black/10 text-wrap-balance xxs:text-5xl lg:text-7xl xl:text-8xl">
           {heading}
         </h1>
-        <p className="text-xl text-wrap-balance lg:text-2xl">{description}</p>
+        <p className="text-2xl italic text-wrap-balance lg:text-3xl">{description}</p>
         <ul className="flex flex-col items-center gap-4 xs:flex-row">
           {buttonLinks?.map(({ id, ...buttonLink }) => (
             <li key={id} className="flex w-full xs:w-fit">
@@ -25,7 +25,7 @@ export function HeroBlock({ buttonLinks, description, heading, images }: Payload
           .map((image) => (
             <PolaroidImage
               key={image.id}
-              className="z-10 first:z-20 first:md-lg:translate-x-12 first:md-lg:translate-y-16 first:md-lg:-rotate-3 last:md-lg:-translate-x-4 last:md-lg:rotate-3"
+              className="z-10 h-fit first:z-20 first:md-lg:translate-x-12 first:md-lg:translate-y-16 first:md-lg:-rotate-3 last:md-lg:-translate-x-4 last:md-lg:rotate-3"
             >
               <PayloadImage {...image} className="rounded-sm" />
             </PolaroidImage>

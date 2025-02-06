@@ -881,7 +881,6 @@ export interface PayloadNavigationGlobal {
   id: string;
   links?: PayloadLinkArrayField;
   callToAction: PayloadButtonLinkGroupField;
-  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -918,6 +917,21 @@ export interface PayloadLinkGroupField {
  */
 export interface PayloadFooterGlobal {
   id: string;
+  contact?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   faqs?: (string | PayloadFaqCollection)[] | null;
   linkGroups?:
     | {
@@ -927,7 +941,6 @@ export interface PayloadFooterGlobal {
       }[]
     | null;
   marquee: string;
-  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -938,7 +951,6 @@ export interface PayloadFooterGlobal {
 export interface NavigationSelect<T extends boolean = true> {
   links?: T | PayloadLinkArrayFieldSelect<T>;
   callToAction?: T | PayloadButtonLinkGroupFieldSelect<T>;
-  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -991,6 +1003,7 @@ export interface PayloadLinkGroupFieldSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  contact?: T;
   faqs?: T;
   linkGroups?:
     | T
@@ -1000,7 +1013,6 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   marquee?: T;
-  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
