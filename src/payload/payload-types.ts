@@ -127,13 +127,15 @@ export type PayloadBackgroundField = 'default' | 'dark';
 
 export interface Config {
   auth: {
+    clients: ClientAuthOperations;
     users: UserAuthOperations;
   };
   blocks: {};
   collections: {
     pages: PayloadPagesCollection;
-    media: PayloadMediaCollection;
     faqs: PayloadFaqsCollection;
+    media: PayloadMediaCollection;
+    clients: PayloadClientsCollection;
     forms: PayloadFormsCollection;
     'form-submissions': PayloadFormSubmissionsCollection;
     users: PayloadUsersCollection;
@@ -141,11 +143,16 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    clients: {
+      forms: 'form-submissions';
+    };
+  };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -165,12 +172,34 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
-  user: PayloadUsersCollection & {
-    collection: 'users';
-  };
+  user:
+    | (PayloadClientsCollection & {
+        collection: 'clients';
+      })
+    | (PayloadUsersCollection & {
+        collection: 'users';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
+  };
+}
+export interface ClientAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
   };
 }
 export interface UserAuthOperations {
@@ -229,6 +258,32 @@ export interface PayloadPagesCollection {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface PayloadFaqsCollection {
+  id: string;
+  question: string;
+  answer?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface PayloadMediaCollection {
@@ -268,29 +323,42 @@ export interface PayloadMediaCollection {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs".
+ * via the `definition` "clients".
  */
-export interface PayloadFaqsCollection {
+export interface PayloadClientsCollection {
   id: string;
-  question: string;
-  answer?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
+  name: string;
+  forms?: {
+    docs?: (string | PayloadFormSubmissionsCollection)[] | null;
+    hasNextPage?: boolean | null;
   } | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface PayloadFormSubmissionsCollection {
+  id: string;
+  form: string | PayloadFormsCollection;
+  client?: (string | null) | PayloadClientsCollection;
+  data: {
+    label: string;
+    name: string;
+    value: string;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -561,22 +629,6 @@ export interface PayloadPhoneNumberBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-submissions".
- */
-export interface PayloadFormSubmissionsCollection {
-  id: string;
-  form: string | PayloadFormsCollection;
-  data: {
-    label: string;
-    name: string;
-    value: string;
-    id?: string | null;
-  }[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface PayloadUsersCollection {
@@ -607,12 +659,16 @@ export interface PayloadLockedDocument {
         value: string | PayloadPagesCollection;
       } | null)
     | ({
+        relationTo: 'faqs';
+        value: string | PayloadFaqsCollection;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | PayloadMediaCollection;
       } | null)
     | ({
-        relationTo: 'faqs';
-        value: string | PayloadFaqsCollection;
+        relationTo: 'clients';
+        value: string | PayloadClientsCollection;
       } | null)
     | ({
         relationTo: 'forms';
@@ -627,10 +683,15 @@ export interface PayloadLockedDocument {
         value: string | PayloadUsersCollection;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | PayloadUsersCollection;
-  };
+  user:
+    | {
+        relationTo: 'clients';
+        value: string | PayloadClientsCollection;
+      }
+    | {
+        relationTo: 'users';
+        value: string | PayloadUsersCollection;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -640,10 +701,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | PayloadUsersCollection;
-  };
+  user:
+    | {
+        relationTo: 'clients';
+        value: string | PayloadClientsCollection;
+      }
+    | {
+        relationTo: 'users';
+        value: string | PayloadUsersCollection;
+      };
   key?: string | null;
   value?:
     | {
@@ -685,6 +751,17 @@ export interface PagesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -735,14 +812,20 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs_select".
+ * via the `definition` "clients_select".
  */
-export interface FaqsSelect<T extends boolean = true> {
-  question?: T;
-  answer?: T;
+export interface ClientsSelect<T extends boolean = true> {
+  name?: T;
+  forms?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -903,6 +986,7 @@ export interface PayloadPhoneNumberBlockSelect<T extends boolean = true> {
  */
 export interface FormSubmissionsSelect<T extends boolean = true> {
   form?: T;
+  client?: T;
   data?:
     | T
     | {

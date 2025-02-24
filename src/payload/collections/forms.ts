@@ -18,6 +18,7 @@ export const Forms: CollectionConfig<'forms'> = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'fields', 'createdAt', 'updatedAt'],
+    group: 'CRM',
   },
   versions: {
     drafts: {

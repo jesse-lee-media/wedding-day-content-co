@@ -1,5 +1,7 @@
+import { nanoid } from 'nanoid';
 import type {
   CollectionAfterOperationHook,
+  CollectionBeforeValidateHook,
   CollectionConfig,
   RelationshipFieldSingleValidation,
 } from 'payload';
@@ -8,7 +10,10 @@ import { Resend } from 'resend';
 import { env } from '@/env/server';
 import { Role, hasRole } from '@/payload/access';
 import { FormSubmissionEmailTemplate } from '@/payload/components/form-submission-email-template';
-import type { PayloadFormsCollection } from '@/payload/payload-types';
+import type {
+  PayloadFormSubmissionsCollection,
+  PayloadFormsCollection,
+} from '@/payload/payload-types';
 
 const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   value,
@@ -17,8 +22,6 @@ const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   if (!payload || !value) {
     return true;
   }
-
-  const errorMessage = 'Form does not exist.';
 
   try {
     const id = typeof value === 'string' || typeof value === 'number' ? value : value.value;
@@ -32,7 +35,7 @@ const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   } catch (error) {
     payload.logger.error(error);
 
-    return errorMessage;
+    return 'Form does not exist.';
   }
 };
 
@@ -75,6 +78,48 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
   return result;
 };
 
+const setClient: CollectionBeforeValidateHook<PayloadFormSubmissionsCollection> = async ({
+  data,
+  req,
+}) => {
+  if (data?.client) {
+    return data;
+  }
+
+  const { payload } = req;
+  const email = data?.data?.find((datum) => datum.name === 'email')?.value;
+
+  if (!email) {
+    return data;
+  }
+
+  const { docs } = await payload.find({
+    collection: 'clients',
+    where: {
+      email: {
+        equals: email,
+      },
+    },
+    limit: 1,
+  });
+
+  if (docs.length) {
+    return Object.assign(data, { client: docs[0].id });
+  }
+
+  const name = data?.data?.find((datum) => datum.name === 'name')?.value;
+  const { id } = await payload.create({
+    collection: 'clients',
+    data: {
+      email,
+      name: name || email.split('@')[0],
+      password: nanoid(32),
+    },
+  });
+
+  return Object.assign(data, { client: id });
+};
+
 export const FormSubmissions: CollectionConfig<'form-submissions'> = {
   slug: 'form-submissions',
   typescript: {
@@ -86,7 +131,11 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
     update: () => false,
     delete: hasRole(Role.Admin),
   },
+  admin: {
+    group: 'CRM',
+  },
   hooks: {
+    beforeValidate: [setClient],
     afterOperation: [sendFormSubmissionEmail],
   },
   fields: [
@@ -99,6 +148,14 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
         readOnly: true,
       },
       validate: formRelationshipValidation,
+    },
+    {
+      name: 'client',
+      type: 'relationship',
+      relationTo: 'clients',
+      admin: {
+        readOnly: true,
+      },
     },
     {
       name: 'data',
