@@ -47,7 +47,6 @@ export const Media: CollectionConfig<'media'> = {
       name: 'displayOriginal',
       type: 'checkbox',
       defaultValue: false,
-      required: true,
       admin: {
         position: 'sidebar',
       },
@@ -60,6 +59,7 @@ export const Media: CollectionConfig<'media'> = {
       admin: {
         position: 'sidebar',
         readOnly: true,
+        condition: (data) => !!data?.dataUrl,
       },
     },
   ],

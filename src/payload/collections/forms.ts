@@ -38,6 +38,7 @@ export const Forms: CollectionConfig<'forms'> = {
       name: 'title',
       type: 'text',
       required: true,
+      unique: true,
     },
     {
       name: 'description',

@@ -29,7 +29,7 @@ import sharp from 'sharp';
 
 import { env } from '@/env/server';
 import { Role } from '@/payload/access';
-import { Clients } from '@/payload/collections/client';
+import { Clients } from '@/payload/collections/clients';
 import { Faqs } from '@/payload/collections/faqs';
 import { FormSubmissions } from '@/payload/collections/form-submissions';
 import { Forms } from '@/payload/collections/forms';

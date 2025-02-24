@@ -136,6 +136,7 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
         readOnly: true,
+        condition: (data) => !!data?.slug,
       },
       hooks: {
         beforeValidate: [useSlug],

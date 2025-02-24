@@ -289,7 +289,7 @@ export interface PayloadFaqsCollection {
 export interface PayloadMediaCollection {
   id: string;
   alt: string;
-  displayOriginal: boolean;
+  displayOriginal?: boolean | null;
   dataUrl?: string | null;
   updatedAt: string;
   createdAt: string;

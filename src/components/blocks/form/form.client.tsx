@@ -188,7 +188,11 @@ export const FormClient = (props: PayloadFormsCollection) => {
 
   const [pending, setPending] = useState(false);
 
-  function formatDateShort(date: Date) {
+  function formatDateShort(date?: Date | null) {
+    if (!date) {
+      return '';
+    }
+
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -211,7 +215,10 @@ export const FormClient = (props: PayloadFormsCollection) => {
               '',
             );
           } else if (field.mode === 'range') {
-            value = `${formatDateShort(values[field.name].from)} – ${formatDateShort(values[field.name].to)}`;
+            const from = formatDateShort(values[field.name].from);
+            const to = values[field.name].to;
+
+            value = `${from} ${to ? `– ${to}` : ''}`.trim();
           } else {
             value = formatDateShort(values[field.name]);
           }
