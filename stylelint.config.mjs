@@ -1,13 +1,18 @@
 export default {
   extends: ['stylelint-config-standard', 'stylelint-config-clean-order'],
   rules: {
+    'import-notation': null,
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['apply', 'layer', 'responsive', 'screen', 'tailwind', 'variants'],
+        ignoreAtRules: ['theme', 'source', 'utility', 'variant', 'custom-variant', 'plugin'],
       },
     ],
-    'no-descending-specificity': null,
-    'selector-class-pattern': null,
+    'function-no-unknown': [
+      true,
+      {
+        ignoreFunctions: ['theme'],
+      },
+    ],
   },
 };

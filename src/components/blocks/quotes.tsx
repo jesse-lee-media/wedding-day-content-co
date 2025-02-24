@@ -18,7 +18,7 @@ export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
     return (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:items-center">
         {quotes.map(({ client, content, id }) => (
-          <Blockquote key={id} className="last:md:col-span-2 last:lg:col-span-1">
+          <Blockquote key={id} className="md:last:col-span-2 lg:last:col-span-1">
             <BlockquoteBody>
               <RichText data={content} />
             </BlockquoteBody>
@@ -30,7 +30,7 @@ export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
   }
 
   return (
-    <Carousel className="overflow-x-padded my-6 first:mt-0 last:mb-0">
+    <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0">
       <CarouselContent className="items-center">
         {quotes.map(({ client, content, id }) => (
           <CarouselItem key={id} className="mi-auto md:basis-1/2 xl:basis-1/3">

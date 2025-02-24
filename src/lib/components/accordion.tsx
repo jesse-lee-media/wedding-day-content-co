@@ -24,7 +24,7 @@ const AccordionHeader = ({ className, ...props }: ComponentProps<typeof Header>)
 const AccordionTrigger = ({ className, children, ...props }: ComponentProps<typeof Trigger>) => (
   <Trigger
     className={cn(
-      '-mx-4 flex flex-1 justify-between overflow-clip rounded p-4 text-left text-xl font-normal group-first:-mt-4 group-last:-mb-4 hover:underline hover:underline-offset-8 focus-visible:ring-2 focus-visible:ring-black focus-visible:outline-none dark:focus-visible:ring-white [&[data-state=open]>svg]:rotate-180',
+      '-mx-4 flex flex-1 justify-between overflow-clip rounded-sm p-4 text-left text-xl font-normal group-first:-mt-4 group-last:-mb-4 hover:underline hover:underline-offset-8 focus-visible:ring-2 focus-visible:ring-black focus-visible:outline-hidden dark:focus-visible:ring-white [&[data-state=open]>svg]:rotate-180',
       className,
     )}
     data-umami-event="Accordion trigger"
@@ -39,7 +39,7 @@ const AccordionTrigger = ({ className, children, ...props }: ComponentProps<type
 const AccordionContent = ({ className, children, ...props }: ComponentProps<typeof Content>) => (
   <Content
     className={cn(
-      'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm',
+      'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
       className,
     )}
     {...props}

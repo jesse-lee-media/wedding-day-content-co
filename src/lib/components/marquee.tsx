@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils/cn';
 
 const Marquee = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
+    tabIndex={-1}
     className={cn(
       'group relative flex flex-row gap-6 overflow-x-scroll whitespace-nowrap motion-safe:overflow-x-hidden',
       className,
@@ -54,12 +55,12 @@ const MarqueeContent = ({
 };
 
 const marqueeFadeVariants = cva(
-  'pointer-events-none absolute inset-y-0 w-1/6 from-white dark:from-black md:w-1/5',
+  'pointer-events-none absolute inset-y-0 w-1/6 from-white md:w-1/5 dark:from-black',
   {
     variants: {
       side: {
-        left: 'left-0 bg-gradient-to-r',
-        right: 'right-0 bg-gradient-to-l',
+        left: 'left-0 bg-linear-to-r',
+        right: 'right-0 bg-linear-to-l',
       },
     },
   },

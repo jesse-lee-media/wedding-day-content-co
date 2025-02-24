@@ -29,7 +29,7 @@ export const FormSubmissionEmailTemplate = ({ data, form }: Props) => (
       </Head>
       <Preview>You have a new {form.title.toLowerCase()} submission!</Preview>
       <Body className="bg-white font-sans text-black">
-        <Heading as="h1" className="xs:text-5xl mt-10 mb-8 text-4xl first:mt-0 last:mb-0">
+        <Heading as="h1" className="mt-10 mb-8 text-4xl first:mt-0 last:mb-0 xs:text-5xl">
           {form.title}
         </Heading>
         <dl>

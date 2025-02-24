@@ -14,14 +14,14 @@ export function SectionBlock({
   return (
     <section
       className={cn(
-        'overflow-section relative isolate overflow-hidden py-16',
+        'relative isolate overflow-section overflow-hidden py-16',
         background === 'dark' && 'dark bg-black text-white shadow-lg shadow-black/10',
       )}
     >
       <h1
         id={slugify(heading)}
         data-background={background}
-        className="text-shadow-lg xs:text-5xl mb-8 text-4xl shadow-black/10 data-[background='dark']:shadow-white/15"
+        className="mb-8 text-4xl text-shadow-lg shadow-black/10 data-[background='dark']:shadow-white/15 xs:text-5xl"
       >
         {heading}
       </h1>

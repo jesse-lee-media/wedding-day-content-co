@@ -5,29 +5,29 @@ import type { PayloadHeroBlock } from '@/payload/payload-types';
 
 export function HeroBlock({ buttonLinks, description, heading, images }: PayloadHeroBlock) {
   return (
-    <div className="md-lg:mb-16 md-lg:grid-cols-2 md-lg:gap-0 relative isolate grid grid-cols-1 gap-8 pb-12 lg:pb-16">
+    <div className="relative isolate grid grid-cols-1 gap-8 pb-12 md-lg:mb-16 md-lg:grid-cols-2 md-lg:gap-0 lg:pb-16">
       <div className="z-10 flex flex-col gap-8">
-        <h1 className="text-wrap-balance xxs:text-5xl text-4xl shadow-black/10 lg:text-7xl xl:text-8xl">
+        <h1 className="text-4xl text-wrap-balance shadow-black/10 xxs:text-5xl lg:text-7xl xl:text-8xl">
           {heading}
         </h1>
-        <p className="text-wrap-balance text-2xl italic lg:text-3xl">{description}</p>
-        <ul className="xs:flex-row flex flex-col items-center gap-4">
+        <p className="text-2xl text-wrap-balance italic lg:text-3xl">{description}</p>
+        <ul className="flex flex-col items-center gap-4 xs:flex-row">
           {buttonLinks?.map(({ id, ...buttonLink }) => (
-            <li key={id} className="xs:w-fit flex w-full">
+            <li key={id} className="flex w-full xs:w-fit">
               <PayloadButtonLink id={id ?? undefined} {...buttonLink} />
             </li>
           ))}
         </ul>
       </div>
-      <div className="xs:grid-cols-2 grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-4 xs:grid-cols-2">
         {images
           ?.filter((image) => typeof image !== 'string')
           .map((image) => (
             <PolaroidImage
               key={image.id}
-              className="first:md-lg:translate-x-12 first:md-lg:translate-y-16 first:md-lg:-rotate-3 last:md-lg:-translate-x-4 last:md-lg:rotate-3 z-10 h-fit first:z-20"
+              className="z-10 h-fit first:z-20 md-lg:first:translate-x-12 md-lg:first:translate-y-16 md-lg:first:-rotate-3 md-lg:last:-translate-x-4 md-lg:last:rotate-3"
             >
-              <PayloadImage {...image} className="rounded-sm" />
+              <PayloadImage {...image} className="rounded-xs" />
             </PolaroidImage>
           ))}
       </div>

@@ -14,7 +14,7 @@ const RadioGroup = ({ className, ...props }: ComponentProps<typeof Root>) => (
 const RadioGroupItem = ({ className, ...props }: ComponentProps<typeof Item>) => (
   <Item
     className={cn(
-      'my-1 aspect-square size-5 rounded-full border-2 border-neutral-200 text-black shadow shadow-black/10 transition hover:border-neutral-600/75 focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[state="checked"]:border-neutral-800/75',
+      'my-1 aspect-square size-5 rounded-full border-2 border-neutral-200 text-black shadow-sm shadow-black/10 transition hover:border-neutral-600/75 focus-visible:ring-2 focus-visible:ring-neutral-400/75 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 data-[state="checked"]:border-neutral-800/75',
       className,
     )}
     {...props}

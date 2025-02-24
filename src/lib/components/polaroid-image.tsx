@@ -14,7 +14,7 @@ export const PolaroidImage = ({ asChild, className, ...props }: PolaroidImagePro
   return (
     <Component
       className={cn(
-        'rounded bg-white p-4 pb-16 shadow-lg ring-1 shadow-black/10 ring-neutral-200 dark:bg-neutral-800 dark:shadow-white/5 dark:ring-neutral-700',
+        'rounded-sm bg-white p-4 pb-16 shadow-lg ring-1 shadow-black/10 ring-neutral-200 dark:bg-neutral-800 dark:shadow-white/5 dark:ring-neutral-700',
         className,
       )}
       {...props}

@@ -103,7 +103,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       className={cn(
         zodiak.variable,
         figtree.variable,
-        'h-full scroll-p-36 !scroll-smooth bg-white font-sans text-black',
+        'h-full scroll-p-36 scroll-smooth! bg-white font-sans text-black',
       )}
     >
       <body className="relative flex h-full flex-col">

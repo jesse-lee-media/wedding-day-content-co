@@ -12,8 +12,8 @@ const Toaster = ({ ...props }: ToasterProps) => (
     className="toaster group"
     toastOptions={{
       classNames: {
-        // prettier-ignore
-        toast: 'group toast group-[.toaster]:bg-neutral-50/75 group-[.toaster]:text-black group-[.toaster]:border-2 group-[.toaster]:border-neutral-200/75 group-[.toaster]:shadow-lg group-[.toaster]:shadow-black/10 group-[.toaster]:backdrop-blur-lg group-[.toaster]:rounded',
+        toast:
+          'group toast group-[.toaster]:bg-neutral-50/75 group-[.toaster]:text-black group-[.toaster]:border-2 group-[.toaster]:border-neutral-200/75 group-[.toaster]:shadow-lg group-[.toaster]:shadow-black/10 group-[.toaster]:backdrop-blur-lg group-[.toaster]:rounded-sm',
       },
     }}
     {...props}

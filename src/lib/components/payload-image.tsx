@@ -43,7 +43,7 @@ const PayloadImage = ({
       placeholder="blur"
       blurDataURL={dataUrl ?? undefined}
       alt={alt}
-      className={cn('rounded-sm', className)}
+      className={cn('rounded-xs', className)}
       {...props}
     />
   );

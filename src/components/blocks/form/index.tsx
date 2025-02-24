@@ -12,7 +12,7 @@ export function FormBlock(props: PayloadFormBlock) {
 
   return (
     <section className="mx-auto w-full max-w-4xl">
-      <h1 className="xs:text-5xl mt-10 mb-8 text-4xl first:mt-0 last:mb-0">{form?.title}</h1>
+      <h1 className="mt-10 mb-8 text-4xl first:mt-0 last:mb-0 xs:text-5xl">{form?.title}</h1>
       <RichText data={form.description} />
       <FormClient {...form} />
     </section>
