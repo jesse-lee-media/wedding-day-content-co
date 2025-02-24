@@ -8,7 +8,7 @@ import { Resend } from 'resend';
 import { env } from '@/env/server';
 import { Role, hasRole } from '@/payload/access';
 import { FormSubmissionEmailTemplate } from '@/payload/components/form-submission-email-template';
-import type { PayloadFormCollection } from '@/payload/payload-types';
+import type { PayloadFormsCollection } from '@/payload/payload-types';
 
 const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   value,
@@ -44,7 +44,7 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
 }) => {
   if (operation === 'create') {
     try {
-      let form: PayloadFormCollection;
+      let form: PayloadFormsCollection;
 
       if (typeof result.form === 'string' || typeof result.form === 'number') {
         form = await payload.findByID({
@@ -78,7 +78,7 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
 export const FormSubmissions: CollectionConfig<'form-submissions'> = {
   slug: 'form-submissions',
   typescript: {
-    interface: 'PayloadFormSubmissionCollection',
+    interface: 'PayloadFormSubmissionsCollection',
   },
   access: {
     create: () => true,

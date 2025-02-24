@@ -10,7 +10,7 @@ export function ImageStackBlock({ images }: PayloadImageStackBlock) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 md:!grid-cols-1 lg:!grid-cols-2">
+    <div className="xs:grid-cols-2 grid grid-cols-1 gap-4 md:!grid-cols-1 lg:!grid-cols-2">
       {filteredImages.map((image) => (
         <PolaroidImage
           key={image.id}

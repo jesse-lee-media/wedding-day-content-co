@@ -14,7 +14,7 @@ import {
 } from '@payloadcms/richtext-lexical';
 import type { Field } from 'payload';
 
-import { linkFields } from '@/payload/fields/link';
+import { richTextFields } from '@/payload/fields/link';
 import { required } from '@/payload/fields/required';
 
 export const baseFormFields: Field[] = [
@@ -84,7 +84,7 @@ export const baseFormFields: Field[] = [
         SubscriptFeature(),
         UnorderedListFeature(),
         OrderedListFeature(),
-        LinkFeature({ fields: linkFields }),
+        LinkFeature({ fields: richTextFields }),
         InlineToolbarFeature(),
       ],
     }),

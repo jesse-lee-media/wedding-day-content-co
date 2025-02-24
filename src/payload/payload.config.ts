@@ -35,7 +35,7 @@ import { Forms } from '@/payload/collections/forms';
 import { Media } from '@/payload/collections/media';
 import { Pages } from '@/payload/collections/pages';
 import { Users } from '@/payload/collections/users';
-import { linkFields } from '@/payload/fields/link';
+import { richTextFields } from '@/payload/fields/link';
 import { Footer } from '@/payload/globals/footer';
 import { Navigation } from '@/payload/globals/navigation';
 
@@ -95,7 +95,7 @@ export default buildConfig({
       AlignFeature(),
       IndentFeature(),
       HorizontalRuleFeature(),
-      LinkFeature({ fields: linkFields }),
+      LinkFeature({ fields: richTextFields }),
       FixedToolbarFeature(),
       InlineToolbarFeature(),
     ],
@@ -108,6 +108,23 @@ export default buildConfig({
   globals: [Navigation, Footer],
   graphQL: {
     disable: true,
+  },
+  onInit: async (payload) => {
+    const users = await payload.find({
+      collection: 'users',
+      limit: 1,
+    });
+
+    if (users.docs.length === 0) {
+      await payload.create({
+        collection: 'users',
+        data: {
+          email: env.PAYLOAD_ADMIN_USER,
+          password: env.PAYLOAD_ADMIN_PASSWORD,
+          roles: [Role.Admin],
+        },
+      });
+    }
   },
   plugins: [
     nestedDocsPlugin({
@@ -130,28 +147,9 @@ export default buildConfig({
           secretAccessKey: env.R2_SECRET_ACCESS_KEY,
         },
         region: 'auto',
-        requestChecksumCalculation: 'WHEN_REQUIRED',
-        responseChecksumValidation: 'WHEN_REQUIRED',
       },
     }),
   ],
-  onInit: async (payload) => {
-    const users = await payload.find({
-      collection: 'users',
-      limit: 1,
-    });
-
-    if (users.docs.length === 0) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: env.PAYLOAD_ADMIN_USER,
-          password: env.PAYLOAD_ADMIN_PASSWORD,
-          roles: [Role.Admin],
-        },
-      });
-    }
-  },
   secret: env.PAYLOAD_SECRET,
   serverURL: env.SERVER_URL,
   sharp,

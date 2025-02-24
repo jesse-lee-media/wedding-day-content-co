@@ -8,6 +8,16 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadUserRolesField".
+ */
+export type PayloadUserRolesField = ('admin' | 'editor' | 'public')[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadRelField".
+ */
+export type PayloadRelField = ('noopener' | 'noreferrer' | 'nofollow')[] | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PayloadLinkArrayField".
  */
 export type PayloadLinkArrayField = {
@@ -16,7 +26,7 @@ export type PayloadLinkArrayField = {
   relationship?: (string | null) | PayloadPagesCollection;
   anchor?: string | null;
   url?: string | null;
-  rel?: ('noopener' | 'noreferrer' | 'nofollow')[] | null;
+  rel?: PayloadRelField;
   newTab?: boolean | null;
   umamiEvent?: string | null;
   umamiEventId?: string | null;
@@ -24,27 +34,108 @@ export type PayloadLinkArrayField = {
 }[];
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadButtonVariantField".
+ */
+export type PayloadButtonVariantField = 'primary' | 'secondary';
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadButtonSizeField".
+ */
+export type PayloadButtonSizeField = 'sm' | 'md' | 'lg';
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadIconField".
+ */
+export type PayloadIconField =
+  | ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x')
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadButtonIconPositionField".
+ */
+export type PayloadButtonIconPositionField = ('none' | 'left' | 'right' | 'center') | null;
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PayloadButtonLinkArrayField".
  */
 export type PayloadButtonLinkArrayField = {
-  variant: 'primary' | 'secondary';
-  size: 'sm' | 'md' | 'lg';
-  icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
-  iconPosition?: ('none' | 'left' | 'right' | 'center') | null;
+  variant: PayloadButtonVariantField;
+  size: PayloadButtonSizeField;
+  icon?: PayloadIconField;
+  iconPosition?: PayloadButtonIconPositionField;
   link: PayloadLinkGroupField;
   id?: string | null;
 }[];
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadBackgroundField".
+ */
+export type PayloadBackgroundField = 'default' | 'dark';
 
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
+  blocks: {};
   collections: {
     pages: PayloadPagesCollection;
     media: PayloadMediaCollection;
-    faqs: PayloadFaqCollection;
-    forms: PayloadFormCollection;
-    'form-submissions': PayloadFormSubmissionCollection;
+    faqs: PayloadFaqsCollection;
+    forms: PayloadFormsCollection;
+    'form-submissions': PayloadFormSubmissionsCollection;
     users: PayloadUsersCollection;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -179,7 +270,7 @@ export interface PayloadMediaCollection {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faqs".
  */
-export interface PayloadFaqCollection {
+export interface PayloadFaqsCollection {
   id: string;
   question: string;
   answer?: {
@@ -205,7 +296,7 @@ export interface PayloadFaqCollection {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
-export interface PayloadFormCollection {
+export interface PayloadFormsCollection {
   id: string;
   title: string;
   description?: {
@@ -472,9 +563,9 @@ export interface PayloadPhoneNumberBlock {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
-export interface PayloadFormSubmissionCollection {
+export interface PayloadFormSubmissionsCollection {
   id: string;
-  form: string | PayloadFormCollection;
+  form: string | PayloadFormsCollection;
   data: {
     label: string;
     name: string;
@@ -492,7 +583,7 @@ export interface PayloadUsersCollection {
   id: string;
   firstName?: string | null;
   lastName?: string | null;
-  roles: ('admin' | 'editor' | 'public')[];
+  roles: PayloadUserRolesField;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -521,15 +612,15 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'faqs';
-        value: string | PayloadFaqCollection;
+        value: string | PayloadFaqsCollection;
       } | null)
     | ({
         relationTo: 'forms';
-        value: string | PayloadFormCollection;
+        value: string | PayloadFormsCollection;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: string | PayloadFormSubmissionCollection;
+        value: string | PayloadFormSubmissionsCollection;
       } | null)
     | ({
         relationTo: 'users';
@@ -889,10 +980,10 @@ export interface PayloadNavigationGlobal {
  * via the `definition` "PayloadButtonLinkGroupField".
  */
 export interface PayloadButtonLinkGroupField {
-  variant: 'primary' | 'secondary';
-  size: 'sm' | 'md' | 'lg';
-  icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
-  iconPosition?: ('none' | 'left' | 'right' | 'center') | null;
+  variant: PayloadButtonVariantField;
+  size: PayloadButtonSizeField;
+  icon?: PayloadIconField;
+  iconPosition?: PayloadButtonIconPositionField;
   link: PayloadLinkGroupField;
 }
 /**
@@ -905,7 +996,7 @@ export interface PayloadLinkGroupField {
   relationship?: (string | null) | PayloadPagesCollection;
   anchor?: string | null;
   url?: string | null;
-  rel?: ('noopener' | 'noreferrer' | 'nofollow')[] | null;
+  rel?: PayloadRelField;
   newTab?: boolean | null;
   umamiEvent?: string | null;
   umamiEventId?: string | null;
@@ -932,7 +1023,7 @@ export interface PayloadFooterGlobal {
     };
     [k: string]: unknown;
   } | null;
-  faqs?: (string | PayloadFaqCollection)[] | null;
+  faqs?: (string | PayloadFaqsCollection)[] | null;
   linkGroups?:
     | {
         heading: string;
@@ -1035,10 +1126,10 @@ export interface PayloadHeroBlock {
  * via the `definition` "PayloadButtonLinkBlock".
  */
 export interface PayloadButtonLinkBlock {
-  variant: 'primary' | 'secondary';
-  size: 'sm' | 'md' | 'lg';
-  icon?: ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x') | null;
-  iconPosition?: ('none' | 'left' | 'right' | 'center') | null;
+  variant: PayloadButtonVariantField;
+  size: PayloadButtonSizeField;
+  icon?: PayloadIconField;
+  iconPosition?: PayloadButtonIconPositionField;
   link: PayloadLinkGroupField;
   id?: string | null;
   blockName?: string | null;
@@ -1147,7 +1238,7 @@ export interface PayloadStepperBlock {
 export interface PayloadSectionBlock {
   heading: string;
   columns: '1' | '2';
-  background: 'default' | 'dark';
+  background: PayloadBackgroundField;
   content?: {
     root: {
       type: string;
@@ -1216,7 +1307,7 @@ export interface PayloadImageLinksBlock {
  * via the `definition` "PayloadFormBlock".
  */
 export interface PayloadFormBlock {
-  form: string | PayloadFormCollection;
+  form: string | PayloadFormsCollection;
   id?: string | null;
   blockName?: string | null;
   blockType: 'formBlock';

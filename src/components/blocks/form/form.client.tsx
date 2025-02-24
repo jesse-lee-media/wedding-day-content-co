@@ -41,13 +41,13 @@ import { Spinner } from '@/lib/components/spinner';
 import { Textarea } from '@/lib/components/textarea';
 import { cn } from '@/lib/utils/cn';
 import type {
-  PayloadFormCollection,
-  PayloadFormSubmissionCollection,
+  PayloadFormSubmissionsCollection,
+  PayloadFormsCollection,
 } from '@/payload/payload-types';
 
 const REQUIRED_MESSAGE = 'Field is required';
 
-export const FormClient = (props: PayloadFormCollection) => {
+export const FormClient = (props: PayloadFormsCollection) => {
   const { confirmationMessage, fields, id, submitButtonLabel } = props;
 
   let defaultValues: Record<string, any> = {};
@@ -199,35 +199,37 @@ export const FormClient = (props: PayloadFormCollection) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setPending(true);
 
-    const formattedValues = fields.map<PayloadFormSubmissionCollection['data'][number]>((field) => {
-      if (field.blockType === 'date') {
-        let value = '';
+    const formattedValues = fields.map<PayloadFormSubmissionsCollection['data'][number]>(
+      (field) => {
+        if (field.blockType === 'date') {
+          let value = '';
 
-        if (field.mode === 'multiple') {
-          value = (values[field.name] as Date[]).reduce(
-            (acc: string, date: Date, i: number) =>
-              `${acc}${formatDateShort(date)}${i < values[field.name].length - 1 ? '; ' : ''}`,
-            '',
-          );
-        } else if (field.mode === 'range') {
-          value = `${formatDateShort(values[field.name].from)} – ${formatDateShort(values[field.name].to)}`;
-        } else {
-          value = formatDateShort(values[field.name]);
+          if (field.mode === 'multiple') {
+            value = (values[field.name] as Date[]).reduce(
+              (acc: string, date: Date, i: number) =>
+                `${acc}${formatDateShort(date)}${i < values[field.name].length - 1 ? '; ' : ''}`,
+              '',
+            );
+          } else if (field.mode === 'range') {
+            value = `${formatDateShort(values[field.name].from)} – ${formatDateShort(values[field.name].to)}`;
+          } else {
+            value = formatDateShort(values[field.name]);
+          }
+
+          return {
+            label: field.label,
+            name: field.name,
+            value,
+          };
         }
 
         return {
           label: field.label,
           name: field.name,
-          value,
+          value: String(values[field.name]),
         };
-      }
-
-      return {
-        label: field.label,
-        name: field.name,
-        value: String(values[field.name]),
-      };
-    });
+      },
+    );
 
     try {
       await submitForm(id, formattedValues);

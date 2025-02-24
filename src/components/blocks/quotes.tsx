@@ -30,7 +30,7 @@ export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
   }
 
   return (
-    <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0">
+    <Carousel className="overflow-x-padded my-6 first:mt-0 last:mb-0">
       <CarouselContent className="items-center">
         {quotes.map(({ client, content, id }) => (
           <CarouselItem key={id} className="mi-auto md:basis-1/2 xl:basis-1/3">

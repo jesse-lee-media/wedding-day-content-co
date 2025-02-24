@@ -6,7 +6,7 @@ import { Role, hasRole, hasRoleOrPublished } from '@/payload/access';
 export const Faqs: CollectionConfig<'faqs'> = {
   slug: 'faqs',
   typescript: {
-    interface: 'PayloadFaqCollection',
+    interface: 'PayloadFaqsCollection',
   },
   admin: {
     useAsTitle: 'question',

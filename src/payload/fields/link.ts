@@ -1,11 +1,6 @@
 import type { Field } from 'payload';
 
-export const linkFields: Field[] = [
-  {
-    name: 'text',
-    type: 'text',
-    required: true,
-  },
+const fields: Field[] = [
   {
     name: 'type',
     type: 'radio',
@@ -69,6 +64,7 @@ export const linkFields: Field[] = [
         name: 'rel',
         label: 'Rel Attribute',
         type: 'select',
+        interfaceName: 'PayloadRelField',
         hasMany: true,
         options: ['noopener', 'noreferrer', 'nofollow'],
         admin: {
@@ -104,6 +100,17 @@ export const linkFields: Field[] = [
       },
     ],
   },
+];
+
+export const richTextFields: Field[] = fields;
+
+export const linkFields: Field[] = [
+  {
+    name: 'text',
+    type: 'text',
+    required: true,
+  },
+  ...fields,
 ];
 
 export const linkGroup: Field = {

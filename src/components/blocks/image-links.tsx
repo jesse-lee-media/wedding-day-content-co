@@ -18,7 +18,7 @@ export function ImageLinksBlock({ cards }: PayloadImageLinksBlock) {
               className="relative overflow-clip transition hover:scale-[1.01] hover:ring-neutral-500"
             >
               <PayloadImage {...image} />
-              <div className="absolute bottom-0 left-0 right-0 flex h-16 flex-row items-center gap-2 px-6">
+              <div className="absolute right-0 bottom-0 left-0 flex h-16 flex-row items-center gap-2 px-6">
                 <OverflowText className="min-w-0 flex-1 text-xl">{link.text}</OverflowText>
                 <ArrowRight className="size-5 shrink-0" />
               </div>

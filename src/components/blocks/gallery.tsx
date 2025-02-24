@@ -27,7 +27,7 @@ export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
             {images.map((image) => (
               <PayloadImage
                 key={image.id}
-                className="w-full rounded shadow-lg shadow-black/10 ring-2 ring-neutral-200"
+                className="w-full rounded shadow-lg ring-2 shadow-black/10 ring-neutral-200"
                 {...image}
               />
             ))}
@@ -38,7 +38,7 @@ export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
   }
 
   return (
-    <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0" opts={{ dragFree: true }}>
+    <Carousel className="overflow-x-padded my-6 first:mt-0 last:mb-0" opts={{ dragFree: true }}>
       <CarouselContent className="items-center py-2">
         {images
           .filter((image) => typeof image !== 'string')

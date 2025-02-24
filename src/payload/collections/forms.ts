@@ -13,7 +13,7 @@ import { Textarea } from '@/payload/blocks/form-fields/textarea';
 export const Forms: CollectionConfig<'forms'> = {
   slug: 'forms',
   typescript: {
-    interface: 'PayloadFormCollection',
+    interface: 'PayloadFormsCollection',
   },
   admin: {
     useAsTitle: 'title',

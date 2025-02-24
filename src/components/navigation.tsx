@@ -117,30 +117,30 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
       <div
         aria-hidden
         data-state={open ? 'open' : 'closed'}
-        className="data-[state=open]:fixed data-[state=open]:inset-0 data-[state=open]:z-40 data-[state=open]:bg-neutral-50/25 data-[state=open]:backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=open]:fixed data-[state=open]:inset-0 data-[state=open]:z-40 data-[state=open]:bg-neutral-50/25 data-[state=open]:backdrop-blur-md"
       />
       <nav ref={ref} role={open ? 'dialog' : 'navigation'} className="fixed inset-x-2 top-2 z-50">
         <FocusScope loop={open} trapped={open} className="outline-none">
-          <ul className="z-50 mx-auto flex h-16 max-w-7xl flex-row items-center justify-between gap-4 rounded bg-neutral-50/75 pl-4 pr-1 shadow-lg shadow-black/10 ring-2 ring-neutral-200/75 backdrop-blur-lg md-lg:px-4 xl:px-6">
+          <ul className="md-lg:px-4 z-50 mx-auto flex h-16 max-w-7xl flex-row items-center justify-between gap-4 rounded bg-neutral-50/75 pr-1 pl-4 shadow-lg ring-2 shadow-black/10 ring-neutral-200/75 backdrop-blur-lg xl:px-6">
             <li className="flex flex-1">
               <Link href="/" onClick={closeMenu}>
                 Wedding Day Content Co.
               </Link>
             </li>
             {links?.map((link) => (
-              <li key={link.id} className="hidden md-lg:block">
+              <li key={link.id} className="md-lg:block hidden">
                 <PayloadLink {...link} />
               </li>
             ))}
             {callToAction.link.text ? (
-              <li className="hidden md-lg:block">
+              <li className="md-lg:block hidden">
                 <PayloadButtonLink {...callToAction} />
               </li>
             ) : null}
             <button
               onClick={toggleMenu}
               aria-label={open ? 'Close navigation' : 'Open navigation'}
-              className="inline-flex size-10 items-center justify-center rounded-sm transition focus-visible:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-600/75 md-lg:hidden"
+              className="md-lg:hidden inline-flex size-10 items-center justify-center rounded-sm transition focus-visible:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:outline-none"
             >
               {open ? <Xmark className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -150,7 +150,7 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
             aria-hidden={!open}
             open={open}
             data-state={open ? 'open' : 'closed'}
-            className="inset-x-0 z-40 m-[unset] mt-3 w-[unset] rounded bg-neutral-50/75 p-4 pt-2 shadow-lg shadow-black/10 ring-2 ring-neutral-200/75 backdrop-blur-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+            className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 inset-x-0 z-40 m-[unset] mt-3 w-[unset] rounded bg-neutral-50/75 p-4 pt-2 shadow-lg ring-2 shadow-black/10 ring-neutral-200/75 backdrop-blur-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500"
           >
             <ul className="flex w-full flex-col gap-2">
               {links?.map((link) => (

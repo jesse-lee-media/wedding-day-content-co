@@ -18,11 +18,11 @@
   h4,
   h5,
   h6 {
-    @apply font-serif font-light !leading-tight drop-shadow-lg;
+    @apply font-serif !leading-tight font-light drop-shadow-lg;
   }
 
   a {
-    @apply rounded-sm no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/75 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-white/75 dark:focus-visible:ring-offset-black;
+    @apply rounded-sm no-underline focus-visible:ring-2 focus-visible:ring-black/75 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:focus-visible:ring-white/75 dark:focus-visible:ring-offset-black;
   }
 
   a:hover:not(:focus-visible) {

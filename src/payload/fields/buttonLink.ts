@@ -9,6 +9,7 @@ export const fields: Field[] = [
       {
         name: 'variant',
         type: 'select',
+        interfaceName: 'PayloadButtonVariantField',
         required: true,
         defaultValue: 'primary',
         options: [
@@ -25,6 +26,7 @@ export const fields: Field[] = [
       {
         name: 'size',
         type: 'select',
+        interfaceName: 'PayloadButtonSizeField',
         required: true,
         defaultValue: 'md',
         options: [
@@ -50,6 +52,7 @@ export const fields: Field[] = [
       {
         name: 'icon',
         type: 'select',
+        interfaceName: 'PayloadIconField',
         admin: {
           isClearable: true,
           width: '50%',
@@ -80,7 +83,7 @@ export const fields: Field[] = [
             value: 'tikTok',
           },
           {
-            label: 'X',
+            label: 'Close',
             value: 'x',
           },
         ],
@@ -88,6 +91,7 @@ export const fields: Field[] = [
       {
         name: 'iconPosition',
         type: 'select',
+        interfaceName: 'PayloadButtonIconPositionField',
         admin: {
           condition: (_, siblingData) => !!siblingData?.icon,
           width: '50%',

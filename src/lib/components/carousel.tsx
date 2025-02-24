@@ -163,7 +163,7 @@ const CarouselPrevious = ({
       iconPosition={iconPosition}
       disabled={!canScrollPrev}
       className={cn(
-        '!w-12 md:absolute md:left-6 md:top-1/2 md:-translate-y-1/2',
+        '!w-12 md:absolute md:top-1/2 md:left-6 md:-translate-y-1/2',
         !canScrollPrev && 'md:hidden',
         className,
       )}
@@ -192,7 +192,7 @@ const CarouselNext = ({
       iconPosition={iconPosition}
       disabled={!canScrollNext}
       className={cn(
-        '!w-12 md:absolute md:right-6 md:top-1/2 md:-translate-y-1/2',
+        '!w-12 md:absolute md:top-1/2 md:right-6 md:-translate-y-1/2',
         !canScrollNext && 'md:hidden',
         className,
       )}

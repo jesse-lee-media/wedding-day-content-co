@@ -2,13 +2,13 @@ import { Body, Font, Head, Heading, Html, Preview, Tailwind } from '@react-email
 
 import { tailwindEmailConfig } from '@/lib/config/tailwind-email';
 import type {
-  PayloadFormCollection,
-  PayloadFormSubmissionCollection,
+  PayloadFormSubmissionsCollection,
+  PayloadFormsCollection,
 } from '@/payload/payload-types';
 
 interface Props {
-  data: PayloadFormSubmissionCollection['data'];
-  form: PayloadFormCollection;
+  data: PayloadFormSubmissionsCollection['data'];
+  form: PayloadFormsCollection;
 }
 
 export const FormSubmissionEmailTemplate = ({ data, form }: Props) => (
@@ -29,13 +29,13 @@ export const FormSubmissionEmailTemplate = ({ data, form }: Props) => (
       </Head>
       <Preview>You have a new {form.title.toLowerCase()} submission!</Preview>
       <Body className="bg-white font-sans text-black">
-        <Heading as="h1" className="mb-8 mt-10 text-4xl first:mt-0 last:mb-0 xs:text-5xl">
+        <Heading as="h1" className="xs:text-5xl mt-10 mb-8 text-4xl first:mt-0 last:mb-0">
           {form.title}
         </Heading>
         <dl>
           {data.map((field) => (
             <div key={field.name} className="mb-6 last:mb-0">
-              <dt className="m-0 mb-2 text-sm font-normal leading-none text-neutral-600">
+              <dt className="m-0 mb-2 text-sm leading-none font-normal text-neutral-600">
                 {field.label}
               </dt>
               <dd className="m-0 text-lg">{field.value}</dd>

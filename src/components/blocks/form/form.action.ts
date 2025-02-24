@@ -2,10 +2,10 @@
 
 import { getPayload } from 'payload';
 
-import type { PayloadFormSubmissionCollection } from '@/payload/payload-types';
+import type { PayloadFormSubmissionsCollection } from '@/payload/payload-types';
 import config from '@/payload/payload.config';
 
-export const submitForm = async (form: string, data: PayloadFormSubmissionCollection['data']) => {
+export const submitForm = async (form: string, data: PayloadFormSubmissionsCollection['data']) => {
   const payload = await getPayload({ config });
   const result = await payload.create({
     collection: 'form-submissions',
