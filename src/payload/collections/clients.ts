@@ -27,6 +27,10 @@ export const Clients: CollectionConfig<'clients'> = {
       required: true,
     },
     {
+      name: 'phoneNumber',
+      type: 'text',
+    },
+    {
       name: 'forms',
       type: 'join',
       collection: 'form-submissions',

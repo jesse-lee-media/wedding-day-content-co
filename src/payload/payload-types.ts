@@ -344,10 +344,12 @@ export interface PayloadMediaCollection {
 export interface PayloadClientsCollection {
   id: string;
   name: string;
+  phoneNumber?: string | null;
   forms?: {
-    docs?: (string | PayloadFormSubmissionsCollection)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (string | PayloadFormSubmissionsCollection)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -832,6 +834,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ClientsSelect<T extends boolean = true> {
   name?: T;
+  phoneNumber?: T;
   forms?: T;
   updatedAt?: T;
   createdAt?: T;

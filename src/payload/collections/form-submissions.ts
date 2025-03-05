@@ -107,13 +107,26 @@ const setClient: CollectionBeforeValidateHook<PayloadFormSubmissionsCollection> 
     return Object.assign(data, { client: docs[0].id });
   }
 
-  const name = data?.data?.find((datum) => datum.name === 'name')?.value;
+  let name: string | undefined;
+  let phoneNumber: string | undefined;
+
+  data?.data?.forEach((datum) => {
+    if (datum.name === 'name') {
+      name = datum.value;
+    }
+
+    if (datum.name === 'phoneNumber' || datum.name === 'phone') {
+      phoneNumber = datum.value;
+    }
+  });
+
   const { id } = await payload.create({
     collection: 'clients',
     data: {
       email,
       name: name || email.split('@')[0],
       password: nanoid(32),
+      ...(phoneNumber ? { phoneNumber } : {}),
     },
   });
 
