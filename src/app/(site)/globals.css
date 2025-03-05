@@ -7,7 +7,7 @@
 @theme {
   /* ----- fonts ----- */
   --font-serif:
-    var(--font-zodiak), serif, ui-serif, georgia, cambria, 'Times New Roman', times, serif;
+    var(--font-nightingale), serif, ui-serif, georgia, cambria, 'Times New Roman', times, serif;
   --font-sans:
     var(--font-figtree), sans-serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -94,7 +94,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif leading-tight! font-light drop-shadow-lg;
+    @apply font-serif leading-tight drop-shadow-lg;
   }
 
   a {

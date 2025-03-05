@@ -11,7 +11,6 @@ import { Footer } from '@/components/footer';
 import { Navigation } from '@/components/navigation';
 import { env } from '@/env/client';
 import { Toaster } from '@/lib/components/toaster';
-import { Providers } from '@/lib/providers';
 import { cn } from '@/lib/utils/cn';
 import type { PayloadFooterGlobal, PayloadNavigationGlobal } from '@/payload/payload-types';
 import { getServerSideUrl } from '@/payload/utils/get-server-side-url';
@@ -19,10 +18,11 @@ import payloadConfig from '@payload-config';
 
 import './globals.css';
 
-const zodiak = localFont({
-  src: '../../../public/font/Zodiak-Variable.ttf',
+const nightingale = localFont({
+  src: '../../../public/font/DTNightingale.ttf',
   display: 'swap',
-  variable: '--font-zodiak',
+  variable: '--font-nightingale',
+  weight: '400',
 });
 const figtree = Figtree({ subsets: ['latin'], display: 'swap', variable: '--font-figtree' });
 
@@ -101,18 +101,16 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html
       lang="en"
       className={cn(
-        zodiak.variable,
         figtree.variable,
+        nightingale.variable,
         'h-full scroll-p-36 scroll-smooth! bg-white font-sans text-black',
       )}
     >
       <body className="relative flex h-full flex-col">
         <div className="dot-mask fixed inset-0 -z-10 h-full w-full" />
-        <Providers>
-          <Navigation {...navigation} />
-          <div className="mt-[4.5rem] flex flex-1 flex-col">{children}</div>
-          <Footer {...footer} />
-        </Providers>
+        <Navigation {...navigation} />
+        <div className="mt-[4.5rem] flex flex-1 flex-col">{children}</div>
+        <Footer {...footer} />
         <Toaster />
         <Script
           src={env.NEXT_PUBLIC_UMAMI_SRC}
