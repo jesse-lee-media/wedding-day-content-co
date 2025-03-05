@@ -2,9 +2,9 @@
 
 import type { ComponentProps } from 'react';
 
-import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { DayPicker } from 'react-day-picker';
 
+import { Icons } from '@/lib/components/icons';
 import { cn } from '@/lib/utils/cn';
 
 const Calendar = ({
@@ -32,8 +32,8 @@ const Calendar = ({
       row: 'flex w-full mt-2',
       cell: 'h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20',
       day: 'h-9 w-9 p-0 font-normal rounded-xs [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:hover:bg-neutral-100 [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:hover:text-black [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:hover:rounded-xs transition focus:ring-2 focus:ring-neutral-600/75 focus:outline-hidden',
-      day_range_start: 'day-range-start rounded-l-sm rounded-r-none bg-dusty-rose-200 text-dusty-rose-950 hover:bg-dusty-rose-300 transition',
-      day_range_end: 'day-range-end rounded-r-sm rounded-l-none bg-dusty-rose-200 text-dusty-rose-950 hover:bg-dusty-rose-300 transition',
+      day_range_start: 'day-range-start rounded-l-xs rounded-r-none bg-dusty-rose-200 text-dusty-rose-950 hover:bg-dusty-rose-300 transition',
+      day_range_end: 'day-range-end rounded-r-xs rounded-l-none bg-dusty-rose-200 text-dusty-rose-950 hover:bg-dusty-rose-300 transition',
       day_selected: 'font-medium! day-selected [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:rounded-xs [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:bg-dusty-rose-200 [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:text-dusty-rose-950 [&:not(.day-disabled,.day-range-start,.day-range-end,.day-range-middle)]:hover:bg-dusty-rose-300 transition',
       day_outside: 'day-outside font-light! text-neutral-600 aria-selected:bg-neutral-100 aria-selected:text-neutral-600 [&.day-range-start]:bg-dusty-rose-200 [&.day-range-start]:text-dusty-rose-950 [&.day-range-start]:hover:bg-dusty-rose-300 [&.day-range-end]:bg-dusty-rose-200 [&.day-range-end]:text-dusty-rose-950 [&.day-range-end]:hover:bg-dusty-rose-300 transition',
       day_disabled: 'day-disabled font-light! text-neutral-400',
@@ -42,8 +42,8 @@ const Calendar = ({
       ...classNames,
     }}
     components={{
-      IconLeft: () => <NavArrowLeft className="size-4" />,
-      IconRight: () => <NavArrowRight className="size-4" />,
+      IconLeft: () => <Icons name="navArrowLeft" />,
+      IconRight: () => <Icons name="navArrowRight" />,
     }}
     {...props}
   />

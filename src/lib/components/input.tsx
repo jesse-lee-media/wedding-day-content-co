@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react';
 
+import { Icons } from '@/lib/components/icons';
 import { cn } from '@/lib/utils/cn';
 
 const baseClass =
@@ -11,7 +12,7 @@ const Input = ({ className, ...props }: ComponentProps<'input'>) => (
 
 export type InputButtonProps = ComponentProps<'button'> & {
   displayChildren?: boolean;
-  icon?: any;
+  icon?: ComponentProps<typeof Icons>['name'];
   placeholder?: string;
 };
 
@@ -22,28 +23,23 @@ const InputButton = ({
   icon,
   placeholder,
   ...props
-}: InputButtonProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const IconComponent = icon;
-
-  return (
-    <button
-      className={cn(
-        baseClass,
-        'group flex flex-row items-center',
-        icon ? 'pr-3' : undefined,
-        className,
-      )}
-      {...props}
-    >
-      {placeholder && !displayChildren ? (
-        <span className="text-neutral-500">{placeholder}</span>
-      ) : null}
-      {displayChildren ? children : null}
-      <span className="grow" />
-      {IconComponent ? <IconComponent className="shrink-0 text-neutral-500" /> : null}
-    </button>
-  );
-};
+}: InputButtonProps) => (
+  <button
+    className={cn(
+      baseClass,
+      'group flex flex-row items-center',
+      icon ? 'pr-3' : undefined,
+      className,
+    )}
+    {...props}
+  >
+    {placeholder && !displayChildren ? (
+      <span className="text-neutral-500">{placeholder}</span>
+    ) : null}
+    {displayChildren ? children : null}
+    <span className="grow" />
+    {icon ? <Icons name={icon} size="lg" className="text-neutral-500" /> : null}
+  </button>
+);
 
 export { Input, InputButton };

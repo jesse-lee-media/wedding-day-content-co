@@ -59,12 +59,28 @@ export const fields: Field[] = [
         },
         options: [
           {
+            label: 'Arrow left',
+            value: 'arrowLeft',
+          },
+          {
             label: 'Arrow right',
             value: 'arrowRight',
           },
           {
             label: 'Arrow up right',
             value: 'arrowUpRight',
+          },
+          {
+            label: 'Calendar',
+            value: 'calendar',
+          },
+          {
+            label: 'Chevron down',
+            value: 'chevronDown',
+          },
+          {
+            label: 'Circle',
+            value: 'circle',
           },
           {
             label: 'Instagram',
@@ -75,15 +91,31 @@ export const fields: Field[] = [
             value: 'menu',
           },
           {
-            label: 'Chevron down',
-            value: 'chevronDown',
+            label: 'Nav arrow down',
+            value: 'navArrowDown',
+          },
+          {
+            label: 'Nav arrow left',
+            value: 'navArrowLeft',
+          },
+          {
+            label: 'Nav arrow right',
+            value: 'navArrowRight',
+          },
+          {
+            label: 'Nav arrow up',
+            value: 'navArrowUp',
+          },
+          {
+            label: 'Quote solid',
+            value: 'quoteSolid',
           },
           {
             label: 'TikTok',
             value: 'tikTok',
           },
           {
-            label: 'Close',
+            label: 'X mark',
             value: 'x',
           },
         ],

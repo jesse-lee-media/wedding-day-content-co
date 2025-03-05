@@ -1,7 +1,6 @@
 import type { ComponentProps } from 'react';
 
-import { QuoteSolid } from 'iconoir-react';
-
+import { Icons } from '@/lib/components/icons';
 import { cn } from '@/lib/utils/cn';
 
 const Blockquote = ({ children, className, ...props }: ComponentProps<'blockquote'>) => (
@@ -12,7 +11,7 @@ const Blockquote = ({ children, className, ...props }: ComponentProps<'blockquot
     )}
     {...props}
   >
-    <QuoteSolid aria-hidden className="size-12 drop-shadow-lg dark:text-neutral-300" />
+    <Icons name="quoteSolid" aria-hidden className="size-12 drop-shadow-lg dark:text-neutral-300" />
     {children}
     <div className="absolute -z-10 h-64 w-56 rotate-45 rounded-full bg-dusty-rose-300/25 blur-3xl group-odd:top-1/4 group-odd:-right-1/4 group-even:top-1/2 group-even:right-1/4 dark:bg-dusty-rose-800/25"></div>
   </blockquote>

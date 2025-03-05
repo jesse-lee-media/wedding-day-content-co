@@ -1,6 +1,6 @@
-import { ArrowRight } from 'iconoir-react';
 import Link from 'next/link';
 
+import { Icons } from '@/lib/components/icons';
 import { OverflowText } from '@/lib/components/overflow-text';
 import { PayloadImage } from '@/lib/components/payload-image';
 import { PolaroidImage } from '@/lib/components/polaroid-image';
@@ -20,7 +20,7 @@ export function ImageLinksBlock({ cards }: PayloadImageLinksBlock) {
               <PayloadImage {...image} />
               <div className="absolute right-0 bottom-0 left-0 flex h-16 flex-row items-center gap-2 px-6">
                 <OverflowText className="min-w-0 flex-1 text-xl">{link.text}</OverflowText>
-                <ArrowRight className="size-5 shrink-0" />
+                <Icons name="arrowRight" size="lg" />
               </div>
             </Link>
           </PolaroidImage>

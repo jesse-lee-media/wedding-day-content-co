@@ -7,9 +7,9 @@ import type { ComponentProps, KeyboardEvent } from 'react';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import useEmblaCarousel from 'embla-carousel-react';
-import { ArrowLeft, ArrowRight } from 'iconoir-react';
 
 import { Button } from '@/lib/components/button';
+import { Icons } from '@/lib/components/icons';
 import { cn } from '@/lib/utils/cn';
 
 type CarouselProps = {
@@ -170,7 +170,7 @@ const CarouselPrevious = ({
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      <Icons name="arrowLeft" />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -199,7 +199,7 @@ const CarouselNext = ({
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      <Icons name="arrowRight" />
       <span className="sr-only">Next slide</span>
     </Button>
   );

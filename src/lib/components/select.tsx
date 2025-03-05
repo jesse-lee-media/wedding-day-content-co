@@ -19,8 +19,8 @@ import {
   Value,
   Viewport,
 } from '@radix-ui/react-select';
-import { Circle, NavArrowDown, NavArrowUp } from 'iconoir-react';
 
+import { Icons } from '@/lib/components/icons';
 import { OverflowText } from '@/lib/components/overflow-text';
 import { cn } from '@/lib/utils/cn';
 
@@ -40,7 +40,7 @@ const SelectTrigger = ({ className, children, ...props }: ComponentProps<typeof 
   >
     {children}
     <Icon asChild>
-      <NavArrowDown className="shrink-0 text-neutral-500" />
+      <Icons name="navArrowDown" size="lg" className="text-neutral-500" />
     </Icon>
   </Trigger>
 );
@@ -50,7 +50,7 @@ const SelectScrollUpButton = ({ className, ...props }: ComponentProps<typeof Scr
     className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
-    <NavArrowUp className="size-4 shrink-0 text-neutral-500" />
+    <Icons name="navArrowUp" className="text-neutral-500" />
   </ScrollUpButton>
 );
 
@@ -62,7 +62,7 @@ const SelectScrollDownButton = ({
     className={cn('flex cursor-default items-center justify-center py-1', className)}
     {...props}
   >
-    <NavArrowDown className="size-4 shrink-0 text-neutral-500" />
+    <Icons name="navArrowDown" className="text-neutral-500" />
   </ScrollDownButton>
 );
 
@@ -111,7 +111,7 @@ const SelectItem = ({ className, children, ...props }: ComponentProps<typeof Ite
       <ItemText>{children}</ItemText>
     </OverflowText>
     <ItemIndicator asChild>
-      <Circle className="size-2 shrink-0 fill-current text-dusty-rose-700" />
+      <Icons name="circle" className="size-2 fill-current text-dusty-rose-700" />
     </ItemIndicator>
   </Item>
 );

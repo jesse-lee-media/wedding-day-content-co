@@ -47,7 +47,23 @@ export type PayloadButtonSizeField = 'sm' | 'md' | 'lg';
  * via the `definition` "PayloadIconField".
  */
 export type PayloadIconField =
-  | ('arrowRight' | 'arrowUpRight' | 'instagram' | 'menu' | 'chevronDown' | 'tikTok' | 'x')
+  | (
+      | 'arrowLeft'
+      | 'arrowRight'
+      | 'arrowUpRight'
+      | 'calendar'
+      | 'chevronDown'
+      | 'circle'
+      | 'instagram'
+      | 'menu'
+      | 'navArrowDown'
+      | 'navArrowLeft'
+      | 'navArrowRight'
+      | 'navArrowUp'
+      | 'quoteSolid'
+      | 'tikTok'
+      | 'x'
+    )
   | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema

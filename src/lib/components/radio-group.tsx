@@ -3,8 +3,8 @@
 import type { ComponentProps } from 'react';
 
 import { Indicator, Item, Root } from '@radix-ui/react-radio-group';
-import { Circle } from 'iconoir-react';
 
+import { Icons } from '@/lib/components/icons';
 import { cn } from '@/lib/utils/cn';
 
 const RadioGroup = ({ className, ...props }: ComponentProps<typeof Root>) => (
@@ -20,7 +20,7 @@ const RadioGroupItem = ({ className, ...props }: ComponentProps<typeof Item>) =>
     {...props}
   >
     <Indicator className="flex items-center justify-center">
-      <Circle className="size-3 fill-current text-current" />
+      <Icons name="circle" className="size-3 fill-current text-current" />
     </Indicator>
   </Item>
 );

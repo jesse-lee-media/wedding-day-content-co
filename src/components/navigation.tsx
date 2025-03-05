@@ -32,9 +32,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { FocusScope } from '@radix-ui/react-focus-scope';
-import { ArrowRight, Menu, Xmark } from 'iconoir-react';
 import Link from 'next/link';
 
+import { Icons } from '@/lib/components/icons';
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
 import { PayloadLink } from '@/lib/components/payload-link';
 import type { PayloadNavigationGlobal } from '@/payload/payload-types';
@@ -142,7 +142,7 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
               aria-label={open ? 'Close navigation' : 'Open navigation'}
               className="inline-flex size-10 items-center justify-center rounded-xs transition focus-visible:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:outline-hidden md-lg:hidden"
             >
-              {open ? <Xmark className="size-5" /> : <Menu className="size-5" />}
+              {open ? <Icons name="x" size="lg" /> : <Icons name="menu" size="lg" />}
             </button>
           </ul>
           <dialog
@@ -160,7 +160,7 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
                     onClick={closeMenu}
                     className="inline-flex h-10 w-full items-center justify-between gap-2 text-xl"
                   >
-                    <ArrowRight className="size-4" />
+                    <Icons name="arrowRight" />
                   </PayloadLink>
                 </li>
               ))}

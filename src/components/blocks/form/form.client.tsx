@@ -7,7 +7,6 @@
 import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Calendar as IconCalendar } from 'iconoir-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import isEmail from 'validator/lib/isEmail';
@@ -215,10 +214,10 @@ export const FormClient = (props: PayloadFormsCollection) => {
               '',
             );
           } else if (field.mode === 'range') {
-            const from = formatDateShort(values[field.name].from);
+            const from = values[field.name].from;
             const to = values[field.name].to;
 
-            value = `${from} ${to ? `– ${to}` : ''}`.trim();
+            value = `${formatDateShort(from)} ${to ? `– ${formatDateShort(to)}` : ''}`.trim();
           } else {
             value = formatDateShort(values[field.name]);
           }
@@ -304,7 +303,7 @@ export const FormClient = (props: PayloadFormsCollection) => {
                                 displayChildren={
                                   !!field.value || !!field.value?.length || !!field.value?.from
                                 }
-                                icon={IconCalendar}
+                                icon="calendar"
                               >
                                 <OverflowText>
                                   {(() => {
