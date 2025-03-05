@@ -8,6 +8,12 @@ export default {
         ignoreAtRules: ['theme', 'source', 'utility', 'variant', 'custom-variant', 'plugin'],
       },
     ],
+    'at-rule-no-deprecated': [
+      true,
+      {
+        ignoreAtRules: ['apply'],
+      },
+    ],
     'function-no-unknown': [
       true,
       {
