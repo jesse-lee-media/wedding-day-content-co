@@ -22,7 +22,6 @@ export async function GET(
   const { searchParams } = new URL(req.url);
   const path = searchParams.get('path');
   const collection = searchParams.get('collection') as CollectionSlug;
-  const slug = searchParams.get('slug');
 
   const previewSecret = searchParams.get('previewSecret');
 
@@ -34,10 +33,6 @@ export async function GET(
     }
 
     if (!collection) {
-      return new Response('No path provided', { status: 404 });
-    }
-
-    if (!slug) {
       return new Response('No path provided', { status: 404 });
     }
 
@@ -65,7 +60,7 @@ export async function GET(
       return new Response('You are not allowed to preview this page', { status: 403 });
     }
 
-    // Verify the given slug exists
+    // Verify the given path exists
     try {
       const docs = await payload.find({
         collection,
@@ -74,8 +69,8 @@ export async function GET(
         pagination: false,
         depth: 0,
         where: {
-          slug: {
-            equals: slug,
+          path: {
+            equals: path,
           },
         },
       });

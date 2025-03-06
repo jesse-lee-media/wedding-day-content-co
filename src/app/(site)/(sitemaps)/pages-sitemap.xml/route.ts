@@ -16,22 +16,17 @@ const getPagesSitemap = unstable_cache(
       draft: false,
       depth: 0,
       pagination: false,
-      where: {
-        _status: {
-          equals: 'published',
-        },
-      },
       select: {
-        slug: true,
+        path: true,
         updatedAt: true,
       },
     });
     const docs = results?.docs || [];
 
     return docs
-      .filter((page) => Boolean(page?.slug))
+      .filter((page) => Boolean(page?.path))
       .map((page) => ({
-        loc: page?.slug === 'home' ? `${siteUrl}/` : `${siteUrl}/${page?.slug}`,
+        loc: page?.path === '/home' ? `${siteUrl}/` : `${siteUrl}${page?.path}`,
         lastmod: page.updatedAt || new Date().toISOString(),
       }));
   },

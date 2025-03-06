@@ -15,15 +15,11 @@ interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
 
-const queryPage = cache(async ({ slug: segments }: { slug: string[] }) => {
-  const slugSegments = segments || ['home'];
-  const slug = slugSegments[slugSegments.length - 1];
-
+const fetchCachedPage = cache(async ({ slug }: { slug: string[] }) => {
+  const segments = slug || ['home'];
   const draftModePromis = draftMode();
   const payloadPromise = getPayload({ config });
-
   const [{ isEnabled: draft }, payload] = await Promise.all([draftModePromis, payloadPromise]);
-
   const result = await payload.find({
     collection: 'pages',
     draft,
@@ -31,8 +27,8 @@ const queryPage = cache(async ({ slug: segments }: { slug: string[] }) => {
     limit: 1,
     overrideAccess: draft,
     where: {
-      slug: {
-        equals: slug,
+      path: {
+        equals: `/${segments.join('/')}`,
       },
     },
   });
@@ -49,11 +45,11 @@ export async function generateStaticParams() {
       pagination: false,
       overrideAccess: false,
       select: {
-        slug: true,
+        path: true,
       },
     });
 
-    return pages.docs.map(({ slug }) => ({ slug: [slug] }));
+    return pages.docs.map(({ path }) => ({ slug: path?.split('/')?.slice(1) || undefined }));
   } catch {
     return [{ slug: undefined }];
   }
@@ -61,7 +57,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const page = await queryPage({ slug });
+  const page = await fetchCachedPage({ slug });
 
   return {
     title: pageTitle(page?.title, metadata),
@@ -72,7 +68,7 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function Page({ params }: PageProps) {
   const { isEnabled: draft } = await draftMode();
   const { slug } = await params;
-  const page = await queryPage({ slug });
+  const page = await fetchCachedPage({ slug });
 
   if (!page) {
     notFound();
