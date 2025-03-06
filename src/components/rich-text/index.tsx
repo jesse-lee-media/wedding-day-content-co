@@ -130,7 +130,7 @@ const jsxConverters: JSXConvertersFunction<NodeType> = () => ({
   link: linkConverter,
   blocks: {
     buttonLink: ({ node }) => <ButtonLinkBlock {...node.fields} />,
-    formBlock: ({ node }) => <FormBlock {...node.fields} />,
+    form: ({ node }) => <FormBlock {...node.fields} />,
     gallery: ({ node }) => <GalleryBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
     imageLinks: ({ node }) => <ImageLinksBlock {...node.fields} />,

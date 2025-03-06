@@ -1415,7 +1415,7 @@ export interface PayloadFormBlock {
   form: string | PayloadFormsCollection;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'formBlock';
+  blockType: 'form';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
