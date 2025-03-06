@@ -7,7 +7,7 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "i:build": "infisical run pnpm build",
-    "build:clean": "rm -rf .next && rm -rf next-env.d.ts && next build",
+    "build:clean": "rm -rf .next && rm -rf next-env.d.ts && pnpm build",
     "i:build:clean": "infisical run pnpm build:clean",
     "dev": "next dev --turbo",
     "i:dev": "infisical run pnpm dev",
