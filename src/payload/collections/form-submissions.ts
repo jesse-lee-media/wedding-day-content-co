@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import type {
+  CollectionAfterChangeHook,
   CollectionAfterOperationHook,
-  CollectionBeforeValidateHook,
   CollectionConfig,
   RelationshipFieldSingleValidation,
 } from 'payload';
@@ -49,7 +49,7 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
     try {
       let form: PayloadFormsCollection;
 
-      if (typeof result.form === 'string' || typeof result.form === 'number') {
+      if (typeof result.form === 'string') {
         form = await payload.findByID({
           collection: 'forms',
           id: result.form,
@@ -78,19 +78,20 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
   return result;
 };
 
-const setClient: CollectionBeforeValidateHook<PayloadFormSubmissionsCollection> = async ({
-  data,
+const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = async ({
+  context,
+  doc,
   req,
 }) => {
-  if (data?.client) {
-    return data;
+  if (doc?.client || context?.ignoreSetClient) {
+    return doc;
   }
 
   const { payload } = req;
-  const email = data?.data?.find((datum) => datum.name === 'email')?.value;
+  const email = doc?.data?.find((datum) => datum.name === 'email')?.value;
 
   if (!email) {
-    return data;
+    return doc;
   }
 
   const { docs } = await payload.find({
@@ -104,13 +105,23 @@ const setClient: CollectionBeforeValidateHook<PayloadFormSubmissionsCollection> 
   });
 
   if (docs.length) {
-    return Object.assign(data, { client: docs[0].id });
+    return payload.update({
+      collection: 'form-submissions',
+      id: doc.id,
+      data: {
+        client: docs[0].id,
+      },
+      context: {
+        ignoreSetClient: true,
+      },
+      req,
+    });
   }
 
   let name: string | undefined;
   let phoneNumber: string | undefined;
 
-  data?.data?.forEach((datum) => {
+  doc?.data?.forEach((datum) => {
     if (datum.name === 'name') {
       name = datum.value;
     }
@@ -130,7 +141,17 @@ const setClient: CollectionBeforeValidateHook<PayloadFormSubmissionsCollection> 
     },
   });
 
-  return Object.assign(data, { client: id });
+  return payload.update({
+    collection: 'form-submissions',
+    id: doc.id,
+    data: {
+      client: id,
+    },
+    context: {
+      ignoreSetClient: true,
+    },
+    req,
+  });
 };
 
 export const FormSubmissions: CollectionConfig<'form-submissions'> = {
@@ -148,7 +169,7 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
     group: 'CRM',
   },
   hooks: {
-    beforeValidate: [setClient],
+    afterChange: [setClient],
     afterOperation: [sendFormSubmissionEmail],
   },
   fields: [

@@ -13,11 +13,7 @@ export const Faqs: CollectionConfig<'faqs'> = {
     defaultColumns: ['question', 'updatedAt'],
   },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 100,
-      },
-    },
+    drafts: true,
   },
   access: {
     read: hasRoleOrPublished(Role.Admin, Role.Editor),

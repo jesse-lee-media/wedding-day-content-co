@@ -21,11 +21,7 @@ export const Forms: CollectionConfig<'forms'> = {
     group: 'CRM',
   },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 100,
-      },
-    },
+    drafts: true,
   },
   access: {
     read: () => true,

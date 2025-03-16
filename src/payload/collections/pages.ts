@@ -4,7 +4,6 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionConfig,
-  FieldHook,
 } from 'payload';
 
 import { slugify } from '@/lib/utils/slugify';
@@ -18,28 +17,36 @@ import { Section } from '@/payload/blocks/section';
 import type { PayloadPagesCollection } from '@/payload/payload-types';
 import { generatePreviewPath } from '@/payload/utils/generate-preview-path';
 
-const useSlug: FieldHook<
-  PayloadPagesCollection,
-  string | null | undefined,
-  PayloadPagesCollection
-> = ({ operation, siblingData }) => {
-  if (operation === 'create' || operation === 'update') {
-    return slugify(siblingData?.title);
+const setSlugAndPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({
+  context,
+  doc,
+  req,
+}) => {
+  if (context?.ignoreSetSlugAndPath) {
+    return doc;
   }
-};
 
-const usePath: FieldHook<
-  PayloadPagesCollection,
-  string | null | undefined,
-  PayloadPagesCollection
-> = ({ operation, siblingData }) => {
-  if (operation === 'create' || operation === 'update') {
-    if (siblingData?.breadcrumbs?.length) {
-      return siblingData.breadcrumbs[siblingData.breadcrumbs.length - 1].url;
-    }
+  const slug = slugify(doc.title);
+  const path = doc.breadcrumbs?.length
+    ? doc.breadcrumbs[doc.breadcrumbs.length - 1].url
+    : `/${slug}`;
 
-    return `/${slugify(siblingData?.title)}`;
+  if (doc.path === path && doc.slug === slug) {
+    return doc;
   }
+
+  return req.payload.update({
+    collection: 'pages',
+    id: doc.id,
+    data: {
+      path,
+      slug,
+    },
+    context: {
+      ignoreSetSlugAndPath: true,
+    },
+    req,
+  });
 };
 
 const revalidatePageAfterChange: CollectionAfterChangeHook<PayloadPagesCollection> = ({
@@ -82,7 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        interval: 250,
       },
     },
   },
@@ -111,7 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
     delete: hasRole(Role.Admin),
   },
   hooks: {
-    afterChange: [revalidatePageAfterChange],
+    afterChange: [setSlugAndPath, revalidatePageAfterChange],
     afterDelete: [revalidatePageAfterDelete],
   },
   defaultPopulate: {
@@ -124,6 +131,7 @@ export const Pages: CollectionConfig<'pages'> = {
       name: 'title',
       type: 'text',
       required: true,
+      unique: true,
     },
     {
       name: 'description',
@@ -147,9 +155,6 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
         readOnly: true,
       },
-      hooks: {
-        beforeValidate: [useSlug],
-      },
     },
     {
       name: 'path',
@@ -159,9 +164,6 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
         readOnly: true,
-      },
-      hooks: {
-        beforeValidate: [usePath],
       },
     },
     {
