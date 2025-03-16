@@ -1,15 +1,18 @@
 import Link from 'next/link';
 
-import { PayloadFieldLink } from '../types/payload';
-import { linkProps } from '../utils';
+import { linkProps } from '@/lib/utils/link';
+import type { PayloadLinkGroupField } from '@/payload/payload-types';
 
-export type PayloadLinkProps = PayloadFieldLink & {
+export type PayloadLinkProps = PayloadLinkGroupField & {
+  children?: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
-const PayloadLink = ({ className, ...link }: PayloadLinkProps) => (
-  <Link {...linkProps(link)} className={className}>
+const PayloadLink = ({ children, className, onClick, ...link }: PayloadLinkProps) => (
+  <Link {...linkProps(link)} onClick={onClick} className={className}>
     {link.text}
+    {children}
   </Link>
 );
 

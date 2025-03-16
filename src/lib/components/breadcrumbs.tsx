@@ -1,8 +1,9 @@
-import { Fragment, HTMLAttributes, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
+import { Fragment } from 'react';
 
 import Link from 'next/link';
 
-import { PayloadPage } from '../types/payload';
+import type { PayloadPagesCollection } from '@/payload/payload-types';
 
 const homeBreadcrumb = {
   url: '/',
@@ -10,31 +11,29 @@ const homeBreadcrumb = {
   id: 'home',
 };
 
-const Breadcrumbs = forwardRef<
-  HTMLUListElement,
-  HTMLAttributes<HTMLUListElement> & { breadcrumbs: PayloadPage['breadcrumbs'] }
->(({ breadcrumbs: pageBreadcrumbs, ...props }, ref) => {
-  const breadcrumbs = [homeBreadcrumb, ...pageBreadcrumbs];
+type BreadcrumbsProps = ComponentProps<'ul'> & {
+  breadcrumbs: PayloadPagesCollection['breadcrumbs'];
+};
+
+const Breadcrumbs = ({ breadcrumbs: pageBreadcrumbs, ...props }: BreadcrumbsProps) => {
+  const breadcrumbs = [homeBreadcrumb, ...(pageBreadcrumbs ?? [])];
 
   return (
-    <ul ref={ref} className="mb-8 flex flex-row flex-wrap items-baseline gap-2" {...props}>
-      {breadcrumbs?.map(({ label, url }, i) => (
-        <Fragment key={i}>
-          {i > 0 && <span className="text-black/60 dark:text-white/60">/</span>}
+    <ul className="mb-8 flex flex-row flex-wrap items-baseline gap-2" {...props}>
+      {breadcrumbs?.map(({ label, url, id }, i) => (
+        <Fragment key={id}>
+          {i > 0 ? '/' : null}
           <li className="shrink-0 whitespace-nowrap">
             {i < breadcrumbs.length - 1 ? (
-              <Link href={url === '/home' ? '/' : url} className="text-black/60 dark:text-white/60">
-                {label}
-              </Link>
+              <Link href={url === '/home' ? '/' : (url ?? '/')}>{label}</Link>
             ) : (
-              label
+              <span className="text-black/75">{label}</span>
             )}
           </li>
         </Fragment>
       ))}
     </ul>
   );
-});
-Breadcrumbs.displayName = 'Breadcrumbs';
+};
 
 export { Breadcrumbs };

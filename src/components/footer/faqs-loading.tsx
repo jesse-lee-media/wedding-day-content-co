@@ -1,19 +1,25 @@
-import { NavArrowDown } from 'iconoir-react';
+import { Icons } from '@/lib/components/icons';
 
-export default function FaqsLoading() {
+export function FaqsLoading() {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row border-b border-black/75 py-4 last:border-b-0 dark:border-white">
+      <div className="flex flex-row border-b-2 border-black/75 py-4 last:border-b-0 dark:border-white">
         <div className="h-6 w-full animate-pulse rounded-lg bg-white/5" />
-        <NavArrowDown className="shrink-0 transition-transform duration-200" />
+        <div className="flex h-8 items-center justify-center">
+          <Icons name="navArrowDown" className="size-6" />
+        </div>
       </div>
-      <div className="flex flex-row border-b border-black/75 py-4 last:border-b-0 dark:border-white">
+      <div className="flex flex-row border-b-2 border-black/75 py-4 last:border-b-0 dark:border-white">
         <div className="h-6 w-full animate-pulse rounded-lg bg-white/5" />
-        <NavArrowDown className="shrink-0 transition-transform duration-200" />
+        <div className="flex h-8 items-center justify-center">
+          <Icons name="navArrowDown" className="size-6" />
+        </div>
       </div>
-      <div className="flex flex-row border-b border-black/75 py-4 last:border-b-0 dark:border-white">
+      <div className="flex flex-row border-b-2 border-black/75 py-4 last:border-b-0 dark:border-white">
         <div className="h-6 w-full animate-pulse rounded-lg bg-white/5" />
-        <NavArrowDown className="shrink-0 transition-transform duration-200" />
+        <div className="flex h-8 items-center justify-center">
+          <Icons name="navArrowDown" className="size-6" />
+        </div>
       </div>
     </div>
   );

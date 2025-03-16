@@ -1,23 +1,48 @@
-import { VariantProps, cva } from 'class-variance-authority';
-import { ArrowRight, ArrowUpRight, Menu, NavArrowDown, Xmark } from 'iconoir-react';
+import type { ComponentProps, JSX } from 'react';
 
-import { BaseProps } from '@/lib/types/base-props';
-import { cn } from '@/lib/utils';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
-import IconInstagram from './instagram';
-import IconTikTok from './tiktok';
+import { IconArrowLeft } from '@/lib/components/icons/arrow-left';
+import { IconArrowRight } from '@/lib/components/icons/arrow-right';
+import { IconArrowUpRight } from '@/lib/components/icons/arrow-up-right';
+import { IconCalendar } from '@/lib/components/icons/calendar';
+import { IconCircle } from '@/lib/components/icons/circle';
+import { IconInstagram } from '@/lib/components/icons/instagram';
+import { IconMenu } from '@/lib/components/icons/menu';
+import { IconNavArrowDown } from '@/lib/components/icons/nav-arrow-down';
+import { IconNavArrowLeft } from '@/lib/components/icons/nav-arrow-left';
+import { IconNavArrowRight } from '@/lib/components/icons/nav-arrow-right';
+import { IconNavArrowUp } from '@/lib/components/icons/nav-arrow-up';
+import { IconQuoteSolid } from '@/lib/components/icons/quote-solid';
+import { IconTikTok } from '@/lib/components/icons/tiktok';
+import { IconXMark } from '@/lib/components/icons/x-mark';
+import { cn } from '@/lib/utils/cn';
+import type { PayloadIconField } from '@/payload/payload-types';
 
-const icons = {
-  arrowRight: ArrowRight,
-  arrowUpRight: ArrowUpRight,
-  chevronDown: NavArrowDown,
+type IconName = NonNullable<PayloadIconField>;
+
+type IconFunction = (props: ComponentProps<'svg'>) => JSX.Element;
+
+const icons: Record<IconName, IconFunction> = {
+  arrowLeft: IconArrowLeft,
+  arrowRight: IconArrowRight,
+  arrowUpRight: IconArrowUpRight,
+  calendar: IconCalendar,
+  chevronDown: IconNavArrowDown,
+  circle: IconCircle,
   instagram: IconInstagram,
-  menu: Menu,
+  menu: IconMenu,
+  navArrowDown: IconNavArrowDown,
+  navArrowLeft: IconNavArrowLeft,
+  navArrowRight: IconNavArrowRight,
+  navArrowUp: IconNavArrowUp,
+  quoteSolid: IconQuoteSolid,
   tikTok: IconTikTok,
-  x: Xmark,
+  x: IconXMark,
 };
 
-const iconVariants = cva('', {
+const iconVariants = cva('shrink-0', {
   variants: {
     size: {
       sm: 'size-3.5',
@@ -30,12 +55,12 @@ const iconVariants = cva('', {
   },
 });
 
-export interface IconProps extends Omit<BaseProps, 'children'>, VariantProps<typeof iconVariants> {
-  name: keyof typeof icons;
+interface Props extends Omit<ComponentProps<'svg'>, 'children'>, VariantProps<typeof iconVariants> {
+  name: IconName;
 }
 
-export default function Icons({ className, name, size, ...rest }: IconProps) {
-  const IconComponent = icons[name];
+export function Icons({ className, name, size, ...rest }: Props) {
+  const Icon = icons[name];
 
-  return <IconComponent className={cn(iconVariants({ size }), className)} {...rest} />;
+  return <Icon className={cn(iconVariants({ size }), className)} {...rest} />;
 }

@@ -1,22 +1,27 @@
-import { ComponentProps, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
 
 import Link from 'next/link';
 
-import { Button } from './button';
-import Icons from './icons';
-import { PayloadFieldButtonLink } from '../types/payload';
-import { linkProps } from '../utils';
+import { Button } from '@/lib/components/button';
+import { Icons } from '@/lib/components/icons';
+import { linkProps } from '@/lib/utils/link';
+import type { PayloadButtonLinkGroupField } from '@/payload/payload-types';
 
-const PayloadButtonLink = forwardRef<HTMLButtonElement, ComponentProps<typeof Button> & PayloadFieldButtonLink>(
-  ({ link, icon, ...rest }, ref) => (
-    <Button ref={ref} asChild {...rest}>
-      <Link {...linkProps(link)}>
-        {rest.iconPosition !== 'center' && link.text}
-        {icon && <Icons name={icon} size={rest.size} />}
-      </Link>
-    </Button>
-  ),
+export type PayloadButtonLinkProps = ComponentProps<typeof Button> & PayloadButtonLinkGroupField;
+
+const PayloadButtonLink = ({
+  link,
+  icon,
+  iconPosition,
+  size,
+  ...props
+}: PayloadButtonLinkProps) => (
+  <Button asChild iconPosition={iconPosition} size={size} {...props}>
+    <Link {...linkProps(link)}>
+      {iconPosition !== 'center' ? link.text : null}
+      {icon && <Icons name={icon} size={size} />}
+    </Link>
+  </Button>
 );
-PayloadButtonLink.displayName = 'PayloadButtonLink';
 
 export { PayloadButtonLink };

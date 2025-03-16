@@ -1,26 +1,61 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/components/carousel';
-import { PayloadImage } from '@/lib/components/payload-image';
-import { PayloadBlockGallery } from '@/lib/types/payload';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/lib/components/carousel';
+import { PayloadMedia } from '@/lib/components/payload-media';
+import type { StripString } from '@/lib/types/strip-string';
+import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
+import type { PayloadGalleryBlock } from '@/payload/payload-types';
 
-export default function BlockGallery({ images, type }: PayloadBlockGallery) {
+type FilteredMedia = StripString<PayloadGalleryBlock['media'][number]>;
+
+export function GalleryBlock({ media, type }: PayloadGalleryBlock) {
+  const filteredMedia = media.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
+
+  if (!filteredMedia?.length) {
+    return null;
+  }
+
   if (type === 'grid') {
+    const columns: FilteredMedia[][] = [[], [], []];
+
+    filteredMedia.forEach((item, index) => {
+      columns[index % 3].push(item);
+    });
+
     return (
-      <ul className="my-6 grid grid-cols-1 gap-4 first:mt-0 last:mb-0 sm:grid-cols-2 md:grid-cols-3">
-        {images.map((image, i) => (
-          <li key={i}>
-            <PayloadImage {...image} className="overflow-clip rounded-2xl border border-black/75" />
-          </li>
+      <div className="my-6 flex flex-col gap-4 first:mt-0 last:mb-0 sm:flex-row">
+        {columns.map((items, i) => (
+          <div key={i} className="flex w-full flex-col gap-4">
+            {items.map(({ relationTo, value }) => (
+              <PayloadMedia
+                key={value.id}
+                relationTo={relationTo}
+                value={value}
+                className="w-full rounded-sm shadow-lg ring-2 shadow-black/10 ring-neutral-200"
+                outerClassName="aspect-3/4"
+              />
+            ))}
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
 
   return (
     <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0" opts={{ dragFree: true }}>
-      <CarouselContent>
-        {images.map((image, i) => (
-          <CarouselItem key={i} className="mi-auto sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-            <PayloadImage {...image} className="overflow-clip rounded-2xl border border-black/75" />
+      <CarouselContent className="items-center py-2">
+        {filteredMedia?.map(({ relationTo, value }) => (
+          <CarouselItem key={value.id} className="mi-auto sm:basis-1/2 md:basis-1/3">
+            <PayloadMedia
+              relationTo={relationTo}
+              value={value}
+              className="overflow-clip rounded-sm ring-2 ring-neutral-200 dark:ring-neutral-700"
+              outerClassName="aspect-3/4"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

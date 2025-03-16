@@ -37,3 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 .env*
+
+**/payload-types.ts
+**/importMap.js
+**/migrations

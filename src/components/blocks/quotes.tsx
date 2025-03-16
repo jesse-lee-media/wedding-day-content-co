@@ -1,17 +1,26 @@
+import { RichText } from '@/components/rich-text';
 import { Blockquote, BlockquoteBody, BlockquoteFooter } from '@/lib/components/blockquote';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/components/carousel';
-import { PayloadBlockQuotes } from '@/lib/types/payload';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/lib/components/carousel';
+import type { PayloadQuotesBlock } from '@/payload/payload-types';
 
-import Serialize from '../serialize';
+export function QuotesBlock({ quotes }: PayloadQuotesBlock) {
+  if (!quotes || quotes.length === 0) {
+    return null;
+  }
 
-export default function BlockQuotes({ quotes }: PayloadBlockQuotes) {
   if (quotes.length === 3) {
     return (
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:items-center">
-        {quotes.map(({ client, content }, i) => (
-          <Blockquote key={i} className="last:md:col-span-2 last:lg:col-span-1">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:items-center">
+        {quotes.map(({ client, content, id }) => (
+          <Blockquote key={id} className="md:last:col-span-2 lg:last:col-span-1">
             <BlockquoteBody>
-              <Serialize nodes={content.root.children!} />
+              <RichText data={content} />
             </BlockquoteBody>
             <BlockquoteFooter>{client}</BlockquoteFooter>
           </Blockquote>
@@ -23,11 +32,11 @@ export default function BlockQuotes({ quotes }: PayloadBlockQuotes) {
   return (
     <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0">
       <CarouselContent className="items-center">
-        {quotes.map(({ client, content }, i) => (
-          <CarouselItem key={i} className="mi-auto md:basis-1/2 xl:basis-1/3">
+        {quotes.map(({ client, content, id }) => (
+          <CarouselItem key={id} className="mi-auto md:basis-1/2 xl:basis-1/3">
             <Blockquote>
               <BlockquoteBody>
-                <Serialize nodes={content.root.children!} />
+                <RichText data={content} />
               </BlockquoteBody>
               <BlockquoteFooter>{client}</BlockquoteFooter>
             </Blockquote>

@@ -1,35 +1,42 @@
 import dynamic from 'next/dynamic';
 
+import { FooterSection } from '@/components/footer/faq-section';
+import { FaqsLoading } from '@/components/footer/faqs-loading';
+import { RichText } from '@/components/rich-text';
 import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
 import { PayloadLink } from '@/lib/components/payload-link';
-import { PayloadFooter } from '@/lib/types/payload';
-
-import FaqSection from './faq-section';
-import FaqsLoading from './faqs-loading';
+import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 const FaqAccordion = dynamic(() => import('./faq-accordion'), { loading: () => <FaqsLoading /> });
 
-export default function Footer({ faqs, linkGroups, marquee }: PayloadFooter) {
+export function Footer({ contact, faqs, linkGroups, marquee }: PayloadFooterGlobal) {
   const marqueeText = new Array(4).fill(marquee ?? '').join(' ') + ' ';
 
   return (
     <footer className="dark flex flex-col gap-24 bg-black py-16 text-white">
       <div className="mx-auto w-full max-w-7xl px-4">
-        {faqs && faqs.length > 0 && (
-          <FaqSection heading="Frequently asked questions">
+        {contact ? (
+          <FooterSection heading="Contact">
+            <div>
+              <RichText data={contact} />
+            </div>
+          </FooterSection>
+        ) : null}
+        {faqs && faqs.length > 0 ? (
+          <FooterSection heading="Frequently asked questions">
             <FaqAccordion faqs={faqs} />
-          </FaqSection>
-        )}
-        {linkGroups && (
-          <FaqSection heading="Links">
+          </FooterSection>
+        ) : null}
+        {linkGroups && linkGroups.length > 0 && (
+          <FooterSection heading="Links">
             <div className="@container">
               <ul className="grid grid-cols-1 gap-8 @xs:grid-cols-2 @sm:grid-cols-3">
-                {linkGroups.map((group, i) => (
-                  <li key={i} className="flex flex-col gap-2">
-                    <h2 className="font-sans text-sm !leading-normal text-white/75">{group.heading}</h2>
+                {linkGroups.map(({ heading, id, links }) => (
+                  <li key={id} className="flex flex-col gap-2">
+                    <h2 className="font-sans text-sm leading-normal! text-white/75">{heading}</h2>
                     <ul className="flex flex-col gap-1">
-                      {group?.links?.map((link, i) => (
-                        <li key={i}>
+                      {links?.map((link) => (
+                        <li key={link.id}>
                           <PayloadLink {...link} className="text-lg" />
                         </li>
                       ))}
@@ -38,10 +45,10 @@ export default function Footer({ faqs, linkGroups, marquee }: PayloadFooter) {
                 ))}
               </ul>
             </div>
-          </FaqSection>
+          </FooterSection>
         )}
       </div>
-      {marquee && (
+      {marquee ? (
         <Marquee>
           <MarqueeContent asChild speed="slow">
             <h1 className="text-8xl">{marqueeText}</h1>
@@ -52,7 +59,7 @@ export default function Footer({ faqs, linkGroups, marquee }: PayloadFooter) {
           <MarqueeFade side="left" />
           <MarqueeFade side="right" />
         </Marquee>
-      )}
+      ) : null}
     </footer>
   );
 }

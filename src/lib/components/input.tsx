@@ -1,19 +1,45 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
 
-import { cn } from '../utils';
+import { Icons } from '@/lib/components/icons';
+import { cn } from '@/lib/utils/cn';
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement>;
+const baseClass =
+  'h-14 w-full rounded-sm shadow-sm shadow-black/10 border-2 border-neutral-200 bg-white px-4 text-lg text-black transition placeholder:text-neutral-500 hover:border-neutral-600/75 hover:bg-neutral-50 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400/75';
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
-  <input
-    ref={ref}
+const Input = ({ className, ...props }: ComponentProps<'input'>) => (
+  <input className={cn(baseClass, className)} {...props} />
+);
+
+export type InputButtonProps = ComponentProps<'button'> & {
+  displayChildren?: boolean;
+  icon?: ComponentProps<typeof Icons>['name'];
+  placeholder?: string;
+};
+
+const InputButton = ({
+  children,
+  className,
+  displayChildren,
+  icon,
+  placeholder,
+  ...props
+}: InputButtonProps) => (
+  <button
     className={cn(
-      'h-14 w-full rounded-xl border border-black/75 bg-white px-5 text-lg text-black transition placeholder:text-black/75 hover:border-black hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-black/75 dark:border-white dark:bg-black dark:text-white dark:placeholder:text-white/75 dark:hover:bg-white/5 dark:focus:ring-white/75',
+      baseClass,
+      'group flex flex-row items-center',
+      icon ? 'pr-3' : undefined,
       className,
     )}
     {...props}
-  />
-));
-Input.displayName = 'Input';
+  >
+    {placeholder && !displayChildren ? (
+      <span className="text-neutral-500">{placeholder}</span>
+    ) : null}
+    {displayChildren ? children : null}
+    <span className="grow" />
+    {icon ? <Icons name={icon} size="lg" className="text-neutral-500" /> : null}
+  </button>
+);
 
-export { Input };
+export { Input, InputButton };

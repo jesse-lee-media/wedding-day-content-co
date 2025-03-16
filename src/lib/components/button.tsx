@@ -1,30 +1,38 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex w-full items-center justify-center font-medium !no-underline transition focus:outline-none focus:ring-2 focus:ring-black/75 dark:focus:ring-white/75 xs:w-fit disabled:cursor-not-allowed',
+  'inline-flex w-full cursor-pointer items-center justify-center rounded-sm font-medium no-underline! transition focus-visible:ring-2 focus-visible:ring-neutral-400/75 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:border-y-2 disabled:border-t-neutral-100 disabled:border-b-neutral-300 disabled:bg-neutral-200 disabled:text-neutral-400 xs:w-fit',
   {
     variants: {
       variant: {
-        solid:
-          'bg-black text-white border border-black/75 hover:border-black dark:bg-white dark:text-black dark:border-white disabled:bg-black/10 disabled:text-black/25 disabled:border-black/20 disabled:dark:bg-white/10 disabled:dark:text-white/25 disabled:dark:border-white/25',
-        outlined:
-          'bg-white text-black border border-black/75 hover:border-black dark:bg-black dark:text-white dark:border-white disabled:text-black/25 disabled:border-black/20 disabled:dark:text-white/50 disabled:dark:border-white/25',
+        primary:
+          'border-y-2 border-t-neutral-600 border-b-neutral-950 bg-neutral-800 text-neutral-100 dark:border-t-dusty-rose-600 dark:border-b-dusty-rose-950 dark:bg-dusty-rose-800 dark:text-dusty-rose-50',
+        secondary:
+          'border-y-2 border-t-neutral-50/75 border-b-neutral-200/75 bg-neutral-100 text-neutral-900',
       },
       size: {
-        sm: 'h-10 text-sm gap-1.5 rounded-lg',
-        md: 'h-12 text-base gap-2 rounded-xl',
-        lg: 'h-14 text-lg gap-2.5 rounded-xl',
+        sm: 'h-10 gap-1.5 text-sm',
+        md: 'h-12 gap-2 text-base',
+        lg: 'h-14 gap-2.5 text-xl',
       },
       iconPosition: {
         left: 'flex-row-reverse',
         right: 'flex-row',
         center: 'flex-row',
         none: 'flex-row',
+      },
+      asChild: {
+        true: 'hover:no-underline! hover:shadow-lg hover:shadow-black/10',
+        false: 'hover:enabled:no-underline! hover:enabled:shadow-lg hover:enabled:shadow-black/10',
+      },
+      background: {
+        default: '',
+        dark: '',
       },
     },
     compoundVariants: [
@@ -61,64 +69,88 @@ const buttonVariants = cva(
       {
         iconPosition: 'right',
         size: 'sm',
-        className: 'px-4 xs:pl-4 xs:pr-3',
+        className: 'px-4 xs:pr-3 xs:pl-4',
       },
       {
         iconPosition: 'right',
         size: 'md',
-        className: 'px-6 xs:pl-6 xs:pr-5',
+        className: 'px-6 xs:pr-5 xs:pl-6',
       },
       {
         iconPosition: 'right',
         size: 'lg',
-        className: 'px-8 xs:pl-8 xs:pr-7',
+        className: 'px-8 xs:pr-7 xs:pl-8',
       },
       {
         iconPosition: 'center',
         size: 'sm',
-        className: 'xs:!w-10',
+        className: 'xs:w-10!',
       },
       {
         iconPosition: 'center',
         size: 'md',
-        className: 'xs:!w-12',
+        className: 'xs:w-12!',
       },
       {
         iconPosition: 'center',
         size: 'lg',
-        className: 'xs:!w-14',
+        className: 'xs:w-14!',
+      },
+      {
+        variant: 'primary',
+        asChild: true,
+        className:
+          'hover:bg-black hover:text-white dark:hover:bg-dusty-rose-900 dark:hover:text-dusty-rose-100',
+      },
+      {
+        variant: 'primary',
+        asChild: false,
+        className:
+          'hover:enabled:bg-black hover:enabled:text-white dark:hover:enabled:bg-dusty-rose-900 dark:hover:enabled:text-dusty-rose-100',
+      },
+      {
+        variant: 'secondary',
+        asChild: true,
+        className: 'hover:bg-neutral-200 hover:text-black',
+      },
+      {
+        variant: 'secondary',
+        asChild: false,
+        className: 'hover:enabled:bg-neutral-200 hover:enabled:text-black',
       },
     ],
     defaultVariants: {
-      variant: 'outlined',
+      variant: 'primary',
       size: 'md',
       iconPosition: 'none',
     },
   },
 );
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+export type ButtonProps = ComponentProps<'button'> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, className, iconPosition, variant, size, ...props }, ref) => {
-    const Component = asChild ? Slot : 'button';
+const Button = ({
+  asChild = false,
+  background,
+  className,
+  iconPosition,
+  variant,
+  size,
+  ...props
+}: ButtonProps) => {
+  const Component = asChild ? Slot : 'button';
 
-    return (
-      <Component
-        ref={ref}
-        {...props}
-        className={cn(
-          buttonVariants({ variant, size, className, iconPosition }),
-          asChild
-            ? 'hover:bg-pink-100 hover:text-black hover:!no-underline hover:shadow-lg dark:hover:bg-pink-200 dark:hover:text-black'
-            : 'hover:enabled:bg-pink-100 hover:enabled:text-black hover:enabled:!no-underline hover:enabled:shadow-lg dark:hover:enabled:bg-pink-200 dark:hover:enabled:text-black',
-        )}
-      />
-    );
-  },
-);
-Button.displayName = 'Button';
+  return (
+    <Component
+      {...props}
+      className={cn(
+        buttonVariants({ variant, size, className, iconPosition, asChild, background }),
+      )}
+    />
+  );
+};
 
-export { Button, buttonVariants };
+export { Button };

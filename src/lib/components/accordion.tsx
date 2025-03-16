@@ -1,69 +1,53 @@
 'use client';
 
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
 
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { NavArrowDown } from 'iconoir-react';
+import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
 
-import { cn, slugify } from '../utils';
+import { Icons } from '@/lib/components/icons';
+import { cn } from '@/lib/utils/cn';
+import { slugify } from '@/lib/utils/slugify';
 
-const Accordion = AccordionPrimitive.Root;
+const Accordion = Root;
 
-const AccordionItem = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Item>,
-  ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn('group border-b border-black/75 last:border-b-0 dark:border-white', className)}
+const AccordionItem = ({ className, ...props }: ComponentProps<typeof Item>) => (
+  <Item
+    className={cn('group border-b-2 border-black last:border-b-0 dark:border-white', className)}
     {...props}
   />
-));
-AccordionItem.displayName = 'AccordionItem';
+);
 
-const AccordionHeader = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Header>,
-  ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Header ref={ref} className={cn('flex', className)} {...props} />
-));
-AccordionHeader.displayName = AccordionPrimitive.Header.displayName;
+const AccordionHeader = ({ className, ...props }: ComponentProps<typeof Header>) => (
+  <Header className={cn('flex', className)} {...props} />
+);
 
-const AccordionTrigger = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Trigger>,
-  ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Trigger
-    ref={ref}
-    data-umami-event="Accordion trigger"
-    data-umami-event-id={slugify(JSON.stringify(children))}
+const AccordionTrigger = ({ className, children, ...props }: ComponentProps<typeof Trigger>) => (
+  <Trigger
     className={cn(
-      'flex flex-1 justify-between overflow-clip py-4 text-left text-xl font-normal hover:underline hover:underline-offset-8 focus:outline-white group-first:pt-0 [&[data-state=open]>svg]:rotate-180',
+      '-mx-4 flex flex-1 justify-between overflow-clip rounded-sm p-4 text-left text-xl font-normal group-first:-mt-4 group-last:-mb-4 hover:underline hover:underline-offset-8 focus-visible:ring-2 focus-visible:ring-black focus-visible:outline-hidden dark:focus-visible:ring-white [&[data-state=open]>div]:rotate-180',
       className,
     )}
+    data-umami-event="Accordion trigger"
+    data-umami-event-id={slugify(JSON.stringify(children))}
     {...props}
   >
     {children}
-    <NavArrowDown className="shrink-0 transition-transform duration-200" />
-  </AccordionPrimitive.Trigger>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+    <div className="flex h-8 items-center justify-center transition-transform duration-200">
+      <Icons name="navArrowDown" className="size-6" />
+    </div>
+  </Trigger>
+);
 
-const AccordionContent = forwardRef<
-  ElementRef<typeof AccordionPrimitive.Content>,
-  ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
-    ref={ref}
+const AccordionContent = ({ className, children, ...props }: ComponentProps<typeof Content>) => (
+  <Content
     className={cn(
       'overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
       className,
     )}
     {...props}
   >
-    <div className="pb-4 pt-0 group-last:pb-0">{children}</div>
-  </AccordionPrimitive.Content>
-));
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+    <div className="pb-4 group-last:pt-4 dark:text-white/75">{children}</div>
+  </Content>
+);
 
 export { Accordion, AccordionItem, AccordionHeader, AccordionTrigger, AccordionContent };

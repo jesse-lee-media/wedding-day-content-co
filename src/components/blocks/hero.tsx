@@ -1,29 +1,30 @@
 import { PayloadButtonLink } from '@/lib/components/payload-button-link';
-import { PayloadImage } from '@/lib/components/payload-image';
-import { PayloadBlockHero } from '@/lib/types/payload';
+import { PayloadVideo } from '@/lib/components/payload-video';
+import type { PayloadHeroBlock } from '@/payload/payload-types';
 
-export default function BlockHero({ buttonLinks, description, heading, images }: PayloadBlockHero) {
+export function HeroBlock({ buttonLinks, description, heading, media }: PayloadHeroBlock) {
   return (
-    <div className="grid grid-cols-1 gap-8 pb-12 md:mb-16 md:grid-cols-2 md:gap-0 lg:pb-16">
-      <div className="flex flex-col gap-8">
-        <h1 className="text-4xl text-wrap-balance xxs:text-5xl lg:text-7xl xl:text-8xl">{heading}</h1>
-        <p className="text-xl text-wrap-balance lg:text-2xl">{description}</p>
+    <div className="-mt-30 overflow-hero flex h-dvh flex-row items-center justify-center">
+      {typeof media !== 'string' ? <PayloadVideo {...media} outer={false} /> : null}
+      <div className="absolute inset-0 bg-black/25" />
+      <div className="absolute z-10 flex h-full flex-col items-center justify-center gap-12 px-4">
+        <div className="flex flex-col items-center justify-center gap-1 text-center text-wrap-balance">
+          <h1 className="text-5xl text-white shadow-black t-shadow-lg md:text-8xl">{heading}</h1>
+          <p className="text-xl font-light text-wrap-balance text-white italic shadow-black t-shadow-md md:text-2xl">
+            {description}
+          </p>
+        </div>
         <ul className="flex flex-col items-center gap-4 xs:flex-row">
-          {buttonLinks.map((buttonLink, i) => (
-            <li key={i} className="flex w-full xs:w-fit">
-              <PayloadButtonLink {...buttonLink} />
+          {buttonLinks?.map(({ id, ...buttonLink }) => (
+            <li key={id} className="flex w-full xs:w-fit">
+              <PayloadButtonLink
+                id={id ?? undefined}
+                {...buttonLink}
+                className="border-t-neutral-50/50 border-b-neutral-100/50 bg-neutral-50/75 backdrop-blur-sm"
+              />
             </li>
           ))}
         </ul>
-      </div>
-      <div className="grid grid-cols-1 gap-4 xs:grid-cols-2">
-        {images.map((image, i) => (
-          <PayloadImage
-            key={i}
-            {...image}
-            className="rounded-2xl border border-black/75 shadow-lg first:z-10 first:md:translate-x-12 first:md:translate-y-16 first:md:-rotate-3 last:md:-translate-x-4 last:md:rotate-3"
-          />
-        ))}
       </div>
     </div>
   );

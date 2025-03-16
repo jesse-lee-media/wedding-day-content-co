@@ -1,39 +1,28 @@
 'use client';
 
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+import type { ComponentProps } from 'react';
 
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-import { Circle } from 'iconoir-react';
+import { Indicator, Item, Root } from '@radix-ui/react-radio-group';
 
-import { cn } from '@/lib/utils';
+import { Icons } from '@/lib/components/icons';
+import { cn } from '@/lib/utils/cn';
 
-const RadioGroup = forwardRef<
-  ElementRef<typeof RadioGroupPrimitive.Root>,
-  ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
-  return <RadioGroupPrimitive.Root className={cn('flex flex-col gap-2', className)} {...props} ref={ref} />;
-});
-RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
+const RadioGroup = ({ className, ...props }: ComponentProps<typeof Root>) => (
+  <Root className={cn('flex flex-col gap-2', className)} {...props} />
+);
 
-const RadioGroupItem = forwardRef<
-  ElementRef<typeof RadioGroupPrimitive.Item>,
-  ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
->(({ className, ...props }, ref) => {
-  return (
-    <RadioGroupPrimitive.Item
-      ref={ref}
-      className={cn(
-        'my-1 aspect-square size-5 rounded-full border border-black/75 text-black hover:border-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black/75 disabled:cursor-not-allowed disabled:opacity-50',
-        className,
-      )}
-      {...props}
-    >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="size-3 fill-current text-current" />
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
-  );
-});
-RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
+const RadioGroupItem = ({ className, ...props }: ComponentProps<typeof Item>) => (
+  <Item
+    className={cn(
+      'my-1 aspect-square size-5 rounded-full border-2 border-neutral-200 text-black shadow-sm shadow-black/10 transition hover:border-neutral-600/75 focus-visible:ring-2 focus-visible:ring-neutral-400/75 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 data-[state="checked"]:border-neutral-800/75',
+      className,
+    )}
+    {...props}
+  >
+    <Indicator className="flex items-center justify-center">
+      <Icons name="circle" className="size-3 fill-current text-current" />
+    </Indicator>
+  </Item>
+);
 
 export { RadioGroup, RadioGroupItem };

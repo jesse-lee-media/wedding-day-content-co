@@ -1,6 +1,6 @@
-import { BaseProps } from '@/lib/types/base-props';
+import type { ComponentProps } from 'react';
 
-export default function IconTikTok(props: Omit<BaseProps, 'children'>) {
+export function IconTikTok(props: ComponentProps<'svg'>) {
   return (
     <svg
       stroke="currentColor"

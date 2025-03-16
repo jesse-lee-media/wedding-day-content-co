@@ -1,23 +1,23 @@
 'use client';
 
-import { Toast, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from './toast';
-import { useToast } from '../hooks/use-toast';
+import type { ComponentProps } from 'react';
 
-export default function Toaster() {
-  const { toasts } = useToast();
+import { Toaster as Sonner } from 'sonner';
 
-  return (
-    <ToastProvider>
-      {toasts.map(({ id, title, description, ...props }) => (
-        <Toast key={id} {...props}>
-          <div className="grid gap-1">
-            {title && <ToastTitle>{title}</ToastTitle>}
-            {description && <ToastDescription>{description}</ToastDescription>}
-          </div>
-          <ToastClose />
-        </Toast>
-      ))}
-      <ToastViewport />
-    </ToastProvider>
-  );
-}
+type ToasterProps = ComponentProps<typeof Sonner>;
+
+const Toaster = ({ ...props }: ToasterProps) => (
+  <Sonner
+    theme="light"
+    className="toaster group"
+    toastOptions={{
+      classNames: {
+        toast:
+          'group toast group-[.toaster]:bg-neutral-50/75 group-[.toaster]:text-black group-[.toaster]:border-2 group-[.toaster]:border-neutral-200/75 group-[.toaster]:shadow-lg group-[.toaster]:shadow-black/10 group-[.toaster]:backdrop-blur-lg group-[.toaster]:rounded-sm',
+      },
+    }}
+    {...props}
+  />
+);
+
+export { Toaster };
