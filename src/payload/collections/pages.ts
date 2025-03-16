@@ -4,6 +4,7 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionConfig,
+  FieldHook,
 } from 'payload';
 
 import { slugify } from '@/lib/utils/slugify';
@@ -17,11 +18,17 @@ import { Section } from '@/payload/blocks/section';
 import type { PayloadPagesCollection } from '@/payload/payload-types';
 import { generatePreviewPath } from '@/payload/utils/generate-preview-path';
 
-const setSlugAndPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({
-  context,
-  doc,
-  req,
-}) => {
+const setSlug: FieldHook<
+  PayloadPagesCollection,
+  string | null | undefined,
+  PayloadPagesCollection
+> = ({ data, operation }) => {
+  if (operation === 'create' || operation === 'update') {
+    return slugify(data?.title);
+  }
+};
+
+const setPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({ context, doc, req }) => {
   if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetSlugAndPath) {
     return doc;
   }
@@ -40,7 +47,6 @@ const setSlugAndPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({
     id: doc.id,
     data: {
       path,
-      slug,
     },
     context: {
       ignoreSetSlugAndPath: true,
@@ -118,7 +124,7 @@ export const Pages: CollectionConfig<'pages'> = {
     delete: hasRole(Role.Admin),
   },
   hooks: {
-    afterChange: [setSlugAndPath, revalidatePageAfterChange],
+    afterChange: [setPath, revalidatePageAfterChange],
     afterDelete: [revalidatePageAfterDelete],
   },
   defaultPopulate: {
@@ -154,6 +160,9 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
         readOnly: true,
+      },
+      hooks: {
+        beforeValidate: [setSlug],
       },
     },
     {
