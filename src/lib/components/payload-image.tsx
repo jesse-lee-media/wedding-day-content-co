@@ -2,9 +2,9 @@
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils/cn';
-import type { PayloadMediaCollection } from '@/payload/payload-types';
+import type { PayloadImagesCollection } from '@/payload/payload-types';
 
-export type PayloadImageProps = PayloadMediaCollection & {
+export type PayloadImageProps = PayloadImagesCollection & {
   className?: string;
 };
 

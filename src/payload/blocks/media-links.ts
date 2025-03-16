@@ -2,9 +2,9 @@ import type { Block } from 'payload';
 
 import { linkGroup } from '@/payload/fields/link';
 
-export const ImageLinks: Block = {
-  slug: 'imageLinks',
-  interfaceName: 'PayloadImageLinksBlock',
+export const MediaLinks: Block = {
+  slug: 'mediaLinks',
+  interfaceName: 'PayloadMediaLinksBlock',
   fields: [
     {
       name: 'cards',
@@ -25,9 +25,9 @@ export const ImageLinks: Block = {
       required: true,
       fields: [
         {
-          name: 'image',
+          name: 'media',
           type: 'relationship',
-          relationTo: 'media',
+          relationTo: ['images', 'videos'],
           required: true,
         },
         linkGroup,

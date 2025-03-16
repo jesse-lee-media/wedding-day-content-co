@@ -3,7 +3,7 @@ import type { Block, Field } from 'payload';
 
 import { ButtonLink } from '@/payload/blocks/button-link';
 import { Gallery } from '@/payload/blocks/gallery';
-import { ImageStack } from '@/payload/blocks/image-stack';
+import { MediaStack } from '@/payload/blocks/media-stack';
 import { MessagesMarquee } from '@/payload/blocks/messages-marquee';
 import { Quotes } from '@/payload/blocks/quotes';
 import { Stepper } from '@/payload/blocks/stepper';
@@ -13,12 +13,12 @@ import { deepMerge } from '@/payload/utils/deep-merge';
 const singleColumnBlocks: Block[] = [
   ButtonLink,
   Gallery,
-  ImageStack,
+  MediaStack,
   MessagesMarquee,
   Quotes,
   Stepper,
 ];
-const multiColumnBlocks: Block[] = [ButtonLink, ImageStack];
+const multiColumnBlocks: Block[] = [ButtonLink, MediaStack];
 
 const richTextField = (columns: '1' | '2'): Field => ({
   name: 'content',

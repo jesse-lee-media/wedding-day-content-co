@@ -33,9 +33,10 @@ import { Clients } from '@/payload/collections/clients';
 import { Faqs } from '@/payload/collections/faqs';
 import { FormSubmissions } from '@/payload/collections/form-submissions';
 import { Forms } from '@/payload/collections/forms';
-import { Media } from '@/payload/collections/media';
+import { Images } from '@/payload/collections/images';
 import { Pages } from '@/payload/collections/pages';
 import { Users } from '@/payload/collections/users';
+import { Videos } from '@/payload/collections/videos';
 import { richTextFields } from '@/payload/fields/link';
 import { Footer } from '@/payload/globals/footer';
 import { Navigation } from '@/payload/globals/navigation';
@@ -75,7 +76,8 @@ export default buildConfig({
     // collections
     Pages,
     Faqs,
-    Media,
+    Images,
+    Videos,
     // crm
     Clients,
     Forms,
@@ -149,7 +151,8 @@ export default buildConfig({
     }),
     s3Storage({
       collections: {
-        [Media.slug]: true,
+        [Images.slug]: true,
+        [Videos.slug]: true,
       },
       bucket: env.R2_BUCKET,
       config: {

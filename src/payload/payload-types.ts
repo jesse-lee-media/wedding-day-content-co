@@ -150,7 +150,8 @@ export interface Config {
   collections: {
     pages: PayloadPagesCollection;
     faqs: PayloadFaqsCollection;
-    media: PayloadMediaCollection;
+    images: PayloadImagesCollection;
+    videos: PayloadVideosCollection;
     clients: PayloadClientsCollection;
     forms: PayloadFormsCollection;
     'form-submissions': PayloadFormSubmissionsCollection;
@@ -167,7 +168,8 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    images: ImagesSelect<false> | ImagesSelect<true>;
+    videos: VideosSelect<false> | VideosSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -301,9 +303,9 @@ export interface PayloadFaqsCollection {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "images".
  */
-export interface PayloadMediaCollection {
+export interface PayloadImagesCollection {
   id: string;
   alt: string;
   displayOriginal?: boolean | null;
@@ -337,6 +339,42 @@ export interface PayloadMediaCollection {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos".
+ */
+export interface PayloadVideosCollection {
+  id: string;
+  alt: string;
+  optimizedVideo?: {
+    url?: string | null;
+    filename?: string | null;
+    filesize?: number | null;
+    height?: number | null;
+    width?: number | null;
+    mimeType?: string | null;
+  };
+  thumbnail?: {
+    url?: string | null;
+    filename?: string | null;
+    filesize?: number | null;
+    height?: number | null;
+    width?: number | null;
+    mimeType?: string | null;
+    dataUrl?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -682,8 +720,12 @@ export interface PayloadLockedDocument {
         value: string | PayloadFaqsCollection;
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | PayloadMediaCollection;
+        relationTo: 'images';
+        value: string | PayloadImagesCollection;
+      } | null)
+    | ({
+        relationTo: 'videos';
+        value: string | PayloadVideosCollection;
       } | null)
     | ({
         relationTo: 'clients';
@@ -788,9 +830,9 @@ export interface FaqsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "images_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface ImagesSelect<T extends boolean = true> {
   alt?: T;
   displayOriginal?: T;
   dataUrl?: T;
@@ -829,6 +871,45 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos_select".
+ */
+export interface VideosSelect<T extends boolean = true> {
+  alt?: T;
+  optimizedVideo?:
+    | T
+    | {
+        url?: T;
+        filename?: T;
+        filesize?: T;
+        height?: T;
+        width?: T;
+        mimeType?: T;
+      };
+  thumbnail?:
+    | T
+    | {
+        url?: T;
+        filename?: T;
+        filesize?: T;
+        height?: T;
+        width?: T;
+        mimeType?: T;
+        dataUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1220,7 +1301,16 @@ export interface FooterSelect<T extends boolean = true> {
 export interface PayloadHeroBlock {
   heading: string;
   description: string;
-  images: (string | PayloadMediaCollection)[];
+  media: (
+    | {
+        relationTo: 'images';
+        value: string | PayloadImagesCollection;
+      }
+    | {
+        relationTo: 'videos';
+        value: string | PayloadVideosCollection;
+      }
+  )[];
   buttonLinks: PayloadButtonLinkArrayField;
   id?: string | null;
   blockName?: string | null;
@@ -1246,20 +1336,38 @@ export interface PayloadButtonLinkBlock {
  */
 export interface PayloadGalleryBlock {
   type?: ('grid' | 'carousel') | null;
-  images: (string | PayloadMediaCollection)[];
+  media: (
+    | {
+        relationTo: 'images';
+        value: string | PayloadImagesCollection;
+      }
+    | {
+        relationTo: 'videos';
+        value: string | PayloadVideosCollection;
+      }
+  )[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadImageStackBlock".
+ * via the `definition` "PayloadMediaStackBlock".
  */
-export interface PayloadImageStackBlock {
-  images: (string | PayloadMediaCollection)[];
+export interface PayloadMediaStackBlock {
+  media: (
+    | {
+        relationTo: 'images';
+        value: string | PayloadImagesCollection;
+      }
+    | {
+        relationTo: 'videos';
+        value: string | PayloadVideosCollection;
+      }
+  )[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'imageStack';
+  blockType: 'mediaStack';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1395,17 +1503,25 @@ export interface PayloadSectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadImageLinksBlock".
+ * via the `definition` "PayloadMediaLinksBlock".
  */
-export interface PayloadImageLinksBlock {
+export interface PayloadMediaLinksBlock {
   cards: {
-    image: string | PayloadMediaCollection;
+    media:
+      | {
+          relationTo: 'images';
+          value: string | PayloadImagesCollection;
+        }
+      | {
+          relationTo: 'videos';
+          value: string | PayloadVideosCollection;
+        };
     link: PayloadLinkGroupField;
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'imageLinks';
+  blockType: 'mediaLinks';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

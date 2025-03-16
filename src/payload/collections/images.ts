@@ -1,12 +1,37 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionAfterChangeHook, CollectionConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
-import { addDataUrl } from '@/payload/hooks/add-data-url';
+import type { PayloadImagesCollection } from '@/payload/payload-types';
+import { createDataUrl } from '@/payload/utils/create-data-url';
 
-export const Media: CollectionConfig<'media'> = {
-  slug: 'media',
+const addDataUrl: CollectionAfterChangeHook<PayloadImagesCollection> = async ({
+  context,
+  doc,
+  req,
+}) => {
+  if (!doc.url || context?.ignoreAfterChange) {
+    return doc;
+  }
+
+  const dataUrl = await createDataUrl(doc.url, doc.mimeType);
+
+  return req.payload.update({
+    collection: 'images',
+    id: doc.id,
+    data: {
+      dataUrl,
+    },
+    context: {
+      ignoreAfterChange: true,
+    },
+    req,
+  });
+};
+
+export const Images: CollectionConfig<'images'> = {
+  slug: 'images',
   typescript: {
-    interface: 'PayloadMediaCollection',
+    interface: 'PayloadImagesCollection',
   },
   admin: {
     useAsTitle: 'filename',

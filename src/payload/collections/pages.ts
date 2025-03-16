@@ -12,7 +12,7 @@ import { ButtonLink } from '@/payload/blocks/button-link';
 import { Form } from '@/payload/blocks/form';
 import { Gallery } from '@/payload/blocks/gallery';
 import { Hero } from '@/payload/blocks/hero';
-import { ImageLinks } from '@/payload/blocks/image-links';
+import { MediaLinks } from '@/payload/blocks/media-links';
 import { Section } from '@/payload/blocks/section';
 import type { PayloadPagesCollection } from '@/payload/payload-types';
 import { generatePreviewPath } from '@/payload/utils/generate-preview-path';
@@ -144,7 +144,7 @@ export const Pages: CollectionConfig<'pages'> = {
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
           ...rootFeatures,
-          BlocksFeature({ blocks: [Hero, Section, Gallery, ImageLinks, ButtonLink, Form] }),
+          BlocksFeature({ blocks: [Hero, Section, Gallery, MediaLinks, ButtonLink, Form] }),
         ],
       }),
     },

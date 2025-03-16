@@ -19,8 +19,8 @@ import { ButtonLinkBlock } from '@/components/blocks/button-link';
 import { FormBlock } from '@/components/blocks/form';
 import { GalleryBlock } from '@/components/blocks/gallery';
 import { HeroBlock } from '@/components/blocks/hero';
-import { ImageLinksBlock } from '@/components/blocks/image-links';
-import { ImageStackBlock } from '@/components/blocks/image-stack';
+import { MediaLinksBlock } from '@/components/blocks/media-links';
+import { MediaStackBlock } from '@/components/blocks/media-stack';
 import { MessagesMarqueeBlock } from '@/components/blocks/messages-marquee';
 import { QuotesBlock } from '@/components/blocks/quotes';
 import { SectionBlock } from '@/components/blocks/section';
@@ -39,8 +39,8 @@ import type {
   PayloadFormBlock,
   PayloadGalleryBlock,
   PayloadHeroBlock,
-  PayloadImageLinksBlock,
-  PayloadImageStackBlock,
+  PayloadMediaLinksBlock,
+  PayloadMediaStackBlock,
   PayloadMessagesMarqueeBlock,
   PayloadQuotesBlock,
   PayloadSectionBlock,
@@ -75,8 +75,8 @@ type NodeType =
       | PayloadFormBlock
       | PayloadGalleryBlock
       | PayloadHeroBlock
-      | PayloadImageLinksBlock
-      | PayloadImageStackBlock
+      | PayloadMediaLinksBlock
+      | PayloadMediaStackBlock
       | PayloadMessagesMarqueeBlock
       | PayloadQuotesBlock
       | PayloadSectionBlock
@@ -133,8 +133,8 @@ const jsxConverters: JSXConvertersFunction<NodeType> = () => ({
     form: ({ node }) => <FormBlock {...node.fields} />,
     gallery: ({ node }) => <GalleryBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
-    imageLinks: ({ node }) => <ImageLinksBlock {...node.fields} />,
-    imageStack: ({ node }) => <ImageStackBlock {...node.fields} />,
+    mediaLinks: ({ node }) => <MediaLinksBlock {...node.fields} />,
+    mediaStack: ({ node }) => <MediaStackBlock {...node.fields} />,
     messagesMarquee: ({ node }) => <MessagesMarqueeBlock {...node.fields} />,
     quotes: ({ node }) => <QuotesBlock {...node.fields} />,
     section: ({ node }) => <SectionBlock {...node.fields} />,
@@ -155,6 +155,7 @@ function convertLexicalToJsx({
 
     if (node.type === 'block') {
       additionalClass = additionalClasses?.blocks?.[node.fields.blockType];
+      // @ts-expect-error – valid types
       converter = converters.blocks?.[node.fields.blockType];
       overrideClass = overrideClasses?.blocks?.[node.fields.blockType];
     } else if (node.type === 'inlineBlock') {
@@ -163,6 +164,7 @@ function convertLexicalToJsx({
       overrideClass = undefined;
     } else {
       additionalClass = additionalClasses?.[node.type];
+      // @ts-expect-error – valid types
       converter = converters[node.type];
       overrideClass = overrideClasses?.[node.type];
     }

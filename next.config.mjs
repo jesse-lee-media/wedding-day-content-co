@@ -19,7 +19,7 @@ const nextConfig = {
       {
         protocol: production ? 'https' : 'http',
         hostname: production ? domain : 'localhost',
-        pathname: '/api/media/**',
+        pathname: '/api/**',
       },
     ],
   },

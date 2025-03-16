@@ -1,13 +1,13 @@
 import type { Block } from 'payload';
 
-export const ImageStack: Block = {
-  slug: 'imageStack',
-  interfaceName: 'PayloadImageStackBlock',
+export const MediaStack: Block = {
+  slug: 'mediaStack',
+  interfaceName: 'PayloadMediaStackBlock',
   fields: [
     {
-      name: 'images',
+      name: 'media',
       type: 'relationship',
-      relationTo: 'media',
+      relationTo: ['images', 'videos'],
       hasMany: true,
       maxRows: 2,
       minRows: 2,

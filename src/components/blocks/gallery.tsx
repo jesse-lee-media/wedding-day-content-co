@@ -5,30 +5,37 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/lib/components/carousel';
-import { PayloadImage } from '@/lib/components/payload-image';
-import type { PayloadGalleryBlock, PayloadMediaCollection } from '@/payload/payload-types';
+import { PayloadMedia } from '@/lib/components/payload-media';
+import type { StripString } from '@/lib/types/strip-string';
+import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
+import type { PayloadGalleryBlock } from '@/payload/payload-types';
 
-export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
-  if (!images?.length) {
+type FilteredMedia = StripString<PayloadGalleryBlock['media'][number]>;
+
+export function GalleryBlock({ media, type }: PayloadGalleryBlock) {
+  const filteredMedia = media.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
+
+  if (!filteredMedia?.length) {
     return null;
   }
 
   if (type === 'grid') {
-    const columns: PayloadMediaCollection[][] = [[], [], []];
+    const columns: FilteredMedia[][] = [[], [], []];
 
-    images
-      .filter((image) => typeof image !== 'string')
-      .forEach((image, index) => columns[index % 3].push(image));
+    filteredMedia.forEach((item, index) => {
+      columns[index % 3].push(item);
+    });
 
     return (
       <div className="my-6 flex flex-col gap-4 first:mt-0 last:mb-0 sm:flex-row">
-        {columns.map((images, i) => (
+        {columns.map((items, i) => (
           <div key={i} className="flex w-full flex-col gap-4">
-            {images.map((image) => (
-              <PayloadImage
-                key={image.id}
+            {items.map(({ relationTo, value }) => (
+              <PayloadMedia
+                key={value.id}
+                relationTo={relationTo}
+                value={value}
                 className="w-full rounded-sm shadow-lg ring-2 shadow-black/10 ring-neutral-200"
-                {...image}
               />
             ))}
           </div>
@@ -40,16 +47,15 @@ export function GalleryBlock({ images, type }: PayloadGalleryBlock) {
   return (
     <Carousel className="my-6 overflow-x-padded first:mt-0 last:mb-0" opts={{ dragFree: true }}>
       <CarouselContent className="items-center py-2">
-        {images
-          .filter((image) => typeof image !== 'string')
-          .map((image) => (
-            <CarouselItem key={image.id} className="mi-auto sm:basis-1/2 md:basis-1/3">
-              <PayloadImage
-                {...image}
-                className="overflow-clip rounded-sm ring-2 ring-neutral-200 dark:ring-neutral-700"
-              />
-            </CarouselItem>
-          ))}
+        {filteredMedia?.map(({ relationTo, value }) => (
+          <CarouselItem key={value.id} className="mi-auto sm:basis-1/2 md:basis-1/3">
+            <PayloadMedia
+              relationTo={relationTo}
+              value={value}
+              className="overflow-clip rounded-sm ring-2 ring-neutral-200 dark:ring-neutral-700"
+            />
+          </CarouselItem>
+        ))}
       </CarouselContent>
       <div className="flex justify-between py-4 md:py-0">
         <CarouselPrevious />
