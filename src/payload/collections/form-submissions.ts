@@ -83,12 +83,12 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
   doc,
   req,
 }) => {
-  if (doc?.client || context?.ignoreSetClient) {
+  if (doc?.client || !doc?.data?.length || context?.ignoreSetClient) {
     return doc;
   }
 
   const { payload } = req;
-  const email = doc?.data?.find((datum) => datum.name === 'email')?.value;
+  const email = doc.data?.find((datum) => datum.name === 'email')?.value;
 
   if (!email) {
     return doc;
@@ -121,7 +121,7 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
   let name: string | undefined;
   let phoneNumber: string | undefined;
 
-  doc?.data?.forEach((datum) => {
+  doc.data?.forEach((datum) => {
     if (datum.name === 'name') {
       name = datum.value;
     }

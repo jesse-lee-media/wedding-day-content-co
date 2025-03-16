@@ -22,7 +22,7 @@ const setSlugAndPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({
   doc,
   req,
 }) => {
-  if (context?.ignoreSetSlugAndPath) {
+  if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetSlugAndPath) {
     return doc;
   }
 
