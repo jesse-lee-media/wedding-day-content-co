@@ -41,11 +41,6 @@
   --animate-marquee-normal: marquee 90s linear infinite;
   --animate-marquee-fast: marquee 60s linear infinite;
 
-  /* ----- text shadows ----- */
-  --text-shadow-sm: 0 1px 2px var(--tw-shadow-color);
-  --text-shadow-md: 0 2px 4px var(--tw-shadow-color);
-  --text-shadow-lg: 0 8px 16px var(--tw-shadow-color);
-
   /* ----- keyframes ----- */
   @keyframes accordion-down {
     from {
@@ -118,9 +113,16 @@
   }
 }
 
-@utility text-shadow-* {
-  /* prettier-ignore */
-  text-shadow: --value(--text-shadow-*);
+@utility t-shadow-sm {
+  text-shadow: 0 1px 2px var(--tw-shadow-color);
+}
+
+@utility t-shadow-md {
+  text-shadow: 0 2px 4px var(--tw-shadow-color);
+}
+
+@utility t-shadow-lg {
+  text-shadow: 0 8px 16px var(--tw-shadow-color);
 }
 
 @utility font-thin {
@@ -171,9 +173,14 @@
 }
 
 @utility overflow-section {
-  width: calc(100dvw);
+  width: 100dvw;
   margin-left: calc((100dvw - 100%) / -2);
   padding-inline: calc((100dvw - 100%) / 2);
+}
+
+@utility overflow-hero {
+  width: 100dvw;
+  margin-left: calc((100dvw - 100%) / -2);
 }
 
 @utility items-last-baseline {

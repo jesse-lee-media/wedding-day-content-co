@@ -10,6 +10,9 @@ export const fields: Field[] = [
         name: 'variant',
         type: 'select',
         interfaceName: 'PayloadButtonVariantField',
+        admin: {
+          width: '50%',
+        },
         required: true,
         defaultValue: 'primary',
         options: [
@@ -27,6 +30,9 @@ export const fields: Field[] = [
         name: 'size',
         type: 'select',
         interfaceName: 'PayloadButtonSizeField',
+        admin: {
+          width: '50%',
+        },
         required: true,
         defaultValue: 'md',
         options: [

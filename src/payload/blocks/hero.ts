@@ -20,10 +20,7 @@ export const Hero: Block = {
     {
       name: 'media',
       type: 'relationship',
-      relationTo: ['images', 'videos'],
-      hasMany: true,
-      maxRows: 2,
-      minRows: 2,
+      relationTo: 'videos',
       required: true,
     },
     deepMerge<Field>(buttonLinkArray, {

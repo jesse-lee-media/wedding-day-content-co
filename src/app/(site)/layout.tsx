@@ -109,7 +109,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body className="relative flex h-full flex-col">
         <div className="dot-mask fixed inset-0 -z-10 h-full w-full" />
         <Navigation {...navigation} />
-        <div className="mt-[4.5rem] flex flex-1 flex-col">{children}</div>
+        <div className="mt-18 flex flex-1 flex-col">{children}</div>
         <Footer {...footer} />
         <Toaster />
         <Script

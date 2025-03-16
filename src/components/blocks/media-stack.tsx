@@ -20,7 +20,7 @@ export function MediaStackBlock({ media }: PayloadMediaStackBlock) {
           key={value.id}
           className="first:z-10 lg:first:translate-x-4 lg:first:translate-y-1 lg:first:-rotate-3 lg:last:-translate-x-8 lg:last:-translate-y-2 lg:last:rotate-3"
         >
-          <PayloadMedia relationTo={relationTo} value={value} />
+          <PayloadMedia relationTo={relationTo} value={value} outerClassName="aspect-3/4" />
         </PolaroidImage>
       ))}
     </div>

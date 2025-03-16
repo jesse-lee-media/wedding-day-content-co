@@ -6,6 +6,7 @@ import type { PayloadImagesCollection } from '@/payload/payload-types';
 
 export type PayloadImageProps = PayloadImagesCollection & {
   className?: string;
+  outerClassName?: string;
 };
 
 const PayloadImage = ({
@@ -20,6 +21,7 @@ const PayloadImage = ({
   focalY,
   height: propsHeight,
   mimeType,
+  outerClassName,
   sizes,
   thumbnailURL,
   updatedAt,

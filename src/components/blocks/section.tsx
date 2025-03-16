@@ -21,7 +21,7 @@ export function SectionBlock({
       <h1
         id={slugify(heading)}
         data-background={background}
-        className="mb-8 text-4xl text-shadow-lg shadow-black/10 data-[background='dark']:shadow-white/15 xs:text-5xl"
+        className="mb-8 text-4xl shadow-black/10 t-shadow-lg data-[background='dark']:shadow-white/15 xs:text-5xl"
       >
         {heading}
       </h1>

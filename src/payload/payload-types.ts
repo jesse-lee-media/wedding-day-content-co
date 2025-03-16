@@ -1301,16 +1301,7 @@ export interface FooterSelect<T extends boolean = true> {
 export interface PayloadHeroBlock {
   heading: string;
   description: string;
-  media: (
-    | {
-        relationTo: 'images';
-        value: string | PayloadImagesCollection;
-      }
-    | {
-        relationTo: 'videos';
-        value: string | PayloadVideosCollection;
-      }
-  )[];
+  media: string | PayloadVideosCollection;
   buttonLinks: PayloadButtonLinkArrayField;
   id?: string | null;
   blockName?: string | null;

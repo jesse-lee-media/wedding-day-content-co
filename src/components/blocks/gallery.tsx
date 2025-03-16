@@ -36,6 +36,7 @@ export function GalleryBlock({ media, type }: PayloadGalleryBlock) {
                 relationTo={relationTo}
                 value={value}
                 className="w-full rounded-sm shadow-lg ring-2 shadow-black/10 ring-neutral-200"
+                outerClassName="aspect-3/4"
               />
             ))}
           </div>
@@ -53,6 +54,7 @@ export function GalleryBlock({ media, type }: PayloadGalleryBlock) {
               relationTo={relationTo}
               value={value}
               className="overflow-clip rounded-sm ring-2 ring-neutral-200 dark:ring-neutral-700"
+              outerClassName="aspect-3/4"
             />
           </CarouselItem>
         ))}

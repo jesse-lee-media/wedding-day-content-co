@@ -9,9 +9,20 @@ import type { PayloadVideosCollection } from '@/payload/payload-types';
 
 type Props = PayloadVideosCollection & {
   className?: string;
+  outer?: boolean;
+  outerClassName?: string;
 };
 
-export function PayloadVideo({ alt, className, mimeType, optimizedVideo, thumbnail, url }: Props) {
+export function PayloadVideo({
+  alt,
+  className,
+  mimeType,
+  optimizedVideo,
+  outer = true,
+  outerClassName,
+  thumbnail,
+  url,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -37,35 +48,35 @@ export function PayloadVideo({ alt, className, mimeType, optimizedVideo, thumbna
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div className="aspect-3/4">
-      <video
-        ref={videoRef}
-        controls={false}
-        disableRemotePlayback
-        disablePictureInPicture
-        loop
-        muted
-        playsInline
-        poster={thumbnail!.dataUrl!}
-        height={optimizedVideo!.height!}
-        width={optimizedVideo!.width!}
-        // eslint-disable-next-line react/no-unknown-property
-        x-webkit-airplay="deny"
+  const component = (
+    <video
+      ref={videoRef}
+      controls={false}
+      disableRemotePlayback
+      disablePictureInPicture
+      loop
+      muted
+      playsInline
+      poster={thumbnail!.dataUrl!}
+      height={optimizedVideo!.height!}
+      width={optimizedVideo!.width!}
+      // eslint-disable-next-line react/no-unknown-property
+      x-webkit-airplay="deny"
+      className={cn('h-full w-full object-cover', className)}
+    >
+      <source src={optimizedVideo!.url!} type={optimizedVideo!.mimeType || undefined} />
+      <source src={url!} type={mimeType || undefined} />
+      <Image
+        src={thumbnail!.url!}
+        alt={alt}
+        width={thumbnail!.width!}
+        height={thumbnail!.height!}
+        placeholder="blur"
+        blurDataURL={thumbnail!.dataUrl!}
         className={cn('h-full w-full object-cover', className)}
-      >
-        <source src={optimizedVideo!.url!} type={optimizedVideo!.mimeType || undefined} />
-        <source src={url!} type={mimeType || undefined} />
-        <Image
-          src={thumbnail!.url!}
-          alt={alt}
-          width={thumbnail!.width!}
-          height={thumbnail!.height!}
-          placeholder="blur"
-          blurDataURL={thumbnail!.dataUrl!}
-          className={cn('h-full w-full object-cover', className)}
-        />
-      </video>
-    </div>
+      />
+    </video>
   );
+
+  return outer ? <div className={outerClassName}>{component}</div> : component;
 }
