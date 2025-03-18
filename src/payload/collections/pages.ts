@@ -93,11 +93,7 @@ export const Pages: CollectionConfig<'pages'> = {
     interface: 'PayloadPagesCollection',
   },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 250,
-      },
-    },
+    drafts: true,
   },
   admin: {
     useAsTitle: 'title',

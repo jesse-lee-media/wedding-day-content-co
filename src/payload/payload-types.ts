@@ -347,14 +347,6 @@ export interface PayloadImagesCollection {
 export interface PayloadVideosCollection {
   id: string;
   alt: string;
-  optimizedVideo?: {
-    url?: string | null;
-    filename?: string | null;
-    filesize?: number | null;
-    height?: number | null;
-    width?: number | null;
-    mimeType?: string | null;
-  };
   thumbnail?: {
     url?: string | null;
     filename?: string | null;
@@ -878,16 +870,6 @@ export interface ImagesSelect<T extends boolean = true> {
  */
 export interface VideosSelect<T extends boolean = true> {
   alt?: T;
-  optimizedVideo?:
-    | T
-    | {
-        url?: T;
-        filename?: T;
-        filesize?: T;
-        height?: T;
-        width?: T;
-        mimeType?: T;
-      };
   thumbnail?:
     | T
     | {

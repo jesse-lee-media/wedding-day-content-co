@@ -16,12 +16,13 @@ type Props = PayloadVideosCollection & {
 export function PayloadVideo({
   alt,
   className,
+  height,
   mimeType,
-  optimizedVideo,
   outer = true,
   outerClassName,
   thumbnail,
   url,
+  width,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -58,13 +59,12 @@ export function PayloadVideo({
       muted
       playsInline
       poster={thumbnail!.dataUrl!}
-      height={optimizedVideo!.height!}
-      width={optimizedVideo!.width!}
+      height={height!}
+      width={width!}
       // eslint-disable-next-line react/no-unknown-property
       x-webkit-airplay="deny"
       className={cn('h-full w-full object-cover', className)}
     >
-      <source src={optimizedVideo!.url!} type={optimizedVideo!.mimeType || undefined} />
       <source src={url!} type={mimeType || undefined} />
       <Image
         src={thumbnail!.url!}

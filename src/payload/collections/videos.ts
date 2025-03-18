@@ -10,41 +10,29 @@ import { Role, hasRole } from '@/payload/access';
 import type { PayloadVideosCollection } from '@/payload/payload-types';
 import { createDataUrl } from '@/payload/utils/create-data-url';
 
-interface OptimizeResponse {
-  optimizedVideo: {
-    filename: string;
-    filesize: number;
-    height: number;
-    width: number;
-    mimeType: string;
-  };
-  thumbnail: {
-    filename: string;
-    filesize: number;
-    height: number;
-    width: number;
-    mimeType: string;
-  };
+interface ThumbnailResponse {
+  filename: string;
+  filesize: number;
+  height: number;
+  width: number;
+  mimeType: string;
 }
-
-const optimizedVideoCondition: Condition<PayloadVideosCollection> = (data) =>
-  !!data?.optimizedVideo?.url;
 
 const thumbnailCondition: Condition<PayloadVideosCollection> = (data) => !!data?.thumbnail?.url;
 
-const optimizeVideo: CollectionAfterChangeHook<PayloadVideosCollection> = async ({
+const generateThumbnail: CollectionAfterChangeHook<PayloadVideosCollection> = async ({
   context,
   doc,
   req,
 }) => {
   const { payload } = req;
 
-  if (!doc.filename || context?.ignoreAfterChange) {
-    payload.logger.info(`Skipping optimizeVideo for document "${doc.id}"`);
+  if (!doc.filename || context?.ignoreGenerateThumbnail) {
+    payload.logger.info(`Skipping generateThumbnail for document "${doc.id}"`);
     return doc;
   }
 
-  const response = await fetch(`${env.VIDEO_OPTIMIZATION_SERVER_URL}/optimize`, {
+  const response = await fetch(`${env.VIDEO_OPTIMIZATION_SERVER_URL}/thumbnail`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -62,8 +50,7 @@ const optimizeVideo: CollectionAfterChangeHook<PayloadVideosCollection> = async 
     throw new Error(message);
   }
 
-  const { optimizedVideo, thumbnail } = (await response.json()) as OptimizeResponse;
-
+  const thumbnail = (await response.json()) as ThumbnailResponse;
   const dataUrl = await createDataUrl(`${env.SERVER_URL}/api/images/file/${thumbnail.filename}`);
 
   return payload.update({
@@ -79,26 +66,18 @@ const optimizeVideo: CollectionAfterChangeHook<PayloadVideosCollection> = async 
         mimeType: thumbnail.mimeType,
         dataUrl,
       },
-      optimizedVideo: {
-        url: `${env.SERVER_URL}/api/videos/file/${optimizedVideo.filename}`,
-        filename: optimizedVideo.filename,
-        filesize: optimizedVideo.filesize,
-        height: optimizedVideo.height,
-        width: optimizedVideo.width,
-        mimeType: optimizedVideo.mimeType,
-      },
     },
     context: {
-      ignoreAfterChange: true,
+      ignoreGenerateThumbnail: true,
     },
     req,
   });
 };
 
-const deleteOptimizedVideo: CollectionBeforeDeleteHook = async ({ id, req }) => {
+const deleteGeneratedThumbnail: CollectionBeforeDeleteHook = async ({ id, req }) => {
   const { payload } = req;
   const doc = await payload.findByID({ collection: 'videos', id, req });
-  const filenames = [doc.optimizedVideo?.filename, doc.thumbnail?.filename].filter(Boolean);
+  const filenames = [doc.thumbnail?.filename].filter(Boolean);
 
   if (!filenames.length) {
     payload.logger.info(`Skipping deleteOptimizedVideo for document "${id}"`);
@@ -142,8 +121,8 @@ export const Videos: CollectionConfig<'videos'> = {
     delete: hasRole(Role.Admin),
   },
   hooks: {
-    afterChange: [optimizeVideo],
-    beforeDelete: [deleteOptimizedVideo],
+    afterChange: [generateThumbnail],
+    beforeDelete: [deleteGeneratedThumbnail],
   },
   upload: {
     // @ts-expect-error – valid path
@@ -156,46 +135,6 @@ export const Videos: CollectionConfig<'videos'> = {
       label: 'Description',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'optimizedVideo',
-      type: 'group',
-      admin: {
-        readOnly: true,
-        condition: optimizedVideoCondition,
-      },
-      fields: [
-        {
-          name: 'url',
-          label: 'URL',
-          type: 'text',
-        },
-        {
-          name: 'filename',
-          label: 'Filename',
-          type: 'text',
-        },
-        {
-          name: 'filesize',
-          label: 'Filesize',
-          type: 'number',
-        },
-        {
-          name: 'height',
-          label: 'Height',
-          type: 'number',
-        },
-        {
-          name: 'width',
-          label: 'Width',
-          type: 'number',
-        },
-        {
-          name: 'mimeType',
-          label: 'Mime Type',
-          type: 'text',
-        },
-      ],
     },
     {
       name: 'thumbnail',
