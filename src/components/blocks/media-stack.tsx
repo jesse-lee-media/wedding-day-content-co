@@ -7,7 +7,7 @@ import type { PayloadMediaStackBlock } from '@/payload/payload-types';
 type FilteredMedia = StripString<PayloadMediaStackBlock['media'][number]>;
 
 export function MediaStackBlock({ media }: PayloadMediaStackBlock) {
-  const filteredMedia = media.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
+  const filteredMedia = media?.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
 
   if (!filteredMedia?.length) {
     return null;

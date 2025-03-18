@@ -4,7 +4,7 @@ import type { PayloadHeroBlock } from '@/payload/payload-types';
 
 export function HeroBlock({ buttonLinks, description, heading, media }: PayloadHeroBlock) {
   return (
-    <div className="-mt-30 overflow-hero flex h-dvh flex-row items-center justify-center">
+    <div className="-mt-30 overflow-hero flex h-svh flex-row items-center justify-center">
       {typeof media !== 'string' ? <PayloadVideo {...media} outer={false} /> : null}
       <div className="absolute inset-0 bg-black/25" />
       <div className="absolute z-10 flex h-full flex-col items-center justify-center gap-12 px-4">

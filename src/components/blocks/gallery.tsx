@@ -13,7 +13,7 @@ import type { PayloadGalleryBlock } from '@/payload/payload-types';
 type FilteredMedia = StripString<PayloadGalleryBlock['media'][number]>;
 
 export function GalleryBlock({ media, type }: PayloadGalleryBlock) {
-  const filteredMedia = media.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
+  const filteredMedia = media?.filter((item) => isRelationshipPopulated<FilteredMedia>(item));
 
   if (!filteredMedia?.length) {
     return null;
