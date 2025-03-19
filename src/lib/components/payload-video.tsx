@@ -63,7 +63,7 @@ export function PayloadVideo({
       width={width!}
       // eslint-disable-next-line react/no-unknown-property
       x-webkit-airplay="deny"
-      className={cn('h-full w-full object-cover', className)}
+      className={cn('pointer-events-none h-full w-full object-cover', className)}
     >
       <source src={url!} type={mimeType || undefined} />
       <Image
