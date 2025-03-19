@@ -62,12 +62,22 @@ const revalidatePageAfterChange: CollectionAfterChangeHook<PayloadPagesCollectio
 }) => {
   if (doc._status === 'published' && doc.path) {
     payload.logger.info(`Revalidating path: ${doc.path}`);
+
+    if (doc.path === '/home') {
+      revalidatePath('/');
+    }
+
     revalidatePath(doc.path);
     revalidateTag('pages-sitemap');
   }
 
   if (previousDoc?._status === 'published' && doc._status !== 'published' && previousDoc.path) {
     payload.logger.info(`Revalidating previous path: ${previousDoc.path}`);
+
+    if (doc.path === '/home') {
+      revalidatePath('/');
+    }
+
     revalidatePath(previousDoc.path);
     revalidateTag('pages-sitemap');
   }
@@ -77,9 +87,15 @@ const revalidatePageAfterChange: CollectionAfterChangeHook<PayloadPagesCollectio
 
 export const revalidatePageAfterDelete: CollectionAfterDeleteHook<PayloadPagesCollection> = ({
   doc,
-  req: { context },
+  req: { context, payload },
 }) => {
   if (!context.disableRevalidate && doc.path) {
+    payload.logger.info(`Revalidating path: ${doc.path}`);
+
+    if (doc.path === '/home') {
+      revalidatePath('/');
+    }
+
     revalidatePath(doc.path);
     revalidateTag('pages-sitemap');
   }
