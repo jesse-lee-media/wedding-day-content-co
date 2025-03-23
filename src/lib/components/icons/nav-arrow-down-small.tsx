@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 
-export function IconArrowUpRight(props: ComponentProps<'svg'>) {
+export function IconNavArrowDownSmall(props: ComponentProps<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@ export function IconArrowUpRight(props: ComponentProps<'svg'>) {
       {...props}
     >
       <path
-        d="M18 15V6M18 6H9M18 6L6.25 17.75"
+        d="M8 10L12 14L16 10"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

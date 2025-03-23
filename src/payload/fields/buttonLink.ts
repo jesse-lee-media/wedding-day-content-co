@@ -81,6 +81,10 @@ export const fields: Field[] = [
             value: 'calendar',
           },
           {
+            label: 'Calendar check',
+            value: 'calendarCheck',
+          },
+          {
             label: 'Chevron down',
             value: 'chevronDown',
           },
@@ -99,6 +103,10 @@ export const fields: Field[] = [
           {
             label: 'Nav arrow down',
             value: 'navArrowDown',
+          },
+          {
+            label: 'Nav arrow down small',
+            value: 'navArrowDownSmall',
           },
           {
             label: 'Nav arrow left',

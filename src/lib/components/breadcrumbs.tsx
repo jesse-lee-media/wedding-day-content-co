@@ -27,7 +27,7 @@ const Breadcrumbs = ({ breadcrumbs: pageBreadcrumbs, ...props }: BreadcrumbsProp
             {i < breadcrumbs.length - 1 ? (
               <Link href={url === '/home' ? '/' : (url ?? '/')}>{label}</Link>
             ) : (
-              <span className="text-black/75">{label}</span>
+              <span className="text-neutral-800/75">{label}</span>
             )}
           </li>
         </Fragment>

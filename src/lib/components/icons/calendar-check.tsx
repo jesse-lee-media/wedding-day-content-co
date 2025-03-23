@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 
-export function IconArrowUpRight(props: ComponentProps<'svg'>) {
+export function IconCalendarCheck(props: ComponentProps<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +11,7 @@ export function IconArrowUpRight(props: ComponentProps<'svg'>) {
       {...props}
     >
       <path
-        d="M18 15V6M18 6H9M18 6L6.25 17.75"
+        d="M11 20H4V9M4 9V5H20V9M4 9H20M20 9V12M8 5V3M16 5V3M21 16L17 21L15 19"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

@@ -6,20 +6,24 @@ import { cn } from '@/lib/utils/cn';
 const Blockquote = ({ children, className, ...props }: ComponentProps<'blockquote'>) => (
   <blockquote
     className={cn(
-      'group relative isolate flex w-full flex-col items-center gap-4 overflow-hidden rounded-sm bg-neutral-50/75 p-4 text-center shadow-lg ring-2 shadow-black/10 ring-neutral-200 md:p-6 dark:bg-neutral-800 dark:shadow-white/5 dark:ring-neutral-700',
+      'group relative isolate flex w-full flex-col gap-4 overflow-hidden rounded-sm bg-neutral-100/75 p-4 shadow-lg ring-2 shadow-black/10 ring-neutral-200 md:p-6 dark:bg-neutral-900 dark:shadow-white/5 dark:ring-neutral-800',
       className,
     )}
     {...props}
   >
-    <Icons name="quoteSolid" aria-hidden className="size-12 drop-shadow-lg dark:text-neutral-300" />
+    <Icons
+      name="quoteSolid"
+      aria-hidden
+      className="size-12 self-center drop-shadow-lg dark:text-neutral-300"
+    />
     {children}
-    <div className="absolute -z-10 h-64 w-56 rotate-45 rounded-full bg-dusty-rose-300/25 blur-3xl group-odd:top-1/4 group-odd:-right-1/4 group-even:top-1/2 group-even:right-1/4 dark:bg-dusty-rose-800/25"></div>
+    <div className="absolute -z-10 h-64 w-56 rotate-45 rounded-full bg-dusty-rose-300/15 blur-3xl group-odd:top-1/4 group-odd:-right-1/4 group-even:top-1/2 group-even:right-1/4 dark:bg-dusty-rose-800/15"></div>
   </blockquote>
 );
 
 const BlockquoteBody = ({ className, ...props }: ComponentProps<'div'>) => (
   <div className="my-auto flex grow flex-col">
-    <div className={cn('text-lg italic', className)} {...props} />
+    <div className={cn('text-lg', className)} {...props} />
   </div>
 );
 

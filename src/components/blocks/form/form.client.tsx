@@ -199,6 +199,22 @@ export const FormClient = (props: PayloadFormsCollection) => {
     });
   }
 
+  function dateFieldHasValue(payloadField: PayloadFormsCollection['fields'][number], field: any) {
+    if (payloadField.blockType !== 'date') {
+      return false;
+    }
+
+    if (payloadField.mode === 'single') {
+      return !!field.value;
+    }
+
+    if (payloadField.mode === 'multiple') {
+      return !!field.value?.length;
+    }
+
+    return !!field.value?.from || !!field.value?.to;
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setPending(true);
 
@@ -300,10 +316,12 @@ export const FormClient = (props: PayloadFormsCollection) => {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <InputButton
-                                displayChildren={
-                                  !!field.value || !!field.value?.length || !!field.value?.from
+                                displayChildren={dateFieldHasValue(payloadField, field)}
+                                icon={
+                                  dateFieldHasValue(payloadField, field)
+                                    ? 'calendarCheck'
+                                    : 'calendar'
                                 }
-                                icon="calendar"
                               >
                                 <OverflowText>
                                   {(() => {
@@ -385,7 +403,7 @@ export const FormClient = (props: PayloadFormsCollection) => {
                                 <FormControl>
                                   <RadioGroupItem value={option.value} />
                                 </FormControl>
-                                <FormLabel className="text-lg font-normal text-black">
+                                <FormLabel className="text-lg font-normal tracking-normal text-neutral-800 normal-case">
                                   {option.label}
                                 </FormLabel>
                               </FormItem>

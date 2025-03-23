@@ -20,7 +20,7 @@ export default function FaqAccordion({ faqs }: { faqs: PayloadFooterGlobal['faqs
       {faqsArray.map((faq) => (
         <AccordionItem value={faq.id} key={faq.id}>
           <AccordionHeader asChild>
-            <h2>
+            <h2 className="font-sans">
               <AccordionTrigger>{faq.question}</AccordionTrigger>
             </h2>
           </AccordionHeader>

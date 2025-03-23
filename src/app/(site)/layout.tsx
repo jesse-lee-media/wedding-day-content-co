@@ -103,7 +103,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       className={cn(
         figtree.variable,
         nightingale.variable,
-        'h-full scroll-p-36 scroll-smooth! bg-white font-sans text-black',
+        'h-full scroll-p-36 scroll-smooth! bg-neutral-50 font-sans text-neutral-800',
       )}
     >
       <body className="relative flex h-full flex-col">
