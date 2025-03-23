@@ -10,7 +10,7 @@ const Marquee = ({ className, ...props }: ComponentProps<'div'>) => (
   <div
     tabIndex={-1}
     className={cn(
-      'group relative flex flex-row gap-6 overflow-x-scroll whitespace-nowrap motion-safe:overflow-x-hidden',
+      'group relative flex flex-row gap-8 overflow-x-scroll whitespace-nowrap motion-safe:overflow-x-hidden',
       className,
     )}
     {...props}
@@ -55,7 +55,7 @@ const MarqueeContent = ({
 };
 
 const marqueeFadeVariants = cva(
-  'pointer-events-none absolute inset-y-0 w-1/6 from-white md:w-1/5 dark:from-black',
+  'pointer-events-none absolute inset-y-0 w-1/6 from-neutral-50 md:w-1/5 dark:from-black',
   {
     variants: {
       side: {

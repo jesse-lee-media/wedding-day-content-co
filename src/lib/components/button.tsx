@@ -6,7 +6,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex w-full cursor-pointer items-center justify-center rounded-sm font-medium no-underline! transition focus-visible:ring-2 focus-visible:ring-neutral-400/75 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:border-y-2 disabled:border-t-neutral-100 disabled:border-b-neutral-300 disabled:bg-neutral-200 disabled:text-neutral-400 xs:w-fit',
+  'inline-flex w-full cursor-pointer items-center justify-center rounded-sm font-semibold uppercase no-underline! transition focus-visible:ring-2 focus-visible:ring-neutral-400/75 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:border-y-2 disabled:border-t-neutral-100 disabled:border-b-neutral-300 disabled:bg-neutral-200 disabled:text-neutral-400 xs:w-fit',
   {
     variants: {
       variant: {
@@ -100,13 +100,13 @@ const buttonVariants = cva(
         variant: 'primary',
         asChild: true,
         className:
-          'hover:bg-black hover:text-white dark:hover:bg-dusty-rose-900 dark:hover:text-dusty-rose-100',
+          'hover:bg-neutral-900 hover:text-neutral-50 dark:hover:bg-dusty-rose-900 dark:hover:text-dusty-rose-100',
       },
       {
         variant: 'primary',
         asChild: false,
         className:
-          'hover:enabled:bg-black hover:enabled:text-white dark:hover:enabled:bg-dusty-rose-900 dark:hover:enabled:text-dusty-rose-100',
+          'hover:enabled:bg-neutral-900 hover:enabled:text-neutral-50 dark:hover:enabled:bg-dusty-rose-900 dark:hover:enabled:text-dusty-rose-100',
       },
       {
         variant: 'secondary',

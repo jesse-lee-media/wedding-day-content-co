@@ -7,10 +7,12 @@ import { IconArrowLeft } from '@/lib/components/icons/arrow-left';
 import { IconArrowRight } from '@/lib/components/icons/arrow-right';
 import { IconArrowUpRight } from '@/lib/components/icons/arrow-up-right';
 import { IconCalendar } from '@/lib/components/icons/calendar';
+import { IconCalendarCheck } from '@/lib/components/icons/calendar-check';
 import { IconCircle } from '@/lib/components/icons/circle';
 import { IconInstagram } from '@/lib/components/icons/instagram';
 import { IconMenu } from '@/lib/components/icons/menu';
 import { IconNavArrowDown } from '@/lib/components/icons/nav-arrow-down';
+import { IconNavArrowDownSmall } from '@/lib/components/icons/nav-arrow-down-small';
 import { IconNavArrowLeft } from '@/lib/components/icons/nav-arrow-left';
 import { IconNavArrowRight } from '@/lib/components/icons/nav-arrow-right';
 import { IconNavArrowUp } from '@/lib/components/icons/nav-arrow-up';
@@ -29,11 +31,13 @@ const icons: Record<IconName, IconFunction> = {
   arrowRight: IconArrowRight,
   arrowUpRight: IconArrowUpRight,
   calendar: IconCalendar,
+  calendarCheck: IconCalendarCheck,
   chevronDown: IconNavArrowDown,
   circle: IconCircle,
   instagram: IconInstagram,
   menu: IconMenu,
   navArrowDown: IconNavArrowDown,
+  navArrowDownSmall: IconNavArrowDownSmall,
   navArrowLeft: IconNavArrowLeft,
   navArrowRight: IconNavArrowRight,
   navArrowUp: IconNavArrowUp,
@@ -45,9 +49,9 @@ const icons: Record<IconName, IconFunction> = {
 const iconVariants = cva('shrink-0', {
   variants: {
     size: {
-      sm: 'size-3.5',
-      md: 'size-4',
-      lg: 'size-5',
+      sm: 'size-4',
+      md: 'size-5',
+      lg: 'size-6',
     },
   },
   defaultVariants: {

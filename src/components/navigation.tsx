@@ -123,13 +123,13 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
         <FocusScope loop={open} trapped={open} className="outline-hidden">
           <ul className="z-50 mx-auto flex h-16 max-w-7xl flex-row items-center justify-between gap-4 rounded-xs bg-neutral-50/75 pr-1 pl-4 shadow-lg ring-2 shadow-black/10 ring-neutral-200/75 backdrop-blur-lg md-lg:px-4 xl:px-6">
             <li className="flex flex-1">
-              <Link href="/" onClick={closeMenu}>
+              <Link href="/" onClick={closeMenu} className="subheading text-sm">
                 Wedding Day Content Co.
               </Link>
             </li>
             {links?.map((link) => (
               <li key={link.id} className="hidden md-lg:block">
-                <PayloadLink {...link} />
+                <PayloadLink {...link} className="subheading text-sm" />
               </li>
             ))}
             {callToAction.link.text ? (
@@ -142,7 +142,7 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
               aria-label={open ? 'Close navigation' : 'Open navigation'}
               className="inline-flex size-10 items-center justify-center rounded-xs transition focus-visible:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-600/75 focus-visible:outline-hidden md-lg:hidden"
             >
-              {open ? <Icons name="x" size="lg" /> : <Icons name="menu" size="lg" />}
+              {open ? <Icons name="x" /> : <Icons name="menu" />}
             </button>
           </ul>
           <dialog
@@ -158,7 +158,7 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
                   <PayloadLink
                     {...link}
                     onClick={closeMenu}
-                    className="inline-flex h-10 w-full items-center justify-between gap-2 text-xl"
+                    className="subheading inline-flex h-10 w-full items-center justify-between gap-2"
                   >
                     <Icons name="arrowRight" />
                   </PayloadLink>

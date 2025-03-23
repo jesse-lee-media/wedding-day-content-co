@@ -11,6 +11,10 @@
   --font-sans:
     var(--font-figtree), sans-serif, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-weight-normal: 350;
+  --font-weight-medium: 450;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 650;
 
   /* ----- colors ----- */
   --color-black: #111;
@@ -37,9 +41,9 @@
   /* ----- animations ----- */
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-marquee-slow: marquee 120s linear infinite;
-  --animate-marquee-normal: marquee 90s linear infinite;
-  --animate-marquee-fast: marquee 60s linear infinite;
+  --animate-marquee-slow: marquee 90s linear infinite;
+  --animate-marquee-normal: marquee 60s linear infinite;
+  --animate-marquee-fast: marquee 30s linear infinite;
 
   /* ----- keyframes ----- */
   @keyframes accordion-down {
@@ -64,11 +68,11 @@
 
   @keyframes marquee {
     from {
-      transform: translateX(0);
+      transform: translateX(0%);
     }
 
     to {
-      transform: translateX(calc(-100% - 1.5rem));
+      transform: translateX(-50%);
     }
   }
 }
@@ -76,6 +80,10 @@
 @layer base {
   *::selection {
     @apply bg-dusty-rose-200 text-dusty-rose-950 dark:bg-dusty-rose-300;
+  }
+
+  * {
+    @apply font-normal;
   }
 
   html {
@@ -89,7 +97,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif leading-tight tracking-tight drop-shadow-lg;
+    @apply font-serif leading-tight font-light drop-shadow-lg;
   }
 
   a {
@@ -110,6 +118,10 @@
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
     mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%);
+  }
+
+  .subheading {
+    @apply font-semibold tracking-[0.08em] uppercase;
   }
 }
 

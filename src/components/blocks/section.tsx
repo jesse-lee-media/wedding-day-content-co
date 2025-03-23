@@ -15,7 +15,7 @@ export function SectionBlock({
     <section
       className={cn(
         'relative isolate overflow-section overflow-hidden py-16',
-        background === 'dark' && 'dark bg-black text-white shadow-lg shadow-black/10',
+        background === 'dark' && 'dark bg-black text-neutral-200',
       )}
     >
       <h1

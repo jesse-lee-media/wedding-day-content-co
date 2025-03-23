@@ -13,7 +13,7 @@ export function Footer({ contact, faqs, linkGroups, marquee }: PayloadFooterGlob
   const marqueeText = new Array(4).fill(marquee ?? '').join(' ') + ' ';
 
   return (
-    <footer className="dark flex flex-col gap-24 bg-black py-16 text-white">
+    <footer className="dark flex flex-col gap-24 bg-black py-16 text-neutral-200">
       <div className="mx-auto w-full max-w-7xl px-4">
         {contact ? (
           <FooterSection heading="Contact">
@@ -33,7 +33,9 @@ export function Footer({ contact, faqs, linkGroups, marquee }: PayloadFooterGlob
               <ul className="grid grid-cols-1 gap-8 @xs:grid-cols-2 @sm:grid-cols-3">
                 {linkGroups.map(({ heading, id, links }) => (
                   <li key={id} className="flex flex-col gap-2">
-                    <h2 className="font-sans text-sm leading-normal! text-white/75">{heading}</h2>
+                    <h2 className="subheading font-sans text-sm leading-normal! text-neutral-400">
+                      {heading}
+                    </h2>
                     <ul className="flex flex-col gap-1">
                       {links?.map((link) => (
                         <li key={link.id}>
@@ -50,10 +52,10 @@ export function Footer({ contact, faqs, linkGroups, marquee }: PayloadFooterGlob
       </div>
       {marquee ? (
         <Marquee>
-          <MarqueeContent asChild speed="slow">
+          <MarqueeContent asChild>
             <h1 className="text-8xl">{marqueeText}</h1>
           </MarqueeContent>
-          <MarqueeContent asChild duplicate speed="slow">
+          <MarqueeContent asChild duplicate>
             <h1 className="text-8xl">{marqueeText}</h1>
           </MarqueeContent>
           <MarqueeFade side="left" />

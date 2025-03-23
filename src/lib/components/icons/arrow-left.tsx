@@ -3,22 +3,19 @@ import type { ComponentProps } from 'react';
 export function IconArrowLeft(props: ComponentProps<'svg'>) {
   return (
     <svg
-      width="24px"
-      height="24px"
-      viewBox="0 0 24 24"
-      strokeWidth="2"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      color="currentColor"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
       {...props}
     >
       <path
-        d="M21 12L3 12M3 12L11.5 3.5M3 12L11.5 20.5"
+        d="M10 6L4 12L10 18M5 12H20"
         stroke="currentColor"
         strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
+        strokeLinecap="square"
+      />
     </svg>
   );
 }
