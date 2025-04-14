@@ -7,7 +7,6 @@ import type {
   FieldHook,
 } from 'payload';
 
-import { slugify } from '@/lib/utils/slugify';
 import { Role, hasRole, hasRoleOrPublished } from '@/payload/access';
 import { ButtonLink } from '@/payload/blocks/button-link';
 import { Form } from '@/payload/blocks/form';
@@ -17,6 +16,7 @@ import { MediaLinks } from '@/payload/blocks/media-links';
 import { Section } from '@/payload/blocks/section';
 import type { PayloadPagesCollection } from '@/payload/payload-types';
 import { generatePreviewPath } from '@/payload/utils/generate-preview-path';
+import { slugify } from '@/utils/slugify';
 
 const setSlug: FieldHook<
   PayloadPagesCollection,
@@ -29,16 +29,15 @@ const setSlug: FieldHook<
 };
 
 const setPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({ context, doc, req }) => {
-  if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetSlugAndPath) {
+  if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetPath) {
     return doc;
   }
 
-  const slug = slugify(doc.title);
   const path = doc.breadcrumbs?.length
     ? doc.breadcrumbs[doc.breadcrumbs.length - 1].url
-    : `/${slug}`;
+    : `/${slugify(doc.title)}`;
 
-  if (doc.path === path && doc.slug === slug) {
+  if (doc.path === path) {
     return doc;
   }
 
@@ -49,7 +48,7 @@ const setPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({ context, d
       path,
     },
     context: {
-      ignoreSetSlugAndPath: true,
+      ignoreSetPath: true,
     },
     req,
   });

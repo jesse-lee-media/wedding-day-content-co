@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 export type PolaroidImageProps = ComponentProps<'div'> & {
   asChild?: boolean;

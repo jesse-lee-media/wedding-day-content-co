@@ -1,12 +1,12 @@
 import { RichText } from '@/components/rich-text';
-import { Blockquote, BlockquoteBody, BlockquoteFooter } from '@/lib/components/blockquote';
+import { Blockquote, BlockquoteBody, BlockquoteFooter } from '@/components/ui/blockquote';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/lib/components/carousel';
+} from '@/components/ui/carousel';
 import type { PayloadQuotesBlock } from '@/payload/payload-types';
 
 export function QuotesBlock({ quotes }: PayloadQuotesBlock) {

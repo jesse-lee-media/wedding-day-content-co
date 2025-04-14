@@ -9,11 +9,11 @@ import { type GlobalSlug, getPayload } from 'payload';
 
 import { Footer } from '@/components/footer';
 import { Navigation } from '@/components/navigation';
+import { Toaster } from '@/components/ui/toaster';
 import { env } from '@/env/client';
-import { Toaster } from '@/lib/components/toaster';
-import { cn } from '@/lib/utils/cn';
 import type { PayloadFooterGlobal, PayloadNavigationGlobal } from '@/payload/payload-types';
 import { getServerSideUrl } from '@/payload/utils/get-server-side-url';
+import { cn } from '@/utils/cn';
 import payloadConfig from '@payload-config';
 
 import './globals.css';

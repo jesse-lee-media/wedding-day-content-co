@@ -4,8 +4,8 @@ import type { ComponentProps } from 'react';
 
 import { DayPicker } from 'react-day-picker';
 
-import { Icons } from '@/lib/components/icons';
-import { cn } from '@/lib/utils/cn';
+import { Icons } from '@/icons';
+import { cn } from '@/utils/cn';
 
 const Calendar = ({
   className,

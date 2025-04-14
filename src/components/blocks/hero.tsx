@@ -1,5 +1,5 @@
-import { PayloadButtonLink } from '@/lib/components/payload-button-link';
-import { PayloadVideo } from '@/lib/components/payload-video';
+import { PayloadButtonLink } from '@/components/ui/payload-button-link';
+import { PayloadVideo } from '@/components/ui/payload-video';
 import type { PayloadHeroBlock } from '@/payload/payload-types';
 
 export function HeroBlock({ buttonLinks, description, heading, media }: PayloadHeroBlock) {

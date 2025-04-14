@@ -1,7 +1,7 @@
 import type { SerializedHorizontalRuleNode } from '@payloadcms/richtext-lexical';
 
 import type { JSXConverter } from '@/components/rich-text';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 export const horizontalRuleConverter: JSXConverter<SerializedHorizontalRuleNode> = ({
   additionalClass,

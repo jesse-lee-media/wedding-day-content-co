@@ -1258,7 +1258,6 @@ export interface PayloadLinkGroupFieldSelect<T extends boolean = true> {
   newTab?: T;
   umamiEvent?: T;
   umamiEventId?: T;
-  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

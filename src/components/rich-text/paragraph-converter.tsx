@@ -1,7 +1,7 @@
 import type { SerializedParagraphNode } from '@payloadcms/richtext-lexical';
 
 import type { JSXConverter } from '@/components/rich-text';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 export const paragraphConverter: JSXConverter<SerializedParagraphNode> = ({
   additionalClass,

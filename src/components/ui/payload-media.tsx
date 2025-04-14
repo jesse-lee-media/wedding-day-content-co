@@ -1,5 +1,5 @@
-import { PayloadImage } from '@/lib/components/payload-image';
-import { PayloadVideo } from '@/lib/components/payload-video';
+import { PayloadImage } from '@/components/ui/payload-image';
+import { PayloadVideo } from '@/components/ui/payload-video';
 import type { PayloadImagesCollection, PayloadVideosCollection } from '@/payload/payload-types';
 
 type Props = {

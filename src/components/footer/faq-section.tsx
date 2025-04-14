@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { slugify } from '@/lib/utils/slugify';
+import { slugify } from '@/utils/slugify';
 
 export function FooterSection({ children, heading }: { children: ReactNode; heading: string }) {
   return (

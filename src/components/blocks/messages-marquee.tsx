@@ -1,4 +1,4 @@
-import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
+import { Marquee, MarqueeContent, MarqueeFade } from '@/components/ui/marquee';
 import type { PayloadMessagesMarqueeBlock } from '@/payload/payload-types';
 
 export function MessagesMarqueeBlock({ messages }: PayloadMessagesMarqueeBlock) {

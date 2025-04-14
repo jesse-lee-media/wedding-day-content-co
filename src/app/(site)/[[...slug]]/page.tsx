@@ -7,8 +7,8 @@ import { getPayload } from 'payload';
 import { metadata } from '@/app/(site)/layout';
 import { LivePreviewListener } from '@/components/live-preview-listener';
 import { RichText } from '@/components/rich-text';
-import { Breadcrumbs } from '@/lib/components/breadcrumbs';
-import { pageTitle } from '@/lib/utils/page-title';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { pageTitle } from '@/utils/page-title';
 import config from '@payload-config';
 
 interface PageProps {

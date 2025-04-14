@@ -1,8 +1,8 @@
 import type { SerializedHeadingNode } from '@payloadcms/richtext-lexical';
 
 import type { JSXConverter } from '@/components/rich-text';
-import { cn } from '@/lib/utils/cn';
-import { slugify } from '@/lib/utils/slugify';
+import { cn } from '@/utils/cn';
+import { slugify } from '@/utils/slugify';
 
 const headingClasses = (node: SerializedHeadingNode) => {
   switch (node.tag) {

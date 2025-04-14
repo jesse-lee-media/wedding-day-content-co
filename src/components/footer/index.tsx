@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 import { FooterSection } from '@/components/footer/faq-section';
 import { FaqsLoading } from '@/components/footer/faqs-loading';
 import { RichText } from '@/components/rich-text';
-import { Marquee, MarqueeContent, MarqueeFade } from '@/lib/components/marquee';
-import { PayloadLink } from '@/lib/components/payload-link';
+import { Marquee, MarqueeContent, MarqueeFade } from '@/components/ui/marquee';
+import { PayloadLink } from '@/components/ui/payload-link';
 import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 const FaqAccordion = dynamic(() => import('./faq-accordion'), { loading: () => <FaqsLoading /> });

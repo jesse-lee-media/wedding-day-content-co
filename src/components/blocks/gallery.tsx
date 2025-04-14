@@ -4,11 +4,11 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/lib/components/carousel';
-import { PayloadMedia } from '@/lib/components/payload-media';
-import type { StripString } from '@/lib/types/strip-string';
-import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
+} from '@/components/ui/carousel';
+import { PayloadMedia } from '@/components/ui/payload-media';
 import type { PayloadGalleryBlock } from '@/payload/payload-types';
+import type { StripString } from '@/types/strip-string';
+import { isRelationshipPopulated } from '@/utils/is-relationship-populated';
 
 type FilteredMedia = StripString<PayloadGalleryBlock['media'][number]>;
 
