@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 
 import { Icons } from '@/icons';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 const Blockquote = ({ children, className, ...props }: ComponentProps<'blockquote'>) => (
   <blockquote

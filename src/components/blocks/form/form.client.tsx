@@ -38,11 +38,11 @@ import {
 } from '@/components/ui/select';
 import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils/cn';
 import type {
   PayloadFormSubmissionsCollection,
   PayloadFormsCollection,
 } from '@/payload/payload-types';
+import { cn } from '@/utils/cn';
 
 const REQUIRED_MESSAGE = 'Field is required';
 

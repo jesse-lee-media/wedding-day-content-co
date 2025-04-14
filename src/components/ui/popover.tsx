@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react';
 
 import { Content, Portal, Root, Trigger } from '@radix-ui/react-popover';
 
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 const Popover = Root;
 

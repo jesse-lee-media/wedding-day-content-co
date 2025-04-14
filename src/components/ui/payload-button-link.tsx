@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/icons';
-import { linkProps } from '@/lib/utils/link';
 import type { PayloadButtonLinkGroupField } from '@/payload/payload-types';
+import { linkProps } from '@/utils/link';
 
 export type PayloadButtonLinkProps = ComponentProps<typeof Button> & PayloadButtonLinkGroupField;
 

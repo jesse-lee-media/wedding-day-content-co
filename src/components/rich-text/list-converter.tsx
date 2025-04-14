@@ -1,7 +1,7 @@
 import type { SerializedListNode } from '@payloadcms/richtext-lexical';
 
 import type { JSXConverter } from '@/components/rich-text';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 export const listConverter: JSXConverter<SerializedListNode> = ({
   additionalClass,

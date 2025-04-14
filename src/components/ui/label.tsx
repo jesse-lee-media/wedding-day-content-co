@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react';
 
 import { Root } from '@radix-ui/react-label';
 
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 const Label = ({ className, ...props }: ComponentProps<typeof Root>) => (
   <Root

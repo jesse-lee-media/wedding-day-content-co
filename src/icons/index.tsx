@@ -19,8 +19,8 @@ import { IconNavArrowUp } from '@/icons/nav-arrow-up';
 import { IconQuoteSolid } from '@/icons/quote-solid';
 import { IconTikTok } from '@/icons/tiktok';
 import { IconXMark } from '@/icons/x-mark';
-import { cn } from '@/lib/utils/cn';
 import type { PayloadIconField } from '@/payload/payload-types';
+import { cn } from '@/utils/cn';
 
 type IconName = NonNullable<PayloadIconField>;
 

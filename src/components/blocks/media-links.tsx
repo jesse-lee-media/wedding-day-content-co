@@ -4,8 +4,8 @@ import { OverflowText } from '@/components/ui/overflow-text';
 import { PayloadMedia } from '@/components/ui/payload-media';
 import { PolaroidImage } from '@/components/ui/polaroid-image';
 import { Icons } from '@/icons';
-import { linkProps } from '@/lib/utils/link';
 import type { PayloadMediaLinksBlock } from '@/payload/payload-types';
+import { linkProps } from '@/utils/link';
 
 export function MediaLinksBlock({ cards }: PayloadMediaLinksBlock) {
   return (

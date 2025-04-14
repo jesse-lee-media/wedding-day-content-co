@@ -5,8 +5,8 @@ import type { ComponentProps } from 'react';
 import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
 
 import { Icons } from '@/icons';
-import { cn } from '@/lib/utils/cn';
-import { slugify } from '@/lib/utils/slugify';
+import { cn } from '@/utils/cn';
+import { slugify } from '@/utils/slugify';
 
 const Accordion = Root;
 

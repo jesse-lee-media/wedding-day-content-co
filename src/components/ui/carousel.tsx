@@ -10,7 +10,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 
 import { Button } from '@/components/ui/button';
 import { Icons } from '@/icons';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 type CarouselProps = {
   opts?: any;

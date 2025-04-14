@@ -22,7 +22,7 @@ import {
 
 import { OverflowText } from '@/components/ui/overflow-text';
 import { Icons } from '@/icons';
-import { cn } from '@/lib/utils/cn';
+import { cn } from '@/utils/cn';
 
 const Select = Root;
 

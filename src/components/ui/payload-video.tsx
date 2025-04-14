@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react';
 
 import Image from 'next/image';
 
-import { cn } from '@/lib/utils/cn';
 import type { PayloadVideosCollection } from '@/payload/payload-types';
+import { cn } from '@/utils/cn';
 
 type Props = PayloadVideosCollection & {
   className?: string;

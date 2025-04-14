@@ -6,9 +6,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { PayloadMedia } from '@/components/ui/payload-media';
-import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
 import type { PayloadGalleryBlock } from '@/payload/payload-types';
 import type { StripString } from '@/types/strip-string';
+import { isRelationshipPopulated } from '@/utils/is-relationship-populated';
 
 type FilteredMedia = StripString<PayloadGalleryBlock['media'][number]>;
 
