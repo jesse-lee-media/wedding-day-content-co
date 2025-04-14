@@ -8,8 +8,8 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 import useEmblaCarousel from 'embla-carousel-react';
 
+import { Button } from '@/components/ui/button';
 import { Icons } from '@/icons';
-import { Button } from '@/lib/components/button';
 import { cn } from '@/lib/utils/cn';
 
 type CarouselProps = {

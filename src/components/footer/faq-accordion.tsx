@@ -5,7 +5,7 @@ import {
   AccordionHeader,
   AccordionItem,
   AccordionTrigger,
-} from '@/lib/components/accordion';
+} from '@/components/ui/accordion';
 import type { PayloadFooterGlobal } from '@/payload/payload-types';
 
 export default function FaqAccordion({ faqs }: { faqs: PayloadFooterGlobal['faqs'] }) {

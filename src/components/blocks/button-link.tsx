@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PayloadButtonLink } from '@/lib/components/payload-button-link';
+import { PayloadButtonLink } from '@/components/ui/payload-button-link';
 import type { PayloadButtonLinkBlock } from '@/payload/payload-types';
 
 export function ButtonLinkBlock({ blockName, blockType, id, ...props }: PayloadButtonLinkBlock) {

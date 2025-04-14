@@ -2,8 +2,8 @@ import type { ComponentProps } from 'react';
 
 import Link from 'next/link';
 
+import { Button } from '@/components/ui/button';
 import { Icons } from '@/icons';
-import { Button } from '@/lib/components/button';
 import { linkProps } from '@/lib/utils/link';
 import type { PayloadButtonLinkGroupField } from '@/payload/payload-types';
 

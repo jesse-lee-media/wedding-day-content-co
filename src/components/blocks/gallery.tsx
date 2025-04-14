@@ -4,8 +4,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/lib/components/carousel';
-import { PayloadMedia } from '@/lib/components/payload-media';
+} from '@/components/ui/carousel';
+import { PayloadMedia } from '@/components/ui/payload-media';
 import type { StripString } from '@/lib/types/strip-string';
 import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
 import type { PayloadGalleryBlock } from '@/payload/payload-types';

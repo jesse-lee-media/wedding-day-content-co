@@ -20,8 +20,8 @@ import {
   Viewport,
 } from '@radix-ui/react-select';
 
+import { OverflowText } from '@/components/ui/overflow-text';
 import { Icons } from '@/icons';
-import { OverflowText } from '@/lib/components/overflow-text';
 import { cn } from '@/lib/utils/cn';
 
 const Select = Root;

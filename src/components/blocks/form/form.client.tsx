@@ -15,8 +15,8 @@ import { z } from 'zod';
 
 import { submitForm } from '@/components/blocks/form/form.action';
 import { RichText } from '@/components/rich-text';
-import { Button } from '@/lib/components/button';
-import { Calendar } from '@/lib/components/calendar';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Form,
   FormControl,
@@ -24,20 +24,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/lib/components/form';
-import { Input, InputButton } from '@/lib/components/input';
-import { OverflowText } from '@/lib/components/overflow-text';
-import { Popover, PopoverContent, PopoverTrigger } from '@/lib/components/popover';
-import { RadioGroup, RadioGroupItem } from '@/lib/components/radio-group';
+} from '@/components/ui/form';
+import { Input, InputButton } from '@/components/ui/input';
+import { OverflowText } from '@/components/ui/overflow-text';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/lib/components/select';
-import { Spinner } from '@/lib/components/spinner';
-import { Textarea } from '@/lib/components/textarea';
+} from '@/components/ui/select';
+import { Spinner } from '@/components/ui/spinner';
+import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils/cn';
 import type {
   PayloadFormSubmissionsCollection,

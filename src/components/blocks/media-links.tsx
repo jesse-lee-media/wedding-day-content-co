@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
+import { OverflowText } from '@/components/ui/overflow-text';
+import { PayloadMedia } from '@/components/ui/payload-media';
+import { PolaroidImage } from '@/components/ui/polaroid-image';
 import { Icons } from '@/icons';
-import { OverflowText } from '@/lib/components/overflow-text';
-import { PayloadMedia } from '@/lib/components/payload-media';
-import { PolaroidImage } from '@/lib/components/polaroid-image';
 import { linkProps } from '@/lib/utils/link';
 import type { PayloadMediaLinksBlock } from '@/payload/payload-types';
 

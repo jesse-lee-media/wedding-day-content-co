@@ -34,9 +34,9 @@ import { useEffect, useRef, useState } from 'react';
 import { FocusScope } from '@radix-ui/react-focus-scope';
 import Link from 'next/link';
 
+import { PayloadButtonLink } from '@/components/ui/payload-button-link';
+import { PayloadLink } from '@/components/ui/payload-link';
 import { Icons } from '@/icons';
-import { PayloadButtonLink } from '@/lib/components/payload-button-link';
-import { PayloadLink } from '@/lib/components/payload-link';
 import type { PayloadNavigationGlobal } from '@/payload/payload-types';
 
 function createFocusGuard() {
