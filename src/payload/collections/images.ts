@@ -9,7 +9,7 @@ const addDataUrl: CollectionAfterChangeHook<PayloadImagesCollection> = async ({
   doc,
   req,
 }) => {
-  if (!doc.url || context?.ignoreAfterChange) {
+  if (!doc.url || context?.ignoreAddDataUrl) {
     return doc;
   }
 
@@ -22,7 +22,7 @@ const addDataUrl: CollectionAfterChangeHook<PayloadImagesCollection> = async ({
       dataUrl,
     },
     context: {
-      ignoreAfterChange: true,
+      ignoreAddDataUrl: true,
     },
     req,
   });

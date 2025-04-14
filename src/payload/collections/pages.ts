@@ -29,16 +29,15 @@ const setSlug: FieldHook<
 };
 
 const setPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({ context, doc, req }) => {
-  if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetSlugAndPath) {
+  if (!doc?.title || !doc?.breadcrumbs?.length || context?.ignoreSetPath) {
     return doc;
   }
 
-  const slug = slugify(doc.title);
   const path = doc.breadcrumbs?.length
     ? doc.breadcrumbs[doc.breadcrumbs.length - 1].url
-    : `/${slug}`;
+    : `/${slugify(doc.title)}`;
 
-  if (doc.path === path && doc.slug === slug) {
+  if (doc.path === path) {
     return doc;
   }
 
@@ -49,7 +48,7 @@ const setPath: CollectionAfterChangeHook<PayloadPagesCollection> = ({ context, d
       path,
     },
     context: {
-      ignoreSetSlugAndPath: true,
+      ignoreSetPath: true,
     },
     req,
   });
