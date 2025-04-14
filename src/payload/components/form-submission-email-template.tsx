@@ -1,6 +1,6 @@
 import { Body, Font, Head, Heading, Html, Preview, Tailwind } from '@react-email/components';
 
-import { tailwindEmailConfig } from '@/lib/config/tailwind-email';
+import { tailwindEmailConfig } from '@/config/tailwind-email';
 import type {
   PayloadFormSubmissionsCollection,
   PayloadFormsCollection,
