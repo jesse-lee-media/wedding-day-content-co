@@ -1,8 +1,8 @@
 import { PayloadMedia } from '@/components/ui/payload-media';
 import { PolaroidImage } from '@/components/ui/polaroid-image';
-import type { StripString } from '@/lib/types/strip-string';
 import { isRelationshipPopulated } from '@/lib/utils/is-relationship-populated';
 import type { PayloadMediaStackBlock } from '@/payload/payload-types';
+import type { StripString } from '@/types/strip-string';
 
 type FilteredMedia = StripString<PayloadMediaStackBlock['media'][number]>;
 
