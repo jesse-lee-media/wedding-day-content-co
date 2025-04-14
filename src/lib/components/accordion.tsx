@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react';
 
 import { Content, Header, Item, Root, Trigger } from '@radix-ui/react-accordion';
 
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 import { cn } from '@/lib/utils/cn';
 import { slugify } from '@/lib/utils/slugify';
 

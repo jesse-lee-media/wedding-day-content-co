@@ -20,7 +20,7 @@ import {
   Viewport,
 } from '@radix-ui/react-select';
 
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 import { OverflowText } from '@/lib/components/overflow-text';
 import { cn } from '@/lib/utils/cn';
 

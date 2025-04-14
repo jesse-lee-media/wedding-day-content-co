@@ -1,4 +1,4 @@
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 
 export function FaqsLoading() {
   return (

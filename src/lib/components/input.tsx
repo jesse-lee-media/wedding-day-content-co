@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 import { cn } from '@/lib/utils/cn';
 
 const baseClass =

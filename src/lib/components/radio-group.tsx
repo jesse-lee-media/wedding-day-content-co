@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react';
 
 import { Indicator, Item, Root } from '@radix-ui/react-radio-group';
 
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 import { cn } from '@/lib/utils/cn';
 
 const RadioGroup = ({ className, ...props }: ComponentProps<typeof Root>) => (

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Icons } from '@/lib/components/icons';
+import { Icons } from '@/icons';
 import { OverflowText } from '@/lib/components/overflow-text';
 import { PayloadMedia } from '@/lib/components/payload-media';
 import { PolaroidImage } from '@/lib/components/polaroid-image';

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
+import { Icons } from '@/icons';
 import { Button } from '@/lib/components/button';
-import { Icons } from '@/lib/components/icons';
 
 export default function NotFound() {
   return (
