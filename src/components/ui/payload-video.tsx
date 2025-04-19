@@ -1,82 +1,38 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 
-import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import type { PayloadVideosCollection } from '@/payload/payload-types';
+import { PayloadImage } from '@/components/ui/payload-image';
+import type { MuxVideo, PayloadImagesCollection } from '@/payload/payload-types';
 import { cn } from '@/utils/cn';
 
-type Props = PayloadVideosCollection & {
-  className?: string;
-  outer?: boolean;
-  outerClassName?: string;
-};
+const PayloadMuxVideo = dynamic(() => import('@/components/ui/payload-mux-video'), { ssr: false });
 
-export function PayloadVideo({
-  alt,
-  className,
-  height,
-  mimeType,
-  outer = true,
-  outerClassName,
-  thumbnail,
-  url,
-  width,
-}: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+interface Props {
+  video: string | MuxVideo;
+  videoPoster: string | PayloadImagesCollection;
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            void videoRef.current?.play();
-          } else {
-            videoRef.current?.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-      },
-    );
+export function PayloadVideo({ video, videoPoster }: Props) {
+  const [displayPoster, setDisplayPoster] = useState(true);
 
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
-    }
+  const handleOnPlaying = () => setDisplayPoster(false);
 
-    return () => observer.disconnect();
-  }, []);
-
-  const component = (
-    <video
-      ref={videoRef}
-      controls={false}
-      disableRemotePlayback
-      disablePictureInPicture
-      loop
-      muted
-      playsInline
-      poster={thumbnail!.dataUrl!}
-      height={height!}
-      width={width!}
-      // eslint-disable-next-line react/no-unknown-property
-      x-webkit-airplay="deny"
-      className={cn('pointer-events-none h-full w-full object-cover', className)}
-    >
-      <source src={url!} type={mimeType || undefined} />
-      <Image
-        src={thumbnail!.url!}
-        alt={alt}
-        width={thumbnail!.width!}
-        height={thumbnail!.height!}
-        placeholder="blur"
-        blurDataURL={thumbnail!.dataUrl!}
-        className={cn('h-full w-full object-cover', className)}
+  return (
+    <>
+      {typeof videoPoster === 'string' ? null : (
+        <PayloadImage
+          {...videoPoster}
+          className={cn('absolute h-full object-cover', displayPoster ? 'block' : 'hidden')}
+        />
+      )}
+      <PayloadMuxVideo
+        video={video}
+        onPlaying={handleOnPlaying}
+        className={cn('h-full', displayPoster ? 'hidden' : 'block')}
       />
-    </video>
+    </>
   );
-
-  return outer ? <div className={outerClassName}>{component}</div> : component;
 }

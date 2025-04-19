@@ -112,6 +112,13 @@
     @apply font-bold;
   }
 
+  mux-player {
+    --controls: none;
+    --dialog: none;
+    --media-object-fit: cover;
+    --media-object-position: center;
+  }
+
   .dot-mask {
     background-image: radial-gradient(var(--color-neutral-100) 1px, transparent 1px);
     background-size: 1rem 1rem;
