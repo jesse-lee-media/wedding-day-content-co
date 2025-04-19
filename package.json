@@ -35,6 +35,8 @@
   "packageManager": "pnpm@10.8.1",
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
+    "@mux/mux-player-react": "^3.3.4",
+    "@oversightstudio/mux-video": "^1.1.0",
     "@payloadcms/db-postgres": "3.35.1",
     "@payloadcms/email-resend": "3.35.1",
     "@payloadcms/live-preview-react": "3.35.1",

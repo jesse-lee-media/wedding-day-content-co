@@ -29,7 +29,7 @@ export const Gallery: Block = {
     {
       name: 'media',
       type: 'relationship',
-      relationTo: ['images', 'videos'],
+      relationTo: ['images'],
       required: true,
       hasMany: true,
       minRows: 1,

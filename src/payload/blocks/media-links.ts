@@ -27,7 +27,7 @@ export const MediaLinks: Block = {
         {
           name: 'media',
           type: 'relationship',
-          relationTo: ['images', 'videos'],
+          relationTo: ['images'],
           required: true,
         },
         linkGroup,

@@ -18,10 +18,27 @@ export const Hero: Block = {
       required: true,
     },
     {
-      name: 'media',
-      type: 'relationship',
-      relationTo: 'videos',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'video',
+          type: 'relationship',
+          relationTo: 'mux-video',
+          required: true,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'videoPoster',
+          type: 'relationship',
+          relationTo: 'images',
+          required: true,
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     deepMerge<Field>(buttonLinkArray, {
       required: true,

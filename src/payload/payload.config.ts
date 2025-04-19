@@ -1,6 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { muxVideoPlugin } from '@oversightstudio/mux-video';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { resendAdapter } from '@payloadcms/email-resend';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
@@ -36,7 +37,6 @@ import { Forms } from '@/payload/collections/forms';
 import { Images } from '@/payload/collections/images';
 import { Pages } from '@/payload/collections/pages';
 import { Users } from '@/payload/collections/users';
-import { Videos } from '@/payload/collections/videos';
 import { richTextFields } from '@/payload/fields/link';
 import { Footer } from '@/payload/globals/footer';
 import { Navigation } from '@/payload/globals/navigation';
@@ -44,7 +44,7 @@ import { Navigation } from '@/payload/globals/navigation';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const whitelist = [env.SERVER_URL];
+const whitelist = [env.SERVER_URL, ...env.WHITELIST.split(' ')].filter(Boolean);
 
 export default buildConfig({
   admin: {
@@ -77,7 +77,6 @@ export default buildConfig({
     Pages,
     Faqs,
     Images,
-    Videos,
     // crm
     Clients,
     Forms,
@@ -141,6 +140,19 @@ export default buildConfig({
     }
   },
   plugins: [
+    muxVideoPlugin({
+      enabled: true,
+      initSettings: {
+        tokenId: env.MUX_TOKEN_ID || '',
+        tokenSecret: env.MUX_TOKEN_SECRET || '',
+        webhookSecret: env.MUX_WEBHOOK_SIGNING_SECRET || '',
+      },
+      uploadSettings: {
+        cors_origin: env.SERVER_URL,
+      },
+      access: (req) =>
+        !!req.user && req.user.collection === 'users' && req.user.roles.includes(Role.Admin),
+    }),
     nestedDocsPlugin({
       collections: ['pages'],
       parentFieldSlug: 'parent',
@@ -152,7 +164,6 @@ export default buildConfig({
     s3Storage({
       collections: {
         [Images.slug]: true,
-        [Videos.slug]: true,
       },
       bucket: env.R2_BUCKET,
       config: {
