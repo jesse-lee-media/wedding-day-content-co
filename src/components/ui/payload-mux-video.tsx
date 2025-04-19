@@ -17,9 +17,9 @@ interface Props {
 export default function PayloadMuxVideo({ className, onPlaying, video }: Props) {
   if (
     typeof video === 'string' ||
-    !video.playbackOptions?.length ||
-    !video.playbackOptions[0].playbackId ||
-    !video.playbackOptions[0].posterUrl
+    !video?.playbackOptions?.length ||
+    !video?.playbackOptions[0]?.playbackId ||
+    !video?.playbackOptions[0]?.posterUrl
   ) {
     return null;
   }
