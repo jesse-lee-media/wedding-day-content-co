@@ -4,6 +4,9 @@ import { z } from 'zod';
 export const env = createEnv({
   server: {
     DOMAIN: z.string().min(1),
+    MUX_TOKEN_ID: z.string().min(1),
+    MUX_TOKEN_SECRET: z.string().min(1),
+    MUX_WEBHOOK_SIGNING_SECRET: z.string().min(1),
     PAYLOAD_ADMIN_PASSWORD: z.string().min(1),
     PAYLOAD_ADMIN_USER: z.string().min(1),
     PAYLOAD_SECRET: z.string().min(1),
@@ -23,11 +26,13 @@ export const env = createEnv({
       .transform((url) =>
         process.env.VERCEL_ENV === 'preview' ? `https://${process.env.VERCEL_URL}` : url,
       ),
-    VIDEO_OPTIMIZATION_API_KEY: z.string().min(1),
-    VIDEO_OPTIMIZATION_SERVER_URL: z.string().min(1),
+    WHITELIST: z.string().min(1),
   },
   runtimeEnv: {
     DOMAIN: process.env.DOMAIN,
+    MUX_TOKEN_ID: process.env.MUX_TOKEN_ID,
+    MUX_TOKEN_SECRET: process.env.MUX_TOKEN_SECRET,
+    MUX_WEBHOOK_SIGNING_SECRET: process.env.MUX_WEBHOOK_SIGNING_SECRET,
     PAYLOAD_ADMIN_PASSWORD: process.env.PAYLOAD_ADMIN_PASSWORD,
     PAYLOAD_ADMIN_USER: process.env.PAYLOAD_ADMIN_USER,
     PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
@@ -42,7 +47,6 @@ export const env = createEnv({
     RESEND_FROM_NAME_DEFAULT: process.env.RESEND_FROM_NAME_DEFAULT,
     RESEND_TO_ADDRESS_DEFAULT: process.env.RESEND_TO_ADDRESS_DEFAULT,
     SERVER_URL: process.env.SERVER_URL,
-    VIDEO_OPTIMIZATION_API_KEY: process.env.VIDEO_OPTIMIZATION_API_KEY,
-    VIDEO_OPTIMIZATION_SERVER_URL: process.env.VIDEO_OPTIMIZATION_SERVER_URL,
+    WHITELIST: process.env.WHITELIST,
   },
 });

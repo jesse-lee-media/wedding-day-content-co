@@ -154,11 +154,11 @@ export interface Config {
     pages: PayloadPagesCollection;
     faqs: PayloadFaqsCollection;
     images: PayloadImagesCollection;
-    videos: PayloadVideosCollection;
     clients: PayloadClientsCollection;
     forms: PayloadFormsCollection;
     'form-submissions': PayloadFormSubmissionsCollection;
     users: PayloadUsersCollection;
+    'mux-video': MuxVideo;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -172,11 +172,11 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
-    videos: VideosSelect<false> | VideosSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'mux-video': MuxVideoSelect<false> | MuxVideoSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -342,34 +342,6 @@ export interface PayloadImagesCollection {
       filename?: string | null;
     };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos".
- */
-export interface PayloadVideosCollection {
-  id: string;
-  alt: string;
-  thumbnail?: {
-    url?: string | null;
-    filename?: string | null;
-    filesize?: number | null;
-    height?: number | null;
-    width?: number | null;
-    mimeType?: string | null;
-    dataUrl?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -701,6 +673,38 @@ export interface PayloadUsersCollection {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mux-video".
+ */
+export interface MuxVideo {
+  id: string;
+  /**
+   * A unique title for this video that will help you identify it later.
+   */
+  title: string;
+  assetId?: string | null;
+  duration?: number | null;
+  /**
+   * Pick a timestamp (in seconds) from the video to be used as the poster image. When unset, defaults to the middle of the video.
+   */
+  posterTimestamp?: number | null;
+  aspectRatio?: string | null;
+  maxWidth?: number | null;
+  maxHeight?: number | null;
+  playbackOptions?:
+    | {
+        playbackId?: string | null;
+        playbackPolicy?: ('signed' | 'public') | null;
+        playbackUrl?: string | null;
+        posterUrl?: string | null;
+        gifUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -719,10 +723,6 @@ export interface PayloadLockedDocument {
         value: string | PayloadImagesCollection;
       } | null)
     | ({
-        relationTo: 'videos';
-        value: string | PayloadVideosCollection;
-      } | null)
-    | ({
         relationTo: 'clients';
         value: string | PayloadClientsCollection;
       } | null)
@@ -737,6 +737,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | PayloadUsersCollection;
+      } | null)
+    | ({
+        relationTo: 'mux-video';
+        value: string | MuxVideo;
       } | null);
   globalSlug?: string | null;
   user:
@@ -866,35 +870,6 @@ export interface ImagesSelect<T extends boolean = true> {
               filename?: T;
             };
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "videos_select".
- */
-export interface VideosSelect<T extends boolean = true> {
-  alt?: T;
-  thumbnail?:
-    | T
-    | {
-        url?: T;
-        filename?: T;
-        filesize?: T;
-        height?: T;
-        width?: T;
-        mimeType?: T;
-        dataUrl?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1105,6 +1080,31 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mux-video_select".
+ */
+export interface MuxVideoSelect<T extends boolean = true> {
+  title?: T;
+  assetId?: T;
+  duration?: T;
+  posterTimestamp?: T;
+  aspectRatio?: T;
+  maxWidth?: T;
+  maxHeight?: T;
+  playbackOptions?:
+    | T
+    | {
+        playbackId?: T;
+        playbackPolicy?: T;
+        playbackUrl?: T;
+        posterUrl?: T;
+        gifUrl?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -1285,7 +1285,8 @@ export interface FooterSelect<T extends boolean = true> {
 export interface PayloadHeroBlock {
   heading: string;
   description: string;
-  media: string | PayloadVideosCollection;
+  video: string | MuxVideo;
+  videoPoster: string | PayloadImagesCollection;
   buttonLinks: PayloadButtonLinkArrayField;
   id?: string | null;
   blockName?: string | null;
@@ -1311,16 +1312,10 @@ export interface PayloadButtonLinkBlock {
  */
 export interface PayloadGalleryBlock {
   type?: ('grid' | 'carousel') | null;
-  media: (
-    | {
-        relationTo: 'images';
-        value: string | PayloadImagesCollection;
-      }
-    | {
-        relationTo: 'videos';
-        value: string | PayloadVideosCollection;
-      }
-  )[];
+  media: {
+    relationTo: 'images';
+    value: string | PayloadImagesCollection;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
@@ -1330,16 +1325,10 @@ export interface PayloadGalleryBlock {
  * via the `definition` "PayloadMediaStackBlock".
  */
 export interface PayloadMediaStackBlock {
-  media: (
-    | {
-        relationTo: 'images';
-        value: string | PayloadImagesCollection;
-      }
-    | {
-        relationTo: 'videos';
-        value: string | PayloadVideosCollection;
-      }
-  )[];
+  media: {
+    relationTo: 'images';
+    value: string | PayloadImagesCollection;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaStack';
@@ -1482,15 +1471,10 @@ export interface PayloadSectionBlock {
  */
 export interface PayloadMediaLinksBlock {
   cards: {
-    media:
-      | {
-          relationTo: 'images';
-          value: string | PayloadImagesCollection;
-        }
-      | {
-          relationTo: 'videos';
-          value: string | PayloadVideosCollection;
-        };
+    media: {
+      relationTo: 'images';
+      value: string | PayloadImagesCollection;
+    };
     link: PayloadLinkGroupField;
     id?: string | null;
   }[];

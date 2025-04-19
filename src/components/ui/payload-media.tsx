@@ -1,20 +1,17 @@
 import { PayloadImage } from '@/components/ui/payload-image';
-import { PayloadVideo } from '@/components/ui/payload-video';
-import type { PayloadImagesCollection, PayloadVideosCollection } from '@/payload/payload-types';
+import type { PayloadImagesCollection } from '@/payload/payload-types';
 
 type Props = {
-  relationTo: 'images' | 'videos';
-  value: string | PayloadImagesCollection | PayloadVideosCollection;
+  relationTo: 'images';
+  value: string | PayloadImagesCollection;
   outerClassName?: string;
   className?: string;
 };
 
 export function PayloadMedia({ className, outerClassName, relationTo, value }: Props) {
-  if (typeof value === 'string') {
+  if (typeof value === 'string' || relationTo !== 'images') {
     return null;
   }
 
-  const Component = relationTo === 'images' ? PayloadImage : PayloadVideo;
-
-  return <Component {...value} className={className} outerClassName={outerClassName} />;
+  return <PayloadImage {...value} className={className} outerClassName={outerClassName} />;
 }

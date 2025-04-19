@@ -7,7 +7,7 @@ export const MediaStack: Block = {
     {
       name: 'media',
       type: 'relationship',
-      relationTo: ['images', 'videos'],
+      relationTo: ['images'],
       hasMany: true,
       maxRows: 2,
       minRows: 2,
