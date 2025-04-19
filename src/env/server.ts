@@ -24,7 +24,7 @@ export const env = createEnv({
       .string()
       .min(1)
       .transform((url) =>
-        process.env.VERCEL_ENV === 'preview' ? `https://${process.env.VERCEL_URL}` : url,
+        process.env.VERCEL_TARGET_ENV === 'preview' ? `https://${process.env.VERCEL_URL}` : url,
       ),
     WHITELIST: z.string().min(1),
   },
