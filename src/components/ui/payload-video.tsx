@@ -25,6 +25,7 @@ export function PayloadVideo({ video, videoPoster }: Props) {
       {typeof videoPoster === 'string' ? null : (
         <PayloadImage
           {...videoPoster}
+          hasLink={false}
           className={cn('absolute h-full object-cover', displayPoster ? 'block' : 'hidden')}
         />
       )}

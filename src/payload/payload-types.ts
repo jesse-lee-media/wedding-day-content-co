@@ -8,14 +8,14 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadUserRolesField".
- */
-export type PayloadUserRolesField = ('admin' | 'editor' | 'public')[];
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PayloadRelField".
  */
 export type PayloadRelField = ('noopener' | 'noreferrer' | 'nofollow')[] | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadUserRolesField".
+ */
+export type PayloadUserRolesField = ('admin' | 'editor' | 'public')[];
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PayloadLinkArrayField".
@@ -310,9 +310,12 @@ export interface PayloadFaqsCollection {
  */
 export interface PayloadImagesCollection {
   id: string;
-  alt: string;
-  displayOriginal?: boolean | null;
+  title?: string | null;
+  alt?: string | null;
+  link?: PayloadLinkGroupField;
   dataUrl?: string | null;
+  hasLink?: boolean | null;
+  displayOriginal?: boolean | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -342,6 +345,21 @@ export interface PayloadImagesCollection {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadLinkGroupField".
+ */
+export interface PayloadLinkGroupField {
+  text: string;
+  type: 'internal' | 'external';
+  relationship?: (string | null) | PayloadPagesCollection;
+  anchor?: string | null;
+  url?: string | null;
+  rel?: PayloadRelField;
+  newTab?: boolean | null;
+  umamiEvent?: string | null;
+  umamiEventId?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -832,9 +850,12 @@ export interface FaqsSelect<T extends boolean = true> {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  title?: T;
   alt?: T;
-  displayOriginal?: T;
+  link?: T | PayloadLinkGroupFieldSelect<T>;
   dataUrl?: T;
+  hasLink?: T;
+  displayOriginal?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -870,6 +891,21 @@ export interface ImagesSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PayloadLinkGroupField_select".
+ */
+export interface PayloadLinkGroupFieldSelect<T extends boolean = true> {
+  text?: T;
+  type?: T;
+  relationship?: T;
+  anchor?: T;
+  url?: T;
+  rel?: T;
+  newTab?: T;
+  umamiEvent?: T;
+  umamiEventId?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1159,22 +1195,6 @@ export interface PayloadButtonLinkGroupField {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadLinkGroupField".
- */
-export interface PayloadLinkGroupField {
-  text: string;
-  type: 'internal' | 'external';
-  relationship?: (string | null) | PayloadPagesCollection;
-  anchor?: string | null;
-  url?: string | null;
-  rel?: PayloadRelField;
-  newTab?: boolean | null;
-  umamiEvent?: string | null;
-  umamiEventId?: string | null;
-  id?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface PayloadFooterGlobal {
@@ -1243,21 +1263,6 @@ export interface PayloadButtonLinkGroupFieldSelect<T extends boolean = true> {
   icon?: T;
   iconPosition?: T;
   link?: T | PayloadLinkGroupFieldSelect<T>;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadLinkGroupField_select".
- */
-export interface PayloadLinkGroupFieldSelect<T extends boolean = true> {
-  text?: T;
-  type?: T;
-  relationship?: T;
-  anchor?: T;
-  url?: T;
-  rel?: T;
-  newTab?: T;
-  umamiEvent?: T;
-  umamiEventId?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1414,8 +1419,8 @@ export interface PayloadStepperBlock {
  */
 export interface PayloadSectionBlock {
   heading: string;
-  columns: '1' | '2';
   background: PayloadBackgroundField;
+  columns: '1' | '2';
   content?: {
     root: {
       type: string;
@@ -1464,23 +1469,6 @@ export interface PayloadSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'section';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PayloadMediaLinksBlock".
- */
-export interface PayloadMediaLinksBlock {
-  cards: {
-    media: {
-      relationTo: 'images';
-      value: string | PayloadImagesCollection;
-    };
-    link: PayloadLinkGroupField;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaLinks';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

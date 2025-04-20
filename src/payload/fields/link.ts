@@ -3,7 +3,7 @@ import type { Field } from 'payload';
 const fields: Field[] = [
   {
     name: 'type',
-    type: 'radio',
+    type: 'select',
     required: true,
     defaultValue: 'internal',
     options: [
@@ -66,6 +66,7 @@ const fields: Field[] = [
         type: 'select',
         interfaceName: 'PayloadRelField',
         hasMany: true,
+        defaultValue: ['noopener'],
         options: ['noopener', 'noreferrer', 'nofollow'],
         admin: {
           condition: (_, siblingData) => siblingData?.type === 'external',

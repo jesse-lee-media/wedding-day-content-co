@@ -1,8 +1,10 @@
-import type { CollectionAfterChangeHook, CollectionConfig } from 'payload';
+import type { CollectionAfterChangeHook, CollectionConfig, Field } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
+import { linkGroup } from '@/payload/fields/link';
 import type { PayloadImagesCollection } from '@/payload/payload-types';
 import { createDataUrl } from '@/payload/utils/create-data-url';
+import { deepMerge } from '@/payload/utils/deep-merge';
 
 const addDataUrl: CollectionAfterChangeHook<PayloadImagesCollection> = async ({
   context,
@@ -63,19 +65,19 @@ export const Images: CollectionConfig<'images'> = {
   },
   fields: [
     {
-      name: 'alt',
-      label: 'Description',
+      name: 'title',
       type: 'text',
-      required: true,
     },
     {
-      name: 'displayOriginal',
-      type: 'checkbox',
-      defaultValue: false,
-      admin: {
-        position: 'sidebar',
-      },
+      name: 'alt',
+      label: 'Description',
+      type: 'textarea',
     },
+    deepMerge<Field>(linkGroup, {
+      admin: {
+        condition: (_, siblingData) => !!siblingData?.hasLink,
+      },
+    }),
     {
       name: 'dataUrl',
       label: 'Data URL',
@@ -86,6 +88,30 @@ export const Images: CollectionConfig<'images'> = {
         readOnly: true,
         condition: (data) => !!data?.dataUrl,
       },
+    },
+    {
+      type: 'row',
+      admin: {
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'hasLink',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'displayOriginal',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
   ],
 };

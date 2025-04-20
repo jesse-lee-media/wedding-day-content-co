@@ -19,7 +19,6 @@ import { ButtonLinkBlock } from '@/components/blocks/button-link';
 import { FormBlock } from '@/components/blocks/form';
 import { GalleryBlock } from '@/components/blocks/gallery';
 import { HeroBlock } from '@/components/blocks/hero';
-import { MediaLinksBlock } from '@/components/blocks/media-links';
 import { MediaStackBlock } from '@/components/blocks/media-stack';
 import { MessagesMarqueeBlock } from '@/components/blocks/messages-marquee';
 import { QuotesBlock } from '@/components/blocks/quotes';
@@ -38,7 +37,6 @@ import type {
   PayloadFormBlock,
   PayloadGalleryBlock,
   PayloadHeroBlock,
-  PayloadMediaLinksBlock,
   PayloadMediaStackBlock,
   PayloadMessagesMarqueeBlock,
   PayloadQuotesBlock,
@@ -75,7 +73,6 @@ type NodeType =
       | PayloadFormBlock
       | PayloadGalleryBlock
       | PayloadHeroBlock
-      | PayloadMediaLinksBlock
       | PayloadMediaStackBlock
       | PayloadMessagesMarqueeBlock
       | PayloadQuotesBlock
@@ -133,7 +130,6 @@ const jsxConverters: JSXConvertersFunction<NodeType> = () => ({
     form: ({ node }) => <FormBlock {...node.fields} />,
     gallery: ({ node }) => <GalleryBlock {...node.fields} />,
     hero: ({ node }) => <HeroBlock {...node.fields} />,
-    mediaLinks: ({ node }) => <MediaLinksBlock {...node.fields} />,
     mediaStack: ({ node }) => <MediaStackBlock {...node.fields} />,
     messagesMarquee: ({ node }) => <MessagesMarqueeBlock {...node.fields} />,
     quotes: ({ node }) => <QuotesBlock {...node.fields} />,
