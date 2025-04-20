@@ -120,7 +120,12 @@ export function Navigation({ callToAction, links }: PayloadNavigationGlobal) {
         className="data-[state=open]:fixed data-[state=open]:inset-0 data-[state=open]:z-40 data-[state=open]:bg-neutral-50/25 data-[state=open]:backdrop-blur-md"
       />
       <nav ref={ref} role={open ? 'dialog' : 'navigation'} className="fixed inset-x-2 top-2 z-50">
-        <FocusScope loop={open} trapped={open} className="outline-hidden">
+        <FocusScope
+          loop={open}
+          trapped={open}
+          onMountAutoFocus={(e) => e.preventDefault()}
+          className="outline-hidden"
+        >
           <ul className="z-50 mx-auto flex h-16 max-w-7xl flex-row items-center justify-between gap-4 rounded-xs bg-neutral-50/75 pr-1 pl-4 shadow-lg ring-2 shadow-black/10 ring-neutral-200/75 backdrop-blur-lg md-lg:px-4 xl:px-6">
             <li className="flex flex-1">
               <Link href="/" onClick={closeMenu} className="subheading text-sm">

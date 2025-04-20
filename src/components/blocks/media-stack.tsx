@@ -1,5 +1,4 @@
 import { PayloadMedia } from '@/components/ui/payload-media';
-import { PolaroidImage } from '@/components/ui/polaroid-image';
 import type { PayloadMediaStackBlock } from '@/payload/payload-types';
 import type { StripString } from '@/types/strip-string';
 import { isRelationshipPopulated } from '@/utils/is-relationship-populated';
@@ -16,12 +15,12 @@ export function MediaStackBlock({ media }: PayloadMediaStackBlock) {
   return (
     <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-1! lg:grid-cols-2!">
       {filteredMedia.map(({ relationTo, value }) => (
-        <PolaroidImage
+        <PayloadMedia
           key={value.id}
-          className="first:z-10 lg:first:translate-x-4 lg:first:translate-y-1 lg:first:-rotate-3 lg:last:-translate-x-8 lg:last:-translate-y-2 lg:last:rotate-3"
-        >
-          <PayloadMedia relationTo={relationTo} value={value} outerClassName="aspect-3/4" />
-        </PolaroidImage>
+          relationTo={relationTo}
+          value={value}
+          className="rounded-sm shadow-lg ring-2 shadow-black/10 ring-neutral-200 first:z-10 lg:first:translate-x-4 lg:first:translate-y-1 lg:first:-rotate-3 lg:last:-translate-x-8 lg:last:-translate-y-2 lg:last:rotate-3 dark:shadow-white/5 dark:ring-neutral-700"
+        />
       ))}
     </div>
   );

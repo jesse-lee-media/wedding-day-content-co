@@ -10,16 +10,6 @@ import { Stepper } from '@/payload/blocks/stepper';
 import { background } from '@/payload/fields/background';
 import { deepMerge } from '@/payload/utils/deep-merge';
 
-const singleColumnBlocks: Block[] = [
-  ButtonLink,
-  Gallery,
-  MediaStack,
-  MessagesMarquee,
-  Quotes,
-  Stepper,
-];
-const multiColumnBlocks: Block[] = [ButtonLink, MediaStack];
-
 const richTextField = (columns: '1' | '2'): Field => ({
   name: 'content',
   type: 'richText',
@@ -27,7 +17,10 @@ const richTextField = (columns: '1' | '2'): Field => ({
     features: ({ rootFeatures }) => [
       ...rootFeatures,
       BlocksFeature({
-        blocks: columns === '1' ? singleColumnBlocks : multiColumnBlocks,
+        blocks:
+          columns === '1'
+            ? [ButtonLink, Gallery, MediaStack, MessagesMarquee, Quotes, Stepper]
+            : [ButtonLink, MediaStack],
       }),
     ],
   }),
@@ -43,25 +36,34 @@ export const Section: Block = {
       required: true,
     },
     {
-      name: 'columns',
-      type: 'radio',
-      admin: {
-        layout: 'horizontal',
-      },
-      required: true,
-      defaultValue: '1',
-      options: [
+      type: 'row',
+      fields: [
+        deepMerge<Field>(background, {
+          admin: {
+            width: '50%',
+          },
+        }),
         {
-          label: 'One',
-          value: '1',
-        },
-        {
-          label: 'Two',
-          value: '2',
+          name: 'columns',
+          type: 'select',
+          admin: {
+            width: '50%',
+          },
+          required: true,
+          defaultValue: '1',
+          options: [
+            {
+              label: 'One',
+              value: '1',
+            },
+            {
+              label: 'Two',
+              value: '2',
+            },
+          ],
         },
       ],
     },
-    background,
     deepMerge<Field>(richTextField('1'), {
       admin: {
         condition: (_, siblingData) => siblingData.columns === '1',

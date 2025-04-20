@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from 'next/image';
+import Link from 'next/link';
 
+import { Icons } from '@/icons';
 import type { PayloadImagesCollection } from '@/payload/payload-types';
 import { cn } from '@/utils/cn';
+import { linkProps } from '@/utils/link';
 
 export type PayloadImageProps = PayloadImagesCollection & {
   className?: string;
-  outerClassName?: string;
 };
 
 const PayloadImage = ({
@@ -19,11 +21,13 @@ const PayloadImage = ({
   filesize,
   focalX,
   focalY,
+  hasLink,
   height: propsHeight,
+  link,
   mimeType,
-  outerClassName,
   sizes,
   thumbnailURL,
+  title,
   updatedAt,
   url,
   width: propsWidth,
@@ -37,17 +41,40 @@ const PayloadImage = ({
     return null;
   }
 
+  if (!hasLink || !link) {
+    return (
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        placeholder="blur"
+        blurDataURL={dataUrl ?? undefined}
+        alt={alt || title || filename || ''}
+        className={className}
+        {...props}
+      />
+    );
+  }
+
   return (
-    <Image
-      src={src}
-      width={width}
-      height={height}
-      placeholder="blur"
-      blurDataURL={dataUrl ?? undefined}
-      alt={alt}
-      className={cn('rounded-xs', className)}
-      {...props}
-    />
+    <Link
+      {...linkProps(link)}
+      className={cn('group relative isolate block overflow-clip', className)}
+    >
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        placeholder="blur"
+        blurDataURL={dataUrl ?? undefined}
+        alt={alt || title || filename || ''}
+        className="z-10 transition duration-300 group-hover:scale-[1.02]"
+        {...props}
+      />
+      <div className="absolute right-2 bottom-2 z-30 flex size-10 shrink-0 flex-row items-center justify-center rounded-sm bg-neutral-50/75 text-black backdrop-blur-lg transition duration-300 group-hover:bg-neutral-50/90">
+        <Icons name={link.type === 'internal' ? 'arrowRight' : 'arrowUpRight'} />
+      </div>
+    </Link>
   );
 };
 

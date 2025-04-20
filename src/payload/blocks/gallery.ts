@@ -10,11 +10,8 @@ export const Gallery: Block = {
   fields: [
     {
       name: 'type',
-      type: 'radio',
+      type: 'select',
       defaultValue: 'grid',
-      admin: {
-        layout: 'horizontal',
-      },
       options: [
         {
           label: 'Grid',
