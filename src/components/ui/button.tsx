@@ -147,7 +147,8 @@ const Button = ({
     <Component
       {...props}
       className={cn(
-        buttonVariants({ variant, size, className, iconPosition, asChild, background }),
+        buttonVariants({ variant, size, iconPosition, asChild, background }),
+        className,
       )}
     />
   );
