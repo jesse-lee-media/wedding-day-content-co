@@ -5,6 +5,7 @@ import type {
   PayloadFormSubmissionsCollection,
   PayloadFormsCollection,
 } from '@/payload/payload-types';
+import { slugify } from '@/utils/slugify';
 
 interface Props {
   data: PayloadFormSubmissionsCollection['data'];
@@ -25,16 +26,16 @@ export const FormSubmissionEmailTemplate = ({ data, form }: Props) => (
             format: 'woff',
           }}
         />
-        <title>New {form.title} Submission</title>
+        <title>{`New ${form.title} Submission`}</title>
       </Head>
       <Preview>You have a new {form.title.toLowerCase()} submission!</Preview>
-      <Body className="bg-neutral-50 font-sans text-neutral-800">
+      <Body className="font-sans text-neutral-800">
         <Heading as="h1" className="mt-10 mb-8 text-4xl first:mt-0 last:mb-0 xs:text-5xl">
           {form.title}
         </Heading>
         <dl>
           {data.map((field) => (
-            <div key={field.name} className="mb-6 last:mb-0">
+            <div key={field.id || slugify(field.label)} className="mb-6 last:mb-0">
               <dt className="m-0 mb-2 text-sm leading-none font-normal text-neutral-600">
                 {field.label}
               </dt>

@@ -150,8 +150,7 @@ export default buildConfig({
       uploadSettings: {
         cors_origin: env.SERVER_URL,
       },
-      access: (req) =>
-        !!req.user && req.user.collection === 'users' && req.user.roles.includes(Role.Admin),
+      access: () => true,
     }),
     nestedDocsPlugin({
       collections: ['pages'],

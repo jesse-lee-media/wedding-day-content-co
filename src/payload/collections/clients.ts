@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 
 import { Role, hasRole } from '@/payload/access';
+import { decryptField, encryptField } from '@/payload/hooks/encryption';
 
 export const Clients: CollectionConfig<'clients'> = {
   slug: 'clients',
@@ -25,10 +26,18 @@ export const Clients: CollectionConfig<'clients'> = {
       name: 'name',
       type: 'text',
       required: true,
+      hooks: {
+        beforeChange: [encryptField],
+        afterRead: [decryptField],
+      },
     },
     {
       name: 'phoneNumber',
       type: 'text',
+      hooks: {
+        beforeChange: [encryptField],
+        afterRead: [decryptField],
+      },
     },
     {
       name: 'forms',

@@ -5,5 +5,5 @@ import { baseFormFields } from '@/payload/fields/base-form-fields';
 export const Text: Block = {
   slug: 'text',
   interfaceName: 'PayloadTextBlock',
-  fields: baseFormFields,
+  fields: baseFormFields(),
 };

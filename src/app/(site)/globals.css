@@ -1,6 +1,5 @@
 @import 'tailwindcss';
-
-@plugin 'tailwindcss-animate';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -101,11 +100,7 @@
   }
 
   a {
-    @apply rounded-xs no-underline focus-visible:ring-2 focus-visible:ring-black/75 focus-visible:outline-hidden dark:focus-visible:ring-white/75;
-  }
-
-  a:hover:not(:focus-visible) {
-    @apply underline underline-offset-2;
+    @apply rounded-xs no-underline decoration-2 underline-offset-3 hover:not-focus-visible:underline focus-visible:ring-2 focus-visible:ring-black/75 focus-visible:outline-hidden dark:focus-visible:ring-white/75;
   }
 
   strong {
@@ -174,10 +169,6 @@
 
 @utility text-wrap-balance {
   text-wrap: balance;
-}
-
-@utility form-sizing-content {
-  form-sizing: content;
 }
 
 @utility mi-auto {

@@ -1,32 +1,35 @@
 import type { Block } from 'payload';
 
 import { baseFormFields } from '@/payload/fields/base-form-fields';
-import { required } from '@/payload/fields/required';
 import type { PayloadSelectBlock } from '@/payload/payload-types';
+import { slugify } from '@/utils/slugify';
 
 export const Select: Block = {
   slug: 'select',
   interfaceName: 'PayloadSelectBlock',
-  fields: [
-    ...baseFormFields.filter(
-      // @ts-expect-error – valid filter
-      (field) => field?.name !== 'required' && field?.name !== 'defaultValue',
-    ),
+  fields: baseFormFields(
+    {
+      defaultValue: {
+        name: 'defaultValue',
+        type: 'text',
+        validate: (value: any, { siblingData }: { siblingData: Partial<PayloadSelectBlock> }) => {
+          if (!value) {
+            return true;
+          }
+
+          const option = siblingData?.options?.find((option) => option.value === value);
+
+          if (!option) {
+            return 'Field must equal the value from one of the options';
+          }
+
+          return true;
+        },
+      },
+    },
     {
       name: 'options',
       type: 'array',
-      admin: {
-        components: {
-          RowLabel: {
-            path: '@/payload/components/row-label.tsx',
-            exportName: 'RowLabel',
-            clientProps: {
-              path: 'label',
-              fallback: 'Option',
-            },
-          },
-        },
-      },
       required: true,
       minRows: 2,
       fields: [
@@ -34,31 +37,22 @@ export const Select: Block = {
           name: 'label',
           type: 'text',
           required: true,
+          unique: true,
         },
         {
           name: 'value',
           type: 'text',
           required: true,
+          unique: true,
+          admin: {
+            readOnly: true,
+          },
+          hooks: {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            beforeValidate: [({ siblingData }) => slugify(siblingData?.label)],
+          },
         },
       ],
     },
-    {
-      name: 'defaultValue',
-      type: 'text',
-      validate: (value: any, { siblingData }: { siblingData: Partial<PayloadSelectBlock> }) => {
-        if (!value) {
-          return true;
-        }
-
-        const option = siblingData?.options?.find((option) => option.value === value);
-
-        if (!option) {
-          return 'Field must equal the value from one of the options';
-        }
-
-        return true;
-      },
-    },
-    required,
-  ],
+  ),
 };

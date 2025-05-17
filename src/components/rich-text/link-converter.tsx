@@ -16,10 +16,7 @@ export const linkConverter: JSXConverter<SerializedLinkNode> = ({
     {...linkProps(node.fields as unknown as PayloadLinkGroupField)}
     className={
       overrideClass ||
-      cn(
-        'underline underline-offset-2 hover:text-dusty-rose-800 dark:hover:text-dusty-rose-300',
-        additionalClass,
-      )
+      cn('underline hover:text-dusty-rose-800 dark:hover:text-dusty-rose-300', additionalClass)
     }
   >
     {nodesToJSX({ nodes: node.children })}
