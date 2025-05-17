@@ -16,37 +16,36 @@ import type { Field } from 'payload';
 
 import { richTextFields } from '@/payload/fields/link';
 import { required } from '@/payload/fields/required';
+import { slugify } from '@/utils/slugify';
 
-export const baseFormFields: Field[] = [
+export const baseFormFields = (
+  overrides?: { defaultValue?: Field | Field[] },
+  ...additionalFields: Field[]
+): Field[] => [
   {
     type: 'row',
     fields: [
-      {
-        name: 'name',
-        type: 'text',
-        required: true,
-        admin: {
-          width: '50%',
-        },
-      },
       {
         name: 'label',
         type: 'text',
         required: true,
+        unique: true,
         admin: {
           width: '50%',
         },
       },
-    ],
-  },
-  {
-    type: 'row',
-    fields: [
       {
-        name: 'placeholder',
+        name: 'name',
         type: 'text',
+        required: true,
+        unique: true,
         admin: {
-          width: '50%',
+          readOnly: true,
+          hidden: true,
+        },
+        hooks: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          beforeValidate: [({ siblingData }) => slugify(siblingData?.label)],
         },
       },
       {
@@ -71,6 +70,33 @@ export const baseFormFields: Field[] = [
     ],
   },
   {
+    type: 'row',
+    fields: [
+      {
+        name: 'placeholder',
+        type: 'text',
+        admin: {
+          width: '50%',
+        },
+      },
+      ...(overrides?.defaultValue
+        ? Array.isArray(overrides.defaultValue)
+          ? overrides.defaultValue
+          : [overrides.defaultValue]
+        : ([
+            {
+              name: 'defaultValue',
+              type: 'text',
+              admin: {
+                width: '50%',
+              },
+            },
+          ] as Field[])),
+    ],
+  },
+  ...(additionalFields || []),
+  required,
+  {
     name: 'description',
     type: 'richText',
     editor: lexicalEditor({
@@ -89,9 +115,4 @@ export const baseFormFields: Field[] = [
       ],
     }),
   },
-  {
-    name: 'defaultValue',
-    type: 'text',
-  },
-  required,
 ];

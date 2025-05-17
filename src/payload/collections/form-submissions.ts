@@ -15,6 +15,7 @@ import type {
   PayloadFormSubmissionsCollection,
   PayloadFormsCollection,
 } from '@/payload/payload-types';
+import { slugify } from '@/utils/slugify';
 
 const formRelationshipValidation: RelationshipFieldSingleValidation = async (
   value,
@@ -26,11 +27,7 @@ const formRelationshipValidation: RelationshipFieldSingleValidation = async (
 
   try {
     const id = typeof value === 'string' || typeof value === 'number' ? value : value.value;
-    await payload.findByID({
-      collection: 'forms',
-      id,
-      req,
-    });
+    await payload.findByID({ collection: 'forms', id, req });
 
     return true;
   } catch (error) {
@@ -51,11 +48,7 @@ const sendFormSubmissionEmail: CollectionAfterOperationHook<'form-submissions'> 
       let form: PayloadFormsCollection;
 
       if (typeof result.form === 'string') {
-        form = await payload.findByID({
-          collection: 'forms',
-          id: result.form,
-          req,
-        });
+        form = await payload.findByID({ collection: 'forms', id: result.form, req });
       } else {
         form = result.form;
       }
@@ -89,7 +82,7 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
   }
 
   const { payload } = req;
-  const email = doc.data?.find((datum) => datum.name === 'email')?.value;
+  const email = doc.data?.find((datum) => datum.blockType === 'email')?.value;
 
   if (!email) {
     return doc;
@@ -97,11 +90,7 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
 
   const { docs } = await payload.find({
     collection: 'clients',
-    where: {
-      email: {
-        equals: email,
-      },
-    },
+    where: { email: { equals: email } },
     limit: 1,
   });
 
@@ -109,12 +98,8 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
     return payload.update({
       collection: 'form-submissions',
       id: doc.id,
-      data: {
-        client: docs[0].id,
-      },
-      context: {
-        ignoreSetClient: true,
-      },
+      data: { client: docs[0].id },
+      context: { ignoreSetClient: true },
       req,
     });
   }
@@ -123,11 +108,11 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
   let phoneNumber: string | undefined;
 
   doc.data?.forEach((datum) => {
-    if (datum.name === 'name') {
+    if (slugify(datum.label) === 'name') {
       name = datum.value;
     }
 
-    if (datum.name === 'phoneNumber' || datum.name === 'phone') {
+    if (datum.blockType === 'phoneNumber') {
       phoneNumber = datum.value;
     }
   });
@@ -145,12 +130,8 @@ const setClient: CollectionAfterChangeHook<PayloadFormSubmissionsCollection> = a
   return payload.update({
     collection: 'form-submissions',
     id: doc.id,
-    data: {
-      client: id,
-    },
-    context: {
-      ignoreSetClient: true,
-    },
+    data: { client: id },
+    context: { ignoreSetClient: true },
     req,
   });
 };
@@ -219,14 +200,6 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
           },
         },
         {
-          name: 'name',
-          type: 'text',
-          required: true,
-          admin: {
-            readOnly: true,
-          },
-        },
-        {
           name: 'value',
           type: 'text',
           required: true,
@@ -236,6 +209,14 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
           hooks: {
             beforeChange: [encryptField],
             afterRead: [decryptField],
+          },
+        },
+        {
+          name: 'blockType',
+          type: 'text',
+          required: true,
+          admin: {
+            readOnly: true,
           },
         },
       ],

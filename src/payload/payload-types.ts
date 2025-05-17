@@ -395,8 +395,8 @@ export interface PayloadFormSubmissionsCollection {
   client?: (string | null) | PayloadClientsCollection;
   data: {
     label: string;
-    name: string;
     value: string;
+    blockType: string;
     id?: string | null;
   }[];
   updatedAt: string;
@@ -444,10 +444,12 @@ export interface PayloadFormsCollection {
  * via the `definition` "PayloadTextBlock".
  */
 export interface PayloadTextBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -463,8 +465,6 @@ export interface PayloadTextBlock {
     };
     [k: string]: unknown;
   } | null;
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'text';
@@ -474,10 +474,12 @@ export interface PayloadTextBlock {
  * via the `definition` "PayloadTextareaBlock".
  */
 export interface PayloadTextareaBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -493,8 +495,6 @@ export interface PayloadTextareaBlock {
     };
     [k: string]: unknown;
   } | null;
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'textarea';
@@ -504,27 +504,10 @@ export interface PayloadTextareaBlock {
  * via the `definition` "PayloadDateBlock".
  */
 export interface PayloadDateBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  mode: 'single' | 'multiple' | 'range';
-  allowedDates: 'any' | 'previous' | 'future';
+  placeholder?: string | null;
   defaultDateValue?: string | null;
   defaultDateValues?:
     | {
@@ -534,7 +517,24 @@ export interface PayloadDateBlock {
     | null;
   defaultDateFromValue?: string | null;
   defaultDateToValue?: string | null;
+  mode: 'single' | 'multiple' | 'range';
+  allowedDates: 'any' | 'previous' | 'future';
   required: boolean;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'date';
@@ -544,10 +544,17 @@ export interface PayloadDateBlock {
  * via the `definition` "PayloadSelectBlock".
  */
 export interface PayloadSelectBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  options: {
+    label: string;
+    value: string;
+    id?: string | null;
+  }[];
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -563,13 +570,6 @@ export interface PayloadSelectBlock {
     };
     [k: string]: unknown;
   } | null;
-  options: {
-    label: string;
-    value: string;
-    id?: string | null;
-  }[];
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'select';
@@ -579,10 +579,17 @@ export interface PayloadSelectBlock {
  * via the `definition` "PayloadRadioBlock".
  */
 export interface PayloadRadioBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  options: {
+    label: string;
+    value: string;
+    id?: string | null;
+  }[];
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -598,13 +605,6 @@ export interface PayloadRadioBlock {
     };
     [k: string]: unknown;
   } | null;
-  options: {
-    label: string;
-    value: string;
-    id?: string | null;
-  }[];
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'radio';
@@ -614,10 +614,12 @@ export interface PayloadRadioBlock {
  * via the `definition` "PayloadEmailBlock".
  */
 export interface PayloadEmailBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -633,8 +635,6 @@ export interface PayloadEmailBlock {
     };
     [k: string]: unknown;
   } | null;
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'email';
@@ -644,10 +644,12 @@ export interface PayloadEmailBlock {
  * via the `definition` "PayloadPhoneNumberBlock".
  */
 export interface PayloadPhoneNumberBlock {
-  name: string;
   label: string;
-  placeholder?: string | null;
+  name: string;
   width: 'half' | 'full';
+  placeholder?: string | null;
+  defaultValue?: string | null;
+  required: boolean;
   description?: {
     root: {
       type: string;
@@ -663,8 +665,6 @@ export interface PayloadPhoneNumberBlock {
     };
     [k: string]: unknown;
   } | null;
-  defaultValue?: string | null;
-  required: boolean;
   id?: string | null;
   blockName?: string | null;
   blockType: 'phoneNumber';
@@ -954,13 +954,13 @@ export interface FormsSelect<T extends boolean = true> {
  * via the `definition` "PayloadTextBlock_select".
  */
 export interface PayloadTextBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
   defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -969,13 +969,13 @@ export interface PayloadTextBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadTextareaBlock_select".
  */
 export interface PayloadTextareaBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
   defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -984,13 +984,10 @@ export interface PayloadTextareaBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadDateBlock_select".
  */
 export interface PayloadDateBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
-  mode?: T;
-  allowedDates?: T;
+  placeholder?: T;
   defaultDateValue?: T;
   defaultDateValues?:
     | T
@@ -1000,7 +997,10 @@ export interface PayloadDateBlockSelect<T extends boolean = true> {
       };
   defaultDateFromValue?: T;
   defaultDateToValue?: T;
+  mode?: T;
+  allowedDates?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1009,11 +1009,11 @@ export interface PayloadDateBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadSelectBlock_select".
  */
 export interface PayloadSelectBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
+  defaultValue?: T;
   options?:
     | T
     | {
@@ -1021,8 +1021,8 @@ export interface PayloadSelectBlockSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
-  defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1031,11 +1031,11 @@ export interface PayloadSelectBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadRadioBlock_select".
  */
 export interface PayloadRadioBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
+  defaultValue?: T;
   options?:
     | T
     | {
@@ -1043,8 +1043,8 @@ export interface PayloadRadioBlockSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
-  defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1053,13 +1053,13 @@ export interface PayloadRadioBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadEmailBlock_select".
  */
 export interface PayloadEmailBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
   defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1068,13 +1068,13 @@ export interface PayloadEmailBlockSelect<T extends boolean = true> {
  * via the `definition` "PayloadPhoneNumberBlock_select".
  */
 export interface PayloadPhoneNumberBlockSelect<T extends boolean = true> {
-  name?: T;
   label?: T;
-  placeholder?: T;
+  name?: T;
   width?: T;
-  description?: T;
+  placeholder?: T;
   defaultValue?: T;
   required?: T;
+  description?: T;
   id?: T;
   blockName?: T;
 }
@@ -1089,8 +1089,8 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
-        name?: T;
         value?: T;
+        blockType?: T;
         id?: T;
       };
   updatedAt?: T;
