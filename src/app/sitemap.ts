@@ -1,12 +1,12 @@
+import type { MetadataRoute } from 'next';
 import { unstable_cache } from 'next/cache';
-import { getServerSideSitemap } from 'next-sitemap';
 import { getPayload } from 'payload';
 
 import { env } from '@/env/client';
-import config from '@payload-config';
+import config from '@/payload/payload.config';
 
 const getPagesSitemap = unstable_cache(
-  async () => {
+  async (): Promise<MetadataRoute.Sitemap> => {
     const payload = await getPayload({ config });
     const siteUrl = env.NEXT_PUBLIC_SERVER_URL;
 
@@ -25,17 +25,19 @@ const getPagesSitemap = unstable_cache(
 
     return docs
       .filter((page) => Boolean(page?.path))
-      .map((page) => ({
-        loc: page?.path === '/home' ? `${siteUrl}/` : `${siteUrl}${page?.path}`,
-        lastmod: page.updatedAt || new Date().toISOString(),
+      .map<MetadataRoute.Sitemap[number]>((page) => ({
+        url: page?.path === '/home' ? siteUrl : siteUrl + page?.path,
+        lastModified: page.updatedAt || new Date().toISOString(),
+        changeFrequency: 'monthly',
+        priority: page?.path === '/home' ? 1 : 0.8,
       }));
   },
   ['pages-sitemap'],
   { tags: ['pages-sitemap'] },
 );
 
-export async function GET() {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemap = await getPagesSitemap();
 
-  return getServerSideSitemap(sitemap);
+  return sitemap;
 }

@@ -30,7 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.mjs",
-    "next-sitemap.config.cjs",
     "tailwind.config.mjs"
   ],
   "exclude": ["node_modules"]
