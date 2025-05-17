@@ -10,6 +10,7 @@ import { Resend } from 'resend';
 import { env } from '@/env/server';
 import { Role, hasRole } from '@/payload/access';
 import { FormSubmissionEmailTemplate } from '@/payload/components/form-submission-email-template';
+import { decryptField, encryptField } from '@/payload/hooks/encryption';
 import type {
   PayloadFormSubmissionsCollection,
   PayloadFormsCollection,
@@ -231,6 +232,10 @@ export const FormSubmissions: CollectionConfig<'form-submissions'> = {
           required: true,
           admin: {
             readOnly: true,
+          },
+          hooks: {
+            beforeChange: [encryptField],
+            afterRead: [decryptField],
           },
         },
       ],
