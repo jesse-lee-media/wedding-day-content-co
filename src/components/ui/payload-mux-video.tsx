@@ -25,9 +25,29 @@ export default function PayloadMuxVideo({ className, onPlaying, video }: Props) 
   }
 
   const videoElementRef = useRef<HTMLVideoElement | null>(null);
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const playerRefCallback = useCallback((element: MuxPlayerRefAttributes | null) => {
     videoElementRef.current = element?.media?.nativeEl ?? null;
+  }, []);
+
+  const startTimer = useCallback(() => {
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+    }
+
+    timeoutIdRef.current = setTimeout(() => {
+      if (videoElementRef.current) {
+        videoElementRef.current.pause();
+      }
+    }, 60_000);
+  }, []);
+
+  const clearTimer = useCallback(() => {
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
   }, []);
 
   useEffect(() => {
@@ -44,8 +64,10 @@ export default function PayloadMuxVideo({ className, onPlaying, video }: Props) 
             currentVideoElement.play().catch((error) => {
               console.error('Video play failed:', error);
             });
+            startTimer();
           } else {
             currentVideoElement.pause();
+            clearTimer();
           }
         });
       },
@@ -58,8 +80,9 @@ export default function PayloadMuxVideo({ className, onPlaying, video }: Props) 
 
     return () => {
       observer.disconnect();
+      clearTimer();
     };
-  }, []);
+  }, [startTimer, clearTimer]);
 
   return (
     <MuxPlayer
