@@ -13,7 +13,7 @@ const Accordion = Root;
 const AccordionItem = ({ className, ...props }: ComponentProps<typeof Item>) => (
   <Item
     className={cn(
-      'group border-b-2 border-neutral-800 last:border-b-0 dark:border-neutral-200',
+      'group border-b-2 border-neutral-800 last:border-b-0 dark:border-neutral-200/75',
       className,
     )}
     {...props}
